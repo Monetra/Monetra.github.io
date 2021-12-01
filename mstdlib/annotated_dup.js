@@ -1,6 +1,7 @@
 var annotated_dup =
 [
     [ "M_backtrace_callbacks", "group__m__backtrace__trace.html#structM__backtrace__callbacks", "group__m__backtrace__trace_structM__backtrace__callbacks" ],
+    [ "M_bitlist_t", "group__m__bitlist.html#structM__bitlist__t", "group__m__bitlist_structM__bitlist__t" ],
     [ "M_cache_callbacks", "group__m__cache__generic.html#structM__cache__callbacks", "group__m__cache__generic_structM__cache__callbacks" ],
     [ "M_decimal_t", "group__m__decimal.html#structM__decimal__t", "group__m__decimal_structM__decimal__t" ],
     [ "M_email_reader_callbacks", "group__m__email__reader.html#structM__email__reader__callbacks", "group__m__email__reader_structM__email__reader__callbacks" ],

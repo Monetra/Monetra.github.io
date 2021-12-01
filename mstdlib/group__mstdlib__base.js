@@ -7,6 +7,7 @@ var group__mstdlib__base =
     [ "Binary Conversion", "group__m__bincodec.html", "group__m__bincodec" ],
     [ "Bitwise Buffered Data Builder", "group__m__bit__buf.html", "group__m__bit__buf" ],
     [ "Bitwise Data Parser", "group__m__bit__parser.html", "group__m__bit__parser" ],
+    [ "Bitwise flags parser and generator", "group__m__bitlist.html", "group__m__bitlist" ],
     [ "Buffered Data Builder", "group__m__buf.html", "group__m__buf" ],
     [ "Character", "group__m__chr.html", "group__m__chr" ],
     [ "Decimal", "group__m__decimal.html", "group__m__decimal" ],
