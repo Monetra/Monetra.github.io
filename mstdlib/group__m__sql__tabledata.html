@@ -346,7 +346,7 @@ validate_cb</td>
       </table>
 </div><div class="memdoc">
 <p>A callback to perform basic filtering and transformation of a user-input field to how it needs to be stored within the database. This can also reject the data and return an error if it does not meet the requirements.</p>
-<p>This callback is called only when new user data is provided. For instance, on an edit operation, this callback will NOT be called if the user did not supply the field as the only data we have is the data from the database which is already sanitized.</p>
+<p>This callback is called only when new user data is provided. It will not be called if a field isn't passed in. For instance, on an edit operation, this callback will NOT be called if the user did not supply the field as the only data we have is the data from the database which is already sanitized. This also goes for an add operation, if not provided by the user, this callback is NOT called.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">txn</td><td>Transaction data. May be used to retrieve other useful information that may be needed for proper validation. </td></tr>
@@ -373,9 +373,9 @@ validate_cb</td>
       </table>
 </div><div class="memdoc">
 <p>A callback to perform intensive validation of the data field, which may require performing additional SQL queries.</p>
-<p>This callback is always called for the field, regardless of if it has changed (unless on edit and field is non-editable). Recommended to call <a class="el" href="group__m__sql__tabledata.html#gab45ee0d0d6279fedbd3acc7f2a483bf5">M_sql_tabledata_txn_field_changed()</a> if only need to perform operations when the field has changed.</p>
+<p>This callback is always called for the field, regardless of if it has changed. This includes on add even if a field isn't specified as it may be required to validate if maybe the field really should have been provided. Recommended to call <a class="el" href="group__m__sql__tabledata.html#gab45ee0d0d6279fedbd3acc7f2a483bf5">M_sql_tabledata_txn_field_changed()</a> if only need to perform operations when the field has changed.</p>
 <p>The field data is not provided and must be fetched via <a class="el" href="group__m__sql__tabledata.html#ga533f29b6f7f553c17214aa368a8f098f">M_sql_tabledata_txn_field_get()</a> as it is not known which variant of the data may be needed.</p>
-<p>The field data may be manipulated if necessary.</p>
+<p>The field data may be manipulated or transformed by this callback if desired.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">sqltrans</td><td>SQL transaction to use for any external queries needed. </td></tr>
@@ -2405,7 +2405,7 @@ validate_cb</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Dec 1 2021 20:17:38 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Dec 1 2021 20:34:59 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
