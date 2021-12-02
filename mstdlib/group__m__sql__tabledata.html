@@ -487,9 +487,9 @@ validate_cb</td>
 </div><div class="memdoc">
 <p>When fetching a field from a transaction, the manner in which to fetch </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea2c576cbf94b1acbc7bd287f9ee7b9d12"></a>M_SQL_TABLEDATA_TXN_FIELD_MERGED&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field, if not found, grab the prior value </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea2c576cbf94b1acbc7bd287f9ee7b9d12"></a>M_SQL_TABLEDATA_TXN_FIELD_MERGED&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field, if not found, grab the prior value. On add, equivalent to M_SQL_TABLEDATA_TXN_FIELD_CURRENT. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea03931088f24abfe6f66dc1d952e4ee50"></a>M_SQL_TABLEDATA_TXN_FIELD_PRIOR&#160;</td><td class="fielddoc"><p>Grab the prior value of the field </p>
+<tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea03931088f24abfe6f66dc1d952e4ee50"></a>M_SQL_TABLEDATA_TXN_FIELD_PRIOR&#160;</td><td class="fielddoc"><p>Grab the prior value of the field. On add, this is always NULL. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67eafac44686fadc430548db29253459aa57"></a>M_SQL_TABLEDATA_TXN_FIELD_CURRENT&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field. May not exist on edit if value is unchanged. </p>
 </td></tr>
@@ -2405,7 +2405,7 @@ validate_cb</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Dec 1 2021 20:34:59 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Dec 2 2021 15:35:42 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
