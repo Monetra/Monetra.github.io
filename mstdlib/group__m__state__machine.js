@@ -14,6 +14,7 @@ var group__m__state__machine =
       [ "M_STATE_MACHINE_STATUS_CONTINUE", "group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268ba98647ee00b1c291f4e2c8e75b07d877d", null ],
       [ "M_STATE_MACHINE_STATUS_ERROR_STATE", "group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268baf452537f8039e4b896113eca65214891", null ],
       [ "M_STATE_MACHINE_STATUS_WAIT", "group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268ba268c02ad158bd9a779c2a1226704a672", null ],
+      [ "M_STATE_MACHINE_STATUS_PAUSE", "group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268ba90bbde798c7a92f9068364f2a4da9289", null ],
       [ "M_STATE_MACHINE_STATUS_DONE", "group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268bada3d7e7522252be04d8a9456042ed74e", null ],
       [ "M_STATE_MACHINE_STATUS_STOP_CLEANUP", "group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268ba0004ca696299cafafef6934f0eb34a3c", null ],
       [ "M_STATE_MACHINE_STATUS_ERROR_INVALID", "group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268ba162df2561b4fb89d4f0606d82d35050d", null ],
