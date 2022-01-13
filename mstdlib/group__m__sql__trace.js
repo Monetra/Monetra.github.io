@@ -42,7 +42,7 @@ var group__m__sql__trace =
     [ "M_sql_trace_get_conn_id", "group__m__sql__trace.html#ga4dc548bd6fffb9a78166af5be793fecb", null ],
     [ "M_sql_trace_get_query_user", "group__m__sql__trace.html#ga5d2c1ecf70ffb097cb281bc57504c97c", null ],
     [ "M_sql_trace_get_query_prepared", "group__m__sql__trace.html#gab5ca13d0979a0f80b667240fafcce92d", null ],
-    [ "M_sql_trace_get_query_formatted", "group__m__sql__trace.html#ga89fca6abbfb15649da1e2af728591cb0", null ],
+    [ "M_sql_trace_get_query_formatted", "group__m__sql__trace.html#ga95b1977d35b666ef27c5eb1c6349f544", null ],
     [ "M_sql_trace_get_bind_cols", "group__m__sql__trace.html#gaafb037c2453ab2119a47837a70332ed8", null ],
     [ "M_sql_trace_get_bind_rows", "group__m__sql__trace.html#gae29d8b39bd6a2d695895778dec7decff", null ],
     [ "M_sql_trace_get_bind_rows_current", "group__m__sql__trace.html#gae2940cffa1bfd6392ff75b6a01cc8e07", null ],

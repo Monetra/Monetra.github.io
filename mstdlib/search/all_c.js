@@ -3045,7 +3045,7 @@ var searchData=
   ['m_5fsql_5ftrace_5fget_5ferror_3200',['M_sql_trace_get_error',['../group__m__sql__trace.html#gadb2e2bfde27cd30c5d8beb642fdb8cb4',1,'m_sql_trace.h']]],
   ['m_5fsql_5ftrace_5fget_5ferror_5fstring_3201',['M_sql_trace_get_error_string',['../group__m__sql__trace.html#ga8b2f6da1ba102c1eaa8c6294971bdf83',1,'m_sql_trace.h']]],
   ['m_5fsql_5ftrace_5fget_5fhas_5fresult_5frows_3202',['M_sql_trace_get_has_result_rows',['../group__m__sql__trace.html#ga13f589a811984beceec496115a0a8d0b',1,'m_sql_trace.h']]],
-  ['m_5fsql_5ftrace_5fget_5fquery_5fformatted_3203',['M_sql_trace_get_query_formatted',['../group__m__sql__trace.html#ga89fca6abbfb15649da1e2af728591cb0',1,'m_sql_trace.h']]],
+  ['m_5fsql_5ftrace_5fget_5fquery_5fformatted_3203',['M_sql_trace_get_query_formatted',['../group__m__sql__trace.html#ga95b1977d35b666ef27c5eb1c6349f544',1,'m_sql_trace.h']]],
   ['m_5fsql_5ftrace_5fget_5fquery_5fprepared_3204',['M_sql_trace_get_query_prepared',['../group__m__sql__trace.html#gab5ca13d0979a0f80b667240fafcce92d',1,'m_sql_trace.h']]],
   ['m_5fsql_5ftrace_5fget_5fquery_5fuser_3205',['M_sql_trace_get_query_user',['../group__m__sql__trace.html#ga5d2c1ecf70ffb097cb281bc57504c97c',1,'m_sql_trace.h']]],
   ['m_5fsql_5ftrace_5fget_5fresult_5frow_5fcount_3206',['M_sql_trace_get_result_row_count',['../group__m__sql__trace.html#ga01a39bb45957c3282d98284f441c57de',1,'m_sql_trace.h']]],
