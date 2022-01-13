@@ -374,12 +374,12 @@ $(document).ready(function(){initNavTree('m__sql__trace_8h_source.html',''); ini
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment"> *  \return Rewritten user-supplied query.</span></div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gab5ca13d0979a0f80b667240fafcce92d">  289</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__sql__trace.html#gab5ca13d0979a0f80b667240fafcce92d">M_sql_trace_get_query_prepared</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160; </div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="comment">/*! Retrieve the number of request columns bound to the query</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="comment"> *  Only available on:</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="comment">/*! Retrieve a fake formatted string with substituted data instead of seeing</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="comment"> *  prepared statement place holders.  This can be useful for debugging but is</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment"> *  quite heavy.</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment"> * Only available on:</span></div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
@@ -388,110 +388,126 @@ $(document).ready(function(){initNavTree('m__sql__trace_8h_source.html',''); ini
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment"> *  \return Number of columns bound to the query by the caller.</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment"> *  \return Rewritten user-supplied query.</span></div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gaafb037c2453ab2119a47837a70332ed8">  306</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gaafb037c2453ab2119a47837a70332ed8">M_sql_trace_get_bind_cols</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160; </div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment">/*! Retrieve the number of request rows (total) bound to the query</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment"> *  Only available on:</span></div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_TRANFAIL</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment"> *  \return Total number of rows bound to the query by the caller.</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gae29d8b39bd6a2d695895778dec7decff">  323</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gae29d8b39bd6a2d695895778dec7decff">M_sql_trace_get_bind_rows</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="comment">/*! Retrieve the number of request rows (current subset) bound to the query</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="comment"> *  Only available on:</span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_TRANFAIL</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="comment"> *  \return Subset of rows currently being executed.</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gae2940cffa1bfd6392ff75b6a01cc8e07">  340</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gae2940cffa1bfd6392ff75b6a01cc8e07">M_sql_trace_get_bind_rows_current</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment">/*! Retrieve the number of processed rows bound to the query (including current subset)</span></div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="comment"> *  Only available on:</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_TRANFAIL</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="comment"> *  \return Subset of rows that have been executed or are being executed.</span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gad5dd322b454db66c048701f6f006c1a6">  357</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gad5dd322b454db66c048701f6f006c1a6">M_sql_trace_get_bind_rows_processed</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment">/*! Retrieve whether or not the query potentially has result data.</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"> *  If the query has result data, and this is a #M_SQL_TRACE_EXECUTE_FINISH,</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment"> *  then you know for sure #M_SQL_TRACE_FETCH_START/#M_SQL_TRACE_FETCH_FINISH</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment"> *  will also be called later.</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment"> *  Only available on:</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY (possibly)</span></div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment"> *  \return M_TRUE if the query could have result data, M_FALSE otherwise.</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#ga13f589a811984beceec496115a0a8d0b">  376</a></span>&#160;M_API M_bool <a class="code" href="group__m__sql__trace.html#ga13f589a811984beceec496115a0a8d0b">M_sql_trace_get_has_result_rows</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160; </div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment">/*! Retrieve the number of rows affected by a query.</span></div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment"> *  This mostly applies to INSERT/UPDATE/DELETE type queries.</span></div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment"> *  Only available on:</span></div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment"> *  \return Count of affected rows.</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gad86d53d74a90a5ecd310220ab6a6a198">  389</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gad86d53d74a90a5ecd310220ab6a6a198">M_sql_trace_get_affected_rows</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="comment">/*! Retrieve the total number of rows fetched from the server.</span></div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="comment"> *  Only available on:</span></div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#ga89fca6abbfb15649da1e2af728591cb0">  306</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__sql__trace.html#ga89fca6abbfb15649da1e2af728591cb0">M_sql_trace_get_query_formatted</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment">/*! Retrieve the number of request columns bound to the query</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment"> *  Only available on:</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_TRANFAIL</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment"> *  \return Number of columns bound to the query by the caller.</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00322"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gaafb037c2453ab2119a47837a70332ed8">  322</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gaafb037c2453ab2119a47837a70332ed8">M_sql_trace_get_bind_cols</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="comment">/*! Retrieve the number of request rows (total) bound to the query</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="comment"> *  Only available on:</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_TRANFAIL</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="comment"> *  \return Total number of rows bound to the query by the caller.</span></div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gae29d8b39bd6a2d695895778dec7decff">  339</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gae29d8b39bd6a2d695895778dec7decff">M_sql_trace_get_bind_rows</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment">/*! Retrieve the number of request rows (current subset) bound to the query</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment"> *  Only available on:</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_TRANFAIL</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment"> *  \return Subset of rows currently being executed.</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gae2940cffa1bfd6392ff75b6a01cc8e07">  356</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gae2940cffa1bfd6392ff75b6a01cc8e07">M_sql_trace_get_bind_rows_current</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">/*! Retrieve the number of processed rows bound to the query (including current subset)</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment"> *  Only available on:</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_START</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_TRANFAIL</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment"> *  \return Subset of rows that have been executed or are being executed.</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gad5dd322b454db66c048701f6f006c1a6">  373</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gad5dd322b454db66c048701f6f006c1a6">M_sql_trace_get_bind_rows_processed</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160; </div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment">/*! Retrieve whether or not the query potentially has result data.</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="comment"> *  If the query has result data, and this is a #M_SQL_TRACE_EXECUTE_FINISH,</span></div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment"> *  then you know for sure #M_SQL_TRACE_FETCH_START/#M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment"> *  will also be called later.</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment"> *  Only available on:</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_START</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_QUERY (possibly)</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_STALL_TRANS_LONG (possibly)</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment"> *  \return M_TRUE if the query could have result data, M_FALSE otherwise.</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#ga13f589a811984beceec496115a0a8d0b">  392</a></span>&#160;M_API M_bool <a class="code" href="group__m__sql__trace.html#ga13f589a811984beceec496115a0a8d0b">M_sql_trace_get_has_result_rows</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment">/*! Retrieve the number of rows affected by a query.</span></div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment"> *  \return Count of retrieved rows.</span></div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00400"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#ga01a39bb45957c3282d98284f441c57de">  400</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#ga01a39bb45957c3282d98284f441c57de">M_sql_trace_get_result_row_count</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160; </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160; </div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment"> *  This mostly applies to INSERT/UPDATE/DELETE type queries.</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment"> *  Only available on:</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_EXECUTE_FINISH</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment"> *  \return Count of affected rows.</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#gad86d53d74a90a5ecd310220ab6a6a198">  405</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#gad86d53d74a90a5ecd310220ab6a6a198">M_sql_trace_get_affected_rows</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_SQL_TRACE_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">/*! Retrieve the total number of rows fetched from the server.</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment"> *  Only available on:</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment"> *    - #M_SQL_TRACE_FETCH_FINISH</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment"> *  \param[in] data Trace Data structure passed to trace callback</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment"> *  \return Count of retrieved rows.</span></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00416"></a><span class="lineno"><a class="line" href="group__m__sql__trace.html#ga01a39bb45957c3282d98284f441c57de">  416</a></span>&#160;M_API <span class="keywordtype">size_t</span> <a class="code" href="group__m__sql__trace.html#ga01a39bb45957c3282d98284f441c57de">M_sql_trace_get_result_row_count</a>(<span class="keyword">const</span> <a class="code" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data);</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160; </div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_SQL_TRACE_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="agroup__m__sql__conn_html_ga36847634817b89efb01054d49e3c6352"><div class="ttname"><a href="group__m__sql__conn.html#ga36847634817b89efb01054d49e3c6352">M_sql_connpool_t</a></div><div class="ttdeci">struct M_sql_connpool M_sql_connpool_t</div><div class="ttdef"><b>Definition:</b> m_sql.h:335</div></div>
 <div class="ttc" id="agroup__m__sql__error_html_gaae10ff11eb7d5583afcffa6ec87c753e"><div class="ttname"><a href="group__m__sql__error.html#gaae10ff11eb7d5583afcffa6ec87c753e">M_sql_error_t</a></div><div class="ttdeci">M_sql_error_t</div><div class="ttdef"><b>Definition:</b> m_sql.h:190</div></div>
 <div class="ttc" id="agroup__m__sql__stmt_html_ga4a726e8b7d1b5cffc6f92fdb3e8fb498"><div class="ttname"><a href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a></div><div class="ttdeci">struct M_sql_stmt M_sql_stmt_t</div><div class="ttdef"><b>Definition:</b> m_sql_stmt.h:46</div></div>
@@ -503,6 +519,7 @@ $(document).ready(function(){initNavTree('m__sql__trace_8h_source.html',''); ini
 <div class="ttc" id="agroup__m__sql__trace_html_ga4dc548bd6fffb9a78166af5be793fecb"><div class="ttname"><a href="group__m__sql__trace.html#ga4dc548bd6fffb9a78166af5be793fecb">M_sql_trace_get_conn_id</a></div><div class="ttdeci">size_t M_sql_trace_get_conn_id(const M_sql_trace_data_t *data)</div></div>
 <div class="ttc" id="agroup__m__sql__trace_html_ga5d2c1ecf70ffb097cb281bc57504c97c"><div class="ttname"><a href="group__m__sql__trace.html#ga5d2c1ecf70ffb097cb281bc57504c97c">M_sql_trace_get_query_user</a></div><div class="ttdeci">const char * M_sql_trace_get_query_user(const M_sql_trace_data_t *data)</div></div>
 <div class="ttc" id="agroup__m__sql__trace_html_ga7ec1b992ac24ab273a435c42a1f7f921"><div class="ttname"><a href="group__m__sql__trace.html#ga7ec1b992ac24ab273a435c42a1f7f921">M_sql_trace_cb_t</a></div><div class="ttdeci">void(* M_sql_trace_cb_t)(M_sql_trace_t event_type, const M_sql_trace_data_t *data, void *arg)</div><div class="ttdef"><b>Definition:</b> m_sql_trace.h:102</div></div>
+<div class="ttc" id="agroup__m__sql__trace_html_ga89fca6abbfb15649da1e2af728591cb0"><div class="ttname"><a href="group__m__sql__trace.html#ga89fca6abbfb15649da1e2af728591cb0">M_sql_trace_get_query_formatted</a></div><div class="ttdeci">const char * M_sql_trace_get_query_formatted(const M_sql_trace_data_t *data)</div></div>
 <div class="ttc" id="agroup__m__sql__trace_html_ga8b2f6da1ba102c1eaa8c6294971bdf83"><div class="ttname"><a href="group__m__sql__trace.html#ga8b2f6da1ba102c1eaa8c6294971bdf83">M_sql_trace_get_error_string</a></div><div class="ttdeci">const char * M_sql_trace_get_error_string(const M_sql_trace_data_t *data)</div></div>
 <div class="ttc" id="agroup__m__sql__trace_html_ga92af031d020feb375738bf3a43d19de5"><div class="ttname"><a href="group__m__sql__trace.html#ga92af031d020feb375738bf3a43d19de5">M_sql_conn_type_t</a></div><div class="ttdeci">M_sql_conn_type_t</div><div class="ttdef"><b>Definition:</b> m_sql_trace.h:83</div></div>
 <div class="ttc" id="agroup__m__sql__trace_html_ga9c352e44fd1d4ef21c33de877021eb90"><div class="ttname"><a href="group__m__sql__trace.html#ga9c352e44fd1d4ef21c33de877021eb90">M_sql_trace_t</a></div><div class="ttdeci">M_sql_trace_t</div><div class="ttdef"><b>Definition:</b> m_sql_trace.h:47</div></div>
@@ -548,7 +565,7 @@ $(document).ready(function(){initNavTree('m__sql__trace_8h_source.html',''); ini
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_f83c3038d0a75199591fad391b44adea.html">sql</a></li><li class="navelem"><b>m_sql_trace.h</b></li>
-    <li class="footer">Generated on Wed Jan 12 2022 14:02:17 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jan 13 2022 00:55:10 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
