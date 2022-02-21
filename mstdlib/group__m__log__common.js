@@ -92,6 +92,7 @@ var group__m__log__common =
     [ "M_log_module_set_accepted_tags", "group__m__log__common.html#ga1f4ddc20190c5f51991f18fae2cc897d", null ],
     [ "M_log_module_get_accepted_tags", "group__m__log__common.html#ga6bf91824051cdea6283b46f11aab1f7b", null ],
     [ "M_log_module_set_prefix", "group__m__log__common.html#ga3f2dde6446ee023e271486ae307b62d6", null ],
+    [ "M_log_set_prefix", "group__m__log__common.html#ga1898198252fbe58a0ee9c0425f16ddf4", null ],
     [ "M_log_module_set_filter", "group__m__log__common.html#ga9e5549d6582ce4922162080e8e6d8bc9", null ],
     [ "M_log_module_reopen", "group__m__log__common.html#gad3464cf0fbc3c9f610babb18c30e6d41", null ],
     [ "M_log_module_remove", "group__m__log__common.html#ga4f2b7b9950081be84709e7e2db4504b9", null ]
