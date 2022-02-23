@@ -27,10 +27,9 @@ var group__m__sql__tabledata =
     ] ],
     [ "M_sql_tabledata_txn_field_select_t", "group__m__sql__tabledata.html#ga53379aeabd1417bacae05f195c3fe67e", [
       [ "M_SQL_TABLEDATA_TXN_FIELD_MERGED", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea2c576cbf94b1acbc7bd287f9ee7b9d12", null ],
-      [ "M_SQL_TABLEDATA_TXN_FIELD_MERGED_NODUPLICATE", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea64cd509ff3f32ad8bfbf917d4a2af3dc", null ],
       [ "M_SQL_TABLEDATA_TXN_FIELD_PRIOR", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea03931088f24abfe6f66dc1d952e4ee50", null ],
-      [ "M_SQL_TABLEDATA_TXN_FIELD_CURRENT_READONLY", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea9c6d6d039e6f9c0554a5227a4e6ce961", null ],
-      [ "M_SQL_TABLEDATA_TXN_FIELD_CURRENT", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67eafac44686fadc430548db29253459aa57", null ]
+      [ "M_SQL_TABLEDATA_TXN_FIELD_CURRENT", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67eafac44686fadc430548db29253459aa57", null ],
+      [ "M_SQL_TABLEDATA_TXN_FIELD_CURRENT_OR_NEW", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea7591b7e9adc71ff88f9b8cf3bc81ff46", null ]
     ] ],
     [ "M_sql_tabledata_filter_int2dec_cb", "group__m__sql__tabledata.html#ga09f3a1c3a3a26aa7959caa8c775a8231", null ],
     [ "M_sql_tabledata_filter_int5dec_cb", "group__m__sql__tabledata.html#gabbb1d2d1986866faf6d88b6317661a6b", null ],

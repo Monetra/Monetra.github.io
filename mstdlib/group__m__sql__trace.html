@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mstdlib-1.18.0: SQL Pool Tracing</title>
+<title>Mstdlib-1.17.0: SQL Pool Tracing</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Mstdlib-1.18.0
+   <div id="projectname">Mstdlib-1.17.0
    </div>
   </td>
  </tr>
@@ -180,8 +180,6 @@ Functions</h2></td></tr>
 <tr class="separator:ga5d2c1ecf70ffb097cb281bc57504c97c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab5ca13d0979a0f80b667240fafcce92d"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__trace.html#gab5ca13d0979a0f80b667240fafcce92d">M_sql_trace_get_query_prepared</a> (const <a class="el" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data)</td></tr>
 <tr class="separator:gab5ca13d0979a0f80b667240fafcce92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga95b1977d35b666ef27c5eb1c6349f544"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__trace.html#ga95b1977d35b666ef27c5eb1c6349f544">M_sql_trace_get_query_formatted</a> (const <a class="el" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data)</td></tr>
-<tr class="separator:ga95b1977d35b666ef27c5eb1c6349f544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaafb037c2453ab2119a47837a70332ed8"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__trace.html#gaafb037c2453ab2119a47837a70332ed8">M_sql_trace_get_bind_cols</a> (const <a class="el" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data)</td></tr>
 <tr class="separator:gaafb037c2453ab2119a47837a70332ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae29d8b39bd6a2d695895778dec7decff"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__trace.html#gae29d8b39bd6a2d695895778dec7decff">M_sql_trace_get_bind_rows</a> (const <a class="el" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *data)</td></tr>
@@ -719,40 +717,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ga95b1977d35b666ef27c5eb1c6349f544"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga95b1977d35b666ef27c5eb1c6349f544">&#9670;&nbsp;</a></span>M_sql_trace_get_query_formatted()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">char* M_sql_trace_get_query_formatted </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__m__sql__trace.html#ga00fe1620004784dae6a8dc4f7ed07459">M_sql_trace_data_t</a> *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Retrieve a fake formatted string with substituted data instead of seeing prepared statement place holders. This can be useful for debugging but is quite heavy.</p>
-<p>Only available on:</p><ul>
-<li><a class="el" href="group__m__sql__trace.html#gga9c352e44fd1d4ef21c33de877021eb90a0bd4bbaf8c1f2145a4f83bb95180ca51">M_SQL_TRACE_EXECUTE_FINISH</a></li>
-<li><a class="el" href="group__m__sql__trace.html#gga9c352e44fd1d4ef21c33de877021eb90a4e0d32d50c961e758c4b80ab4bd9cc99">M_SQL_TRACE_FETCH_START</a></li>
-<li><a class="el" href="group__m__sql__trace.html#gga9c352e44fd1d4ef21c33de877021eb90a601762de10c76cdc8b8f5bda7d6ec8a7">M_SQL_TRACE_FETCH_FINISH</a></li>
-<li><a class="el" href="group__m__sql__trace.html#gga9c352e44fd1d4ef21c33de877021eb90a9ccafc53f16f257d3d64fd7102e5d1f7">M_SQL_TRACE_TRANFAIL</a></li>
-<li><a class="el" href="group__m__sql__trace.html#gga9c352e44fd1d4ef21c33de877021eb90a386f75f6095e2bd872e52b497f9fe04f">M_SQL_TRACE_STALL_QUERY</a></li>
-<li><a class="el" href="group__m__sql__trace.html#gga9c352e44fd1d4ef21c33de877021eb90a6a36b97ad5e4c6027d8c2d7bab5c5a2c">M_SQL_TRACE_STALL_TRANS_LONG</a> (possibly)</li>
-</ul>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Trace Data structure passed to trace callback </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Rewritten query. Must be <a class="el" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free()</a>'d by caller. </dd></dl>
-
-</div>
-</div>
 <a id="gaafb037c2453ab2119a47837a70332ed8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaafb037c2453ab2119a47837a70332ed8">&#9670;&nbsp;</a></span>M_sql_trace_get_bind_cols()</h2>
 
@@ -991,7 +955,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Feb 23 2022 22:56:59 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Feb 23 2022 22:59:05 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

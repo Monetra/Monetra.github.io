@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mstdlib-1.18.0: Common</title>
+<title>Mstdlib-1.17.0: Common</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Mstdlib-1.18.0
+   <div id="projectname">Mstdlib-1.17.0
    </div>
   </td>
  </tr>
@@ -275,8 +275,6 @@ Functions</h2></td></tr>
 <tr class="separator:ga6bf91824051cdea6283b46f11aab1f7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3f2dde6446ee023e271486ae307b62d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__log__common.html#gab5f4f197e827f0ecab0b79f0f2478672">M_log_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__log__common.html#ga3f2dde6446ee023e271486ae307b62d6">M_log_module_set_prefix</a> (<a class="el" href="group__m__log__common.html#gad41859c2eab8886cfdebb82ac5ba1f8d">M_log_t</a> *log, <a class="el" href="group__m__log__common.html#gaa367697cdf319431c22adec6f4e08c53">M_log_module_t</a> *module, <a class="el" href="group__m__log__common.html#ga3da8fa0d2100b5c0fb79592ee9e4bade">M_log_prefix_cb</a> prefix_cb, void *prefix_thunk, <a class="el" href="group__m__log__common.html#ga4acce39a990e68dfa1fcc7d0c6852601">M_log_destroy_cb</a> thunk_destroy_cb)</td></tr>
 <tr class="separator:ga3f2dde6446ee023e271486ae307b62d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1898198252fbe58a0ee9c0425f16ddf4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__log__common.html#gab5f4f197e827f0ecab0b79f0f2478672">M_log_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__log__common.html#ga1898198252fbe58a0ee9c0425f16ddf4">M_log_set_prefix</a> (<a class="el" href="group__m__log__common.html#gad41859c2eab8886cfdebb82ac5ba1f8d">M_log_t</a> *log, <a class="el" href="group__m__log__common.html#ga3da8fa0d2100b5c0fb79592ee9e4bade">M_log_prefix_cb</a> prefix_cb, void *prefix_thunk, <a class="el" href="group__m__log__common.html#ga4acce39a990e68dfa1fcc7d0c6852601">M_log_destroy_cb</a> thunk_destroy_cb)</td></tr>
-<tr class="separator:ga1898198252fbe58a0ee9c0425f16ddf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9e5549d6582ce4922162080e8e6d8bc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__log__common.html#gab5f4f197e827f0ecab0b79f0f2478672">M_log_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__log__common.html#ga9e5549d6582ce4922162080e8e6d8bc9">M_log_module_set_filter</a> (<a class="el" href="group__m__log__common.html#gad41859c2eab8886cfdebb82ac5ba1f8d">M_log_t</a> *log, <a class="el" href="group__m__log__common.html#gaa367697cdf319431c22adec6f4e08c53">M_log_module_t</a> *module, <a class="el" href="group__m__log__common.html#gaf5652b7db21677a684c1bf80d6a9912b">M_log_filter_cb</a> filter_cb, void *filter_thunk, <a class="el" href="group__m__log__common.html#ga4acce39a990e68dfa1fcc7d0c6852601">M_log_destroy_cb</a> thunk_destroy_cb)</td></tr>
 <tr class="separator:ga9e5549d6582ce4922162080e8e6d8bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad3464cf0fbc3c9f610babb18c30e6d41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__log__common.html#gab5f4f197e827f0ecab0b79f0f2478672">M_log_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__log__common.html#gad3464cf0fbc3c9f610babb18c30e6d41">M_log_module_reopen</a> (<a class="el" href="group__m__log__common.html#gad41859c2eab8886cfdebb82ac5ba1f8d">M_log_t</a> *log, <a class="el" href="group__m__log__common.html#gaa367697cdf319431c22adec6f4e08c53">M_log_module_t</a> *module)</td></tr>
@@ -337,10 +335,10 @@ Functions</h2></td></tr>
 Do not write line-end characters in a prefix. Some logging modules don't handle multiple-line messages very well, and line-end chars are not automatically removed from custom prefixes.</dd>
 <dd>
 May be called simultaneously from multiple threads. If the content of prefix_thunk may be modified after it's passed to a module, you should include your own locks inside the thunk and use them inside the callback.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__m__log__common.html#ga1898198252fbe58a0ee9c0425f16ddf4">M_log_set_prefix()</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__m__log__common.html#ga3f2dde6446ee023e271486ae307b62d6">M_log_module_set_prefix()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">prefix_thunk</td><td>thunk passed to <a class="el" href="group__m__log__common.html#ga1898198252fbe58a0ee9c0425f16ddf4">M_log_set_prefix()</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">prefix_thunk</td><td>thunk passed to <a class="el" href="group__m__log__common.html#ga3f2dde6446ee023e271486ae307b62d6">M_log_module_set_prefix()</a> </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">msg_thunk</td><td>thunk passed to <a class="el" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf()</a> or <a class="el" href="group__m__fmt.html#ga6070804c1c2cc2473402715147a05430">M_vprintf()</a> </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">msg_buf</td><td>message buffer (append prefix to this) </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">tag</td><td>tag of message we're prefixing </td></tr>
@@ -1570,8 +1568,10 @@ If you have modules that depend on an external event loop (like tcp_syslog), you
       </table>
 </div><div class="memdoc">
 <p>Associate a prefix callback with the given module handle.</p>
-<p>This exists only for legacy compatibility. Do Not use. It does not associate with a module.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__m__log__common.html#ga1898198252fbe58a0ee9c0425f16ddf4">M_log_set_prefix</a></dd></dl>
+<p>The prefix callback allows the user to add a string between the timestamp and the body of the log message. If no prefix callback is provided, the default prefix of ": " will be used. See <a class="el" href="group__m__log__common.html#ga3da8fa0d2100b5c0fb79592ee9e4bade">M_log_prefix_cb</a> for more details.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__m__log__common.html#ga3da8fa0d2100b5c0fb79592ee9e4bade">M_log_prefix_cb</a> </dd>
+<dd>
+<a class="el" href="group__m__log__common.html#ga11296f366e6edf201946d3b8333d94c7">M_log_set_time_format</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">log</td><td>logger object </td></tr>
@@ -1583,46 +1583,6 @@ If you have modules that depend on an external event loop (like tcp_syslog), you
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>error code </dd></dl>
-
-</div>
-</div>
-<a id="ga1898198252fbe58a0ee9c0425f16ddf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga1898198252fbe58a0ee9c0425f16ddf4">&#9670;&nbsp;</a></span>M_log_set_prefix()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="group__m__log__common.html#gab5f4f197e827f0ecab0b79f0f2478672">M_log_error_t</a> M_log_set_prefix </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__m__log__common.html#gad41859c2eab8886cfdebb82ac5ba1f8d">M_log_t</a> *&#160;</td>
-          <td class="paramname"><em>log</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__m__log__common.html#ga3da8fa0d2100b5c0fb79592ee9e4bade">M_log_prefix_cb</a>&#160;</td>
-          <td class="paramname"><em>prefix_cb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>prefix_thunk</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__m__log__common.html#ga4acce39a990e68dfa1fcc7d0c6852601">M_log_destroy_cb</a>&#160;</td>
-          <td class="paramname"><em>thunk_destroy_cb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1770,7 +1730,7 @@ If you have modules that depend on an external event loop (like tcp_syslog), you
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Feb 23 2022 22:56:56 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Feb 23 2022 22:59:05 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

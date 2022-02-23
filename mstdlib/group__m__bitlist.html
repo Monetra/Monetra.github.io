@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mstdlib-1.18.0: Bitwise flags parser and generator</title>
+<title>Mstdlib-1.17.0: Bitwise flags parser and generator</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Mstdlib-1.18.0
+   <div id="projectname">Mstdlib-1.17.0
    </div>
   </td>
  </tr>
@@ -104,11 +104,9 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74">M_BITLIST_FLAG_CASE_SENSITIVE</a> = 1&lt;&lt;1
 , <br />
-&#160;&#160;<a class="el" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a1056d0c9bc656dc8e4bda85251cd1337">M_BITLIST_FLAG_IGNORE_DUPLICATE_ID</a> = 1&lt;&lt;2
+&#160;&#160;<a class="el" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">M_BITLIST_FLAG_IGNORE_UNKNOWN</a> = 1&lt;&lt;2
 , <br />
-&#160;&#160;<a class="el" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">M_BITLIST_FLAG_IGNORE_UNKNOWN</a> = 1&lt;&lt;3
-, <br />
-&#160;&#160;<a class="el" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</a> = 1&lt;&lt;4
+&#160;&#160;<a class="el" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</a> = 1&lt;&lt;3
 <br />
  }</td></tr>
 <tr class="separator:ga9eb5696e0c6fc2c97d0b123bdbaaa033"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,10 +117,6 @@ Functions</h2></td></tr>
 <tr class="separator:ga56e46bb764f5795ce54289212cf31628"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga61cc1ab7350871d9844b6cb33c670477"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">M_bitlist_parse</a> (M_uint64 *out, <a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, const <a class="el" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, const char *data, unsigned char delim, char *error, size_t error_len)</td></tr>
 <tr class="separator:ga61cc1ab7350871d9844b6cb33c670477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga941313d433676c93f43a5e06c1e6a27e"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e">M_bitlist_tohash</a> (<a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> **hash_toint, <a class="el" href="group__m__hash__u64str.html#gae127f925ec502c61f07988bcf8d2eb6e">M_hash_u64str_t</a> **hash_tostr, <a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, const <a class="el" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, char *error, size_t error_len)</td></tr>
-<tr class="separator:ga941313d433676c93f43a5e06c1e6a27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab506bcdada42c01e676b09f461c38f2f"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f">M_bitlist_hash_parse</a> (M_uint64 *out, <a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *hash_toint, const char *data, unsigned char delim, char *error, size_t error_len)</td></tr>
-<tr class="separator:gab506bcdada42c01e676b09f461c38f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Allows for easy creation of a data structure to parse and generate human readable flags lists made up of bits.</p>
@@ -157,8 +151,8 @@ Functions</h2></td></tr>
 <div class="line">}</div>
 <div class="ttc" id="agroup__m__bitlist_html_ga56e46bb764f5795ce54289212cf31628"><div class="ttname"><a href="group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628">M_bitlist_list</a></div><div class="ttdeci">M_bool M_bitlist_list(char **out, M_bitlist_flags_t flags, const M_bitlist_t *list, M_uint64 bits, unsigned char delim, char *error, size_t error_len)</div></div>
 <div class="ttc" id="agroup__m__bitlist_html_ga61cc1ab7350871d9844b6cb33c670477"><div class="ttname"><a href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">M_bitlist_parse</a></div><div class="ttdeci">M_bool M_bitlist_parse(M_uint64 *out, M_bitlist_flags_t flags, const M_bitlist_t *list, const char *data, unsigned char delim, char *error, size_t error_len)</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">M_BITLIST_FLAG_NONE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:91</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_structM__bitlist__t"><div class="ttname"><a href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a></div><div class="ttdef"><b>Definition:</b> m_bitlist.h:84</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">M_BITLIST_FLAG_NONE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:88</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_structM__bitlist__t"><div class="ttname"><a href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a></div><div class="ttdef"><b>Definition:</b> m_bitlist.h:81</div></div>
 <div class="ttc" id="agroup__m__fmt_html_ga148cb889ab2737a09ebf313e7a3d454b"><div class="ttname"><a href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a></div><div class="ttdeci">size_t M_snprintf(char *buf, size_t size, const char *fmt,...)</div></div>
 <div class="ttc" id="agroup__m__fmt_html_gae54b252ea2bcf34b09ef1fa0f134ffa8"><div class="ttname"><a href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a></div><div class="ttdeci">ssize_t M_printf(const char *fmt,...)</div></div>
 <div class="ttc" id="agroup__m__mem_html_gac4b3c1d73d6efe2542f5e729b58a271d"><div class="ttname"><a href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a></div><div class="ttdeci">void M_free(void *ptr) M_FREE(1)</div></div>
@@ -214,8 +208,6 @@ name</td>
 <tr><td class="fieldname"><a id="gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136"></a>M_BITLIST_FLAG_DONT_TRIM_WHITESPACE&#160;</td><td class="fielddoc"><p>Parse only. Don't trim whitespace that might surround flags. </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74"></a>M_BITLIST_FLAG_CASE_SENSITIVE&#160;</td><td class="fielddoc"><p>Parse only. Case sensitive flag matching. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga9eb5696e0c6fc2c97d0b123bdbaaa033a1056d0c9bc656dc8e4bda85251cd1337"></a>M_BITLIST_FLAG_IGNORE_DUPLICATE_ID&#160;</td><td class="fielddoc"><p>Ignore duplicate ids. May be used for aliases. First value in list with ID will be used </p>
 </td></tr>
 <tr><td class="fieldname"><a id="gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4"></a>M_BITLIST_FLAG_IGNORE_UNKNOWN&#160;</td><td class="fielddoc"><p>If a bit is set that is not known, ignore </p>
 </td></tr>
@@ -281,7 +273,7 @@ name</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Generate a human-readable list from the array provided and bits provided, delimited by the specified delimiter. Note that there is not a 'hash' version of this function as it would likely be less efficient and would also not support the ability to handle aggregate entries that might contain more than 1 bit set.</p>
+<p>Generate a human-readable list from the array provided and bits provided, delimited by the specified delimiter.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Null-terminated string representing the human-readable bit list </td></tr>
@@ -370,149 +362,12 @@ name</td>
 
 </div>
 </div>
-<a id="ga941313d433676c93f43a5e06c1e6a27e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga941313d433676c93f43a5e06c1e6a27e">&#9670;&nbsp;</a></span>M_bitlist_tohash()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">M_bool M_bitlist_tohash </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> **&#160;</td>
-          <td class="paramname"><em>hash_toint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__m__hash__u64str.html#gae127f925ec502c61f07988bcf8d2eb6e">M_hash_u64str_t</a> **&#160;</td>
-          <td class="paramname"><em>hash_tostr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a>&#160;</td>
-          <td class="paramname"><em>flags</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *&#160;</td>
-          <td class="paramname"><em>list</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>error</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>error_len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Convert a bitlist into hash implementations for more efficient lookups.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">hash_toint</td><td>Hashtable for conversion from string to integer. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">hash_tostr</td><td>Hashtable for conversion from integer to string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">flags</td><td>Flags used when generating the list or determining errors. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">list</td><td>Array passed in defining all bits to human-readable name </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">error</td><td>Buffer to hold error string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">error_len</td><td>Length of error buffer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>M_TRUE on success, M_FALSE on failure </dd></dl>
-
-</div>
-</div>
-<a id="gab506bcdada42c01e676b09f461c38f2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab506bcdada42c01e676b09f461c38f2f">&#9670;&nbsp;</a></span>M_bitlist_hash_parse()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">M_bool M_bitlist_hash_parse </td>
-          <td>(</td>
-          <td class="paramtype">M_uint64 *&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a>&#160;</td>
-          <td class="paramname"><em>flags</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *&#160;</td>
-          <td class="paramname"><em>hash_toint</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned char&#160;</td>
-          <td class="paramname"><em>delim</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>error</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>error_len</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Generate an integer after parsing the provided human-readable string of bits/flags.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>64bit integer of set bits </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">flags</td><td>Flags used when parsing the provided human-readable string </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">hash_toint</td><td>hash_toint returned from <a class="el" href="group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e">M_bitlist_tohash()</a> with appropriate list. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Human-readable bits/flags in null terminated string form </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">delim</td><td>Delimiter for human-readable list input </td></tr>
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">error</td><td>Buffer to hold error string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">error_len</td><td>Length of error buffer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>M_TRUE on success, M_FALSE on failure </dd></dl>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Feb 23 2022 22:56:38 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Feb 23 2022 22:58:44 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

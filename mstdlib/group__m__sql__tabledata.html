@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mstdlib-1.18.0: SQL Table Data Management</title>
+<title>Mstdlib-1.17.0: SQL Table Data Management</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Mstdlib-1.18.0
+   <div id="projectname">Mstdlib-1.17.0
    </div>
   </td>
  </tr>
@@ -135,13 +135,11 @@ Enumerations</h2></td></tr>
 <tr class="memitem:ga53379aeabd1417bacae05f195c3fe67e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__tabledata.html#ga53379aeabd1417bacae05f195c3fe67e">M_sql_tabledata_txn_field_select_t</a> { <br />
 &#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea2c576cbf94b1acbc7bd287f9ee7b9d12">M_SQL_TABLEDATA_TXN_FIELD_MERGED</a> = 1
 , <br />
-&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea64cd509ff3f32ad8bfbf917d4a2af3dc">M_SQL_TABLEDATA_TXN_FIELD_MERGED_NODUPLICATE</a> = 2
+&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea03931088f24abfe6f66dc1d952e4ee50">M_SQL_TABLEDATA_TXN_FIELD_PRIOR</a> = 2
 , <br />
-&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea03931088f24abfe6f66dc1d952e4ee50">M_SQL_TABLEDATA_TXN_FIELD_PRIOR</a> = 3
+&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67eafac44686fadc430548db29253459aa57">M_SQL_TABLEDATA_TXN_FIELD_CURRENT</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea9c6d6d039e6f9c0554a5227a4e6ce961">M_SQL_TABLEDATA_TXN_FIELD_CURRENT_READONLY</a> = 4
-, <br />
-&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67eafac44686fadc430548db29253459aa57">M_SQL_TABLEDATA_TXN_FIELD_CURRENT</a> = 5
+&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea7591b7e9adc71ff88f9b8cf3bc81ff46">M_SQL_TABLEDATA_TXN_FIELD_CURRENT_OR_NEW</a> = 4
 <br />
  }</td></tr>
 <tr class="separator:ga53379aeabd1417bacae05f195c3fe67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -491,13 +489,11 @@ validate_cb</td>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea2c576cbf94b1acbc7bd287f9ee7b9d12"></a>M_SQL_TABLEDATA_TXN_FIELD_MERGED&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field, if not found, grab the prior value. On add, equivalent to M_SQL_TABLEDATA_TXN_FIELD_CURRENT. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea64cd509ff3f32ad8bfbf917d4a2af3dc"></a>M_SQL_TABLEDATA_TXN_FIELD_MERGED_NODUPLICATE&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field, if not found, grab the prior value and duplicate it as the current value for editing. </p>
-</td></tr>
 <tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea03931088f24abfe6f66dc1d952e4ee50"></a>M_SQL_TABLEDATA_TXN_FIELD_PRIOR&#160;</td><td class="fielddoc"><p>Grab the prior value of the field. On add, this is always NULL. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea9c6d6d039e6f9c0554a5227a4e6ce961"></a>M_SQL_TABLEDATA_TXN_FIELD_CURRENT_READONLY&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field. May not exist on edit if value is unchanged. </p>
+<tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67eafac44686fadc430548db29253459aa57"></a>M_SQL_TABLEDATA_TXN_FIELD_CURRENT&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field. May not exist on edit if value is unchanged. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67eafac44686fadc430548db29253459aa57"></a>M_SQL_TABLEDATA_TXN_FIELD_CURRENT&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field. If not found, create a new NULL field and return it for modification (field_name specified must be valid) </p>
+<tr><td class="fieldname"><a id="gga53379aeabd1417bacae05f195c3fe67ea7591b7e9adc71ff88f9b8cf3bc81ff46"></a>M_SQL_TABLEDATA_TXN_FIELD_CURRENT_OR_NEW&#160;</td><td class="fielddoc"><p>Grab the current specified value of the field. If not found, create a new NULL field and return it for modification (field_name specified must be valid) </p>
 </td></tr>
 </table>
 
@@ -2409,7 +2405,7 @@ validate_cb</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Feb 23 2022 22:56:59 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Feb 23 2022 22:59:05 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
