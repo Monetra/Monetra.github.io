@@ -128,6 +128,8 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__m__parser.html#ggafa8162f3759d9033f13b4c209b63e46ea354d7c9d887a4da603f926c1d8a326c5">M_PARSER_SPLIT_FLAG_NONE</a> = 0
 , <br />
 &#160;&#160;<a class="el" href="group__m__parser.html#ggafa8162f3759d9033f13b4c209b63e46ea1d8b9ec4214637219b0299c4050d181c">M_PARSER_SPLIT_FLAG_NODELIM_ERROR</a> = 1 &lt;&lt; 0
+, <br />
+&#160;&#160;<a class="el" href="group__m__parser.html#ggafa8162f3759d9033f13b4c209b63e46eaaf66cf5f206e5f792741c1fc27a16770">M_PARSER_SPLIT_FLAG_DONT_TRIM_LAST</a> = 1 &lt;&lt; 1
 <br />
  }</td></tr>
 <tr class="separator:gafa8162f3759d9033f13b4c209b63e46e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -503,6 +505,8 @@ Functions</h2></td></tr>
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggafa8162f3759d9033f13b4c209b63e46ea354d7c9d887a4da603f926c1d8a326c5"></a>M_PARSER_SPLIT_FLAG_NONE&#160;</td><td class="fielddoc"><p>No flags, standard behavior </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggafa8162f3759d9033f13b4c209b63e46ea1d8b9ec4214637219b0299c4050d181c"></a>M_PARSER_SPLIT_FLAG_NODELIM_ERROR&#160;</td><td class="fielddoc"><p>Return an error if the specified delimiter is not found, otherwise all the data is put in a single parser object </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggafa8162f3759d9033f13b4c209b63e46eaaf66cf5f206e5f792741c1fc27a16770"></a>M_PARSER_SPLIT_FLAG_DONT_TRIM_LAST&#160;</td><td class="fielddoc"><p>Don't trim the last section if it is empty. The default is to not return it as a section </p>
 </td></tr>
 </table>
 
@@ -5624,7 +5628,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Feb 24 2022 17:23:11 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Feb 24 2022 18:02:19 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

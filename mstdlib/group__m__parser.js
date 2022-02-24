@@ -18,7 +18,8 @@ var group__m__parser =
     ] ],
     [ "M_PARSER_SPLIT_FLAGS", "group__m__parser.html#gafa8162f3759d9033f13b4c209b63e46e", [
       [ "M_PARSER_SPLIT_FLAG_NONE", "group__m__parser.html#ggafa8162f3759d9033f13b4c209b63e46ea354d7c9d887a4da603f926c1d8a326c5", null ],
-      [ "M_PARSER_SPLIT_FLAG_NODELIM_ERROR", "group__m__parser.html#ggafa8162f3759d9033f13b4c209b63e46ea1d8b9ec4214637219b0299c4050d181c", null ]
+      [ "M_PARSER_SPLIT_FLAG_NODELIM_ERROR", "group__m__parser.html#ggafa8162f3759d9033f13b4c209b63e46ea1d8b9ec4214637219b0299c4050d181c", null ],
+      [ "M_PARSER_SPLIT_FLAG_DONT_TRIM_LAST", "group__m__parser.html#ggafa8162f3759d9033f13b4c209b63e46eaaf66cf5f206e5f792741c1fc27a16770", null ]
     ] ],
     [ "M_PARSER_FRAME_BYES", "group__m__parser.html#ga3fbdc774c77f61b74f797598209b682c", [
       [ "M_PARSER_FRAME_NONE", "group__m__parser.html#gga3fbdc774c77f61b74f797598209b682cabeaf1fa32982e348935e8db5f0f930f3", null ],
