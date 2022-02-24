@@ -1,5 +1,7 @@
 var NAVTREEINDEX16 =
 {
+"group__m__tls__funcs.html#ga712d241041049b29155d39f6a8e2bca5":[1,9,0,11],
+"group__m__tls__funcs.html#ga77842eeb91c8cce7944a8b012c6510fd":[1,9,0,32],
 "group__m__tls__funcs.html#ga7af29260b998209add89c7b03f918e4a":[1,9,0,3],
 "group__m__tls__funcs.html#ga7b4f6032cca88211f3acf1c4dcdb9e1e":[1,9,0,15],
 "group__m__tls__funcs.html#ga82d75bcdbdc975d5140e0136a79b7bc1":[1,9,0,35],
@@ -180,8 +182,8 @@ var NAVTREEINDEX16 =
 "group__m__xml.html#ggaeb17f61bc386c6d1dc4369c1cce15163abef3713a1e5052fa323e337831a18aa1":[1,2,9,2,2],
 "group__m__xml.html#ggaeb17f61bc386c6d1dc4369c1cce15163aeb40bbfbfc5c2fed3e289a2c55bd66d2":[1,2,9,2,1],
 "group__mstdlib__base.html":[1,0],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#autotoc_md0":[0,0],
 "index.html#autotoc_md1":[0,1],
 "index.html#autotoc_md10":[0,2,1,0,1],

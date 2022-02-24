@@ -142,6 +142,8 @@ var NAVTREEINDEX0 =
 "group__m__bitlist.html":[1,0,7],
 "group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba":[1,0,7,0,1],
 "group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c":[1,0,7,0,0],
+"group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc":[1,0,7,6],
+"group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c":[1,0,7,7],
 "group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628":[1,0,7,2],
 "group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477":[1,0,7,3],
 "group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e":[1,0,7,4],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "group__m__cache__generic.html#gae4b295c8580702004ece790f02fc62dd":[1,0,2,0,1,10],
 "group__m__cache__generic.html#gaee26240d733a93ebf34baf5dbd7d4544":[1,0,2,0,1,9],
 "group__m__cache__generic.html#gga6ad7cc26b7060ea18724e4eb34959efea163a69d20eb488313f135b1d2035eef7":[1,0,2,0,1,4,0],
-"group__m__cache__generic.html#structM__cache__callbacks":[1,0,2,0,1,0],
-"group__m__cache__strvp.html":[1,0,2,0,0],
-"group__m__cache__strvp.html#ga12514dcf7a6cde1884b4c413f31858a1":[1,0,2,0,0,5]
+"group__m__cache__generic.html#structM__cache__callbacks":[1,0,2,0,1,0]
 };

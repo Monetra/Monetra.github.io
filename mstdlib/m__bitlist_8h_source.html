@@ -239,15 +239,33 @@ $(document).ready(function(){initNavTree('m__bitlist_8h_source.html',''); initRe
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment"> * \param[in]     error_len  Length of error buffer</span></div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment"> * \return M_TRUE on success, M_FALSE on failure */</span></div>
 <div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f">  154</a></span>&#160;M_API M_bool <a class="code" href="group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f">M_bitlist_hash_parse</a>(M_uint64 *out, <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <a class="code" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *hash_toint, <span class="keyword">const</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> delim, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> error_len);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_BIT_BUF_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">/*! Extract a single name from a bitlist that exactly matches the passed in id.</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment"> * \param[in] list Array passed in defining all bits to human-readable name</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment"> * \param[in] id   ID to match</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment"> * \return NULL if not found, otherwise pointer to name in bitlist</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc">  162</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc">M_bitlist_single_tostr</a>(<span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, M_uint64 <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">/*! Extract a single id from a bitlist that exactly matches the passed in name.</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment"> * \param[in] list  Array passed in defining all bits to human-readable name</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment"> * \param[in] name  name to match</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment"> * \return 0 if not found, otherwise id of name in bitlist</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c">  170</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c">M_bitlist_single_toint</a>(<span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_BIT_BUF_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="agroup__m__bitlist_html_ad868996ab7e21b5dffe38fed628de0ba"><div class="ttname"><a href="group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba">M_bitlist_t::name</a></div><div class="ttdeci">const char * name</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:86</div></div>
 <div class="ttc" id="agroup__m__bitlist_html_ae6fac73314757e211660a5b69248ce1c"><div class="ttname"><a href="group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c">M_bitlist_t::id</a></div><div class="ttdeci">M_uint64 id</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:85</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_ga18cb0ca1bd11fd5fa976a792e03ebacc"><div class="ttname"><a href="group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc">M_bitlist_single_tostr</a></div><div class="ttdeci">const char * M_bitlist_single_tostr(const M_bitlist_t *list, M_uint64 id)</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_ga1a90d28d44833b2365c803113d475e8c"><div class="ttname"><a href="group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c">M_bitlist_single_toint</a></div><div class="ttdeci">M_uint64 M_bitlist_single_toint(const M_bitlist_t *list, const char *name)</div></div>
 <div class="ttc" id="agroup__m__bitlist_html_ga56e46bb764f5795ce54289212cf31628"><div class="ttname"><a href="group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628">M_bitlist_list</a></div><div class="ttdeci">M_bool M_bitlist_list(char **out, M_bitlist_flags_t flags, const M_bitlist_t *list, M_uint64 bits, unsigned char delim, char *error, size_t error_len)</div></div>
 <div class="ttc" id="agroup__m__bitlist_html_ga61cc1ab7350871d9844b6cb33c670477"><div class="ttname"><a href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">M_bitlist_parse</a></div><div class="ttdeci">M_bool M_bitlist_parse(M_uint64 *out, M_bitlist_flags_t flags, const M_bitlist_t *list, const char *data, unsigned char delim, char *error, size_t error_len)</div></div>
 <div class="ttc" id="agroup__m__bitlist_html_ga941313d433676c93f43a5e06c1e6a27e"><div class="ttname"><a href="group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e">M_bitlist_tohash</a></div><div class="ttdeci">M_bool M_bitlist_tohash(M_hash_stru64_t **hash_toint, M_hash_u64str_t **hash_tostr, M_bitlist_flags_t flags, const M_bitlist_t *list, char *error, size_t error_len)</div></div>
@@ -268,7 +286,7 @@ $(document).ready(function(){initNavTree('m__bitlist_8h_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_00070d739ffbaafdff8b3f90dd540ebc.html">base</a></li><li class="navelem"><b>m_bitlist.h</b></li>
-    <li class="footer">Generated on Thu Feb 24 2022 12:32:42 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Feb 24 2022 14:52:05 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

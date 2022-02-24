@@ -15,5 +15,7 @@ var group__m__bitlist =
     [ "M_bitlist_list", "group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628", null ],
     [ "M_bitlist_parse", "group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477", null ],
     [ "M_bitlist_tohash", "group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e", null ],
-    [ "M_bitlist_hash_parse", "group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f", null ]
+    [ "M_bitlist_hash_parse", "group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f", null ],
+    [ "M_bitlist_single_tostr", "group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc", null ],
+    [ "M_bitlist_single_toint", "group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c", null ]
 ];
