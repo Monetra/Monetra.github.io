@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mstdlib-1.17.0: include/mstdlib/base/m_bitlist.h Source File</title>
+<title>Mstdlib-1.18.0: include/mstdlib/base/m_bitlist.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Mstdlib-1.17.0
+   <div id="projectname">Mstdlib-1.18.0
    </div>
   </td>
  </tr>
@@ -116,122 +116,177 @@ $(document).ready(function(){initNavTree('m__bitlist_8h_source.html',''); initRe
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;mstdlib/base/m_defs.h&gt;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;mstdlib/base/m_types.h&gt;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;mstdlib/base/m_buf.h&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;mstdlib/base/m_hash_u64str.h&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;mstdlib/base/m_hash_stru64.h&gt;</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;__BEGIN_DECLS</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">/*! \addtogroup m_bitlist Bitwise flags parser and generator</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> *  \ingroup mstdlib_base</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * Allows for easy creation of a data structure to parse and generate human</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * readable flags lists made up of bits.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;__BEGIN_DECLS</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">/*! \addtogroup m_bitlist Bitwise flags parser and generator</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> *  \ingroup mstdlib_base</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * \code{.c}</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> *     static const M_bitlist_t myflags[] = {</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> *       { 1 &lt;&lt; 0, &quot;flag1&quot; },</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> *       { 1 &lt;&lt; 1, &quot;flag2&quot; },</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> *       { 1 &lt;&lt; 2, &quot;flag3&quot; },</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> *       { 0,      NULL    }</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> *     };</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> *     M_uint64  initial_flags = (1&lt;&lt;0) | (1&lt;&lt;2);</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> *     char     *human_flags   = NULL;</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> *     M_uint64  final_flags   = 0;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> *     M_bool    rv            = M_FALSE;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> *     if (!M_bitlist_list(&amp;human_flags, M_BITLIST_FLAG_NONE, myflags, initial_flags, &#39;|&#39;, error, sizeof(error)))</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"> *       goto fail;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * Allows for easy creation of a data structure to parse and generate human</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * readable flags lists made up of bits.</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> * \code{.c}</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> *     static const M_bitlist_t myflags[] = {</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> *       { 1 &lt;&lt; 0, &quot;flag1&quot; },</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> *       { 1 &lt;&lt; 1, &quot;flag2&quot; },</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> *       { 1 &lt;&lt; 2, &quot;flag3&quot; },</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> *       { 0,      NULL    }</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> *     };</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> *     M_uint64  initial_flags = (1&lt;&lt;0) | (1&lt;&lt;2);</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> *     char     *human_flags   = NULL;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment"> *     M_uint64  final_flags   = 0;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment"> *     M_bool    rv            = M_FALSE;</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment"> *     if (!M_bitlist_parse(&amp;final_flags, M_BITLIST_FLAG_NONE, myflags, human_flags, &#39;|&#39;, error, sizeof(error)))</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment"> *     if (!M_bitlist_list(&amp;human_flags, M_BITLIST_FLAG_NONE, myflags, initial_flags, &#39;|&#39;, error, sizeof(error)))</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment"> *       goto fail;</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> *     if (initial_flags != final_flags) {</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> *       M_snprintf(error, sizeof(error), &quot;initial flags don&#39;t match converted&quot;);</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"> *       goto fail;</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> *     }</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> *     rv = M_TRUE;</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> *     fail:</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"> *     M_free(human_flags);</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> *     if (!rv) {</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> *       M_printf(&quot;FAILURE: %s&quot;, error);</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> *     }</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> * \endcode</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> * @{</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">/*! Data structure to be created as an array and filled in by caller.  Must be </span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"> *  terminated by an entry where the name parameter is set to NULL */</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="group__m__bitlist.html">   81</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c">   82</a></span>&#160;    M_uint64    <a class="code" href="group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c">id</a>;   <span class="comment">/*!&lt; The bit to set, usually a power of 2 */</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba">   83</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba">name</a>; <span class="comment">/*!&lt; Human-readable name associated with the flag/bit */</span> </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">/*! Flags that may be passed on to the parser or human-readable generator */</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">   87</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">   88</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">M_BITLIST_FLAG_NONE</a>                  = 0,    <span class="comment">/*!&lt; No Flags */</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136">   89</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136">M_BITLIST_FLAG_DONT_TRIM_WHITESPACE</a>  = 1&lt;&lt;0, <span class="comment">/*!&lt; Parse only. Don&#39;t trim whitespace that might surround flags. */</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74">   90</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74">M_BITLIST_FLAG_CASE_SENSITIVE</a>        = 1&lt;&lt;1, <span class="comment">/*!&lt; Parse only. Case sensitive flag matching. */</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">   91</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">M_BITLIST_FLAG_IGNORE_UNKNOWN</a>        = 1&lt;&lt;2, <span class="comment">/*!&lt; If a bit is set that is not known, ignore */</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</a> = 1&lt;&lt;3  <span class="comment">/*!&lt; Don&#39;t require a field to be a power of 2. */</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">   93</a></span>&#160;} <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">/*! Generate a human-readable list from the array provided and bits provided, </span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment"> *  delimited by the specified delimiter.</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"> * \param[out]    out       Null-terminated string representing the human-readable bit list</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"> * \param[in]     flags     Flags used when generating the list or determining errors</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment"> * \param[in]     list      Array passed in defining all bits to human-readable</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"> * \param[in]     bits      Machine-readable bits passed in to be converted</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment"> * \param[in]     delim     Delimiter for human-readable list output</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment"> * \param[in,out] error     Buffer to hold error string.</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"> * \param[in]     error_len Length of error buffer</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment"> * \return M_TRUE on success, M_FALSE on failure */</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628">  109</a></span>&#160;M_API M_bool <a class="code" href="group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628">M_bitlist_list</a>(<span class="keywordtype">char</span> **out, <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, M_uint64 bits, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> delim, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> error_len);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">/*! Generate an integer after parsing the provided human-readable string of bits/flags.</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment"> * \param[out]    out       64bit integer of set bits</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment"> * \param[in]     flags     Flags used when parsing the provided human-readable string</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment"> * \param[in]     list      Array passed in defining all bits to human-readable name</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"> * \param[in]     data      Human-readable bits/flags in null terminated string form</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"> * \param[in]     delim     Delimiter for human-readable list input</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment"> * \param[in,out] error     Buffer to hold error string.</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment"> * \param[in]     error_len Length of error buffer</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment"> * \return M_TRUE on success, M_FALSE on failure */</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">  122</a></span>&#160;M_API M_bool <a class="code" href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">M_bitlist_parse</a>(M_uint64 *out, <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, <span class="keyword">const</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> delim, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> error_len);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_BIT_BUF_H__ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="agroup__m__bitlist_html_ad868996ab7e21b5dffe38fed628de0ba"><div class="ttname"><a href="group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba">M_bitlist_t::name</a></div><div class="ttdeci">const char * name</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:83</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_ae6fac73314757e211660a5b69248ce1c"><div class="ttname"><a href="group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c">M_bitlist_t::id</a></div><div class="ttdeci">M_uint64 id</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:82</div></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment"> *     if (!M_bitlist_parse(&amp;final_flags, M_BITLIST_FLAG_NONE, myflags, human_flags, &#39;|&#39;, error, sizeof(error)))</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment"> *       goto fail;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment"> *     if (initial_flags != final_flags) {</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> *       M_snprintf(error, sizeof(error), &quot;initial flags don&#39;t match converted&quot;);</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> *       goto fail;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> *     }</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment"> *     rv = M_TRUE;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment"> *     fail:</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment"> *     M_free(human_flags);</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment"> *     if (!rv) {</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment"> *       M_printf(&quot;FAILURE: %s&quot;, error);</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> *     }</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment"> * \endcode</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment"> * @{</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">/*! Data structure to be created as an array and filled in by caller.  Must be </span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> *  terminated by an entry where the name parameter is set to NULL */</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="group__m__bitlist.html">   84</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c">   85</a></span>&#160;    M_uint64    <a class="code" href="group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c">id</a>;   <span class="comment">/*!&lt; The bit to set, usually a power of 2 */</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba">   86</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba">name</a>; <span class="comment">/*!&lt; Human-readable name associated with the flag/bit */</span> </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">/*! Flags that may be passed on to the parser or human-readable generator */</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">   90</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">   91</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">M_BITLIST_FLAG_NONE</a>                  = 0,    <span class="comment">/*!&lt; No Flags */</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136">   92</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136">M_BITLIST_FLAG_DONT_TRIM_WHITESPACE</a>  = 1&lt;&lt;0, <span class="comment">/*!&lt; Parse only. Don&#39;t trim whitespace that might surround flags. */</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74">   93</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74">M_BITLIST_FLAG_CASE_SENSITIVE</a>        = 1&lt;&lt;1, <span class="comment">/*!&lt; Parse only. Case sensitive flag matching. */</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a1056d0c9bc656dc8e4bda85251cd1337">   94</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a1056d0c9bc656dc8e4bda85251cd1337">M_BITLIST_FLAG_IGNORE_DUPLICATE_ID</a>   = 1&lt;&lt;2, <span class="comment">/*!&lt; Ignore duplicate ids.  May be used for aliases.  First value in list with ID will be used */</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">   95</a></span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">M_BITLIST_FLAG_IGNORE_UNKNOWN</a>        = 1&lt;&lt;3, <span class="comment">/*!&lt; If a bit is set that is not known, ignore */</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</a> = 1&lt;&lt;4  <span class="comment">/*!&lt; Don&#39;t require a field to be a power of 2. */</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">   97</a></span>&#160;} <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">/*! Generate a human-readable list from the array provided and bits provided, </span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment"> *  delimited by the specified delimiter.  Note that there is not a &#39;hash&#39; version</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"> *  of this function as it would likely be less efficient and would also not</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment"> *  support the ability to handle aggregate entries that might contain more than</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment"> *  1 bit set.</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment"> * \param[out]    out       Null-terminated string representing the human-readable bit list</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment"> * \param[in]     flags     Flags used when generating the list or determining errors</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment"> * \param[in]     list      Array passed in defining all bits to human-readable</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"> * \param[in]     bits      Machine-readable bits passed in to be converted</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"> * \param[in]     delim     Delimiter for human-readable list output</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"> * \param[in,out] error     Buffer to hold error string.</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment"> * \param[in]     error_len Length of error buffer</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment"> * \return M_TRUE on success, M_FALSE on failure */</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628">  116</a></span>&#160;M_API M_bool <a class="code" href="group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628">M_bitlist_list</a>(<span class="keywordtype">char</span> **out, <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, M_uint64 bits, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> delim, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> error_len);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">/*! Generate an integer after parsing the provided human-readable string of bits/flags.</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment"> * \param[out]    out       64bit integer of set bits</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment"> * \param[in]     flags     Flags used when parsing the provided human-readable string</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment"> * \param[in]     list      Array passed in defining all bits to human-readable name</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment"> * \param[in]     data      Human-readable bits/flags in null terminated string form</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment"> * \param[in]     delim     Delimiter for human-readable list input</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment"> * \param[in,out] error     Buffer to hold error string.</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment"> * \param[in]     error_len Length of error buffer</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment"> * \return M_TRUE on success, M_FALSE on failure */</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">  129</a></span>&#160;M_API M_bool <a class="code" href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">M_bitlist_parse</a>(M_uint64 *out, <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, <span class="keyword">const</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> delim, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> error_len);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">/*! Convert a bitlist into hash implementations for more efficient lookups.</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment"> * \param[out]    hash_toint  Hashtable for conversion from string to integer.</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment"> * \param[out]    hash_tostr  Hashtable for conversion from integer to string.</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment"> * \param[in]     flags       Flags used when generating the list or determining errors.</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment"> * \param[in]     list        Array passed in defining all bits to human-readable name</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment"> * \param[in,out] error       Buffer to hold error string.</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment"> * \param[in]     error_len   Length of error buffer</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment"> * \return M_TRUE on success, M_FALSE on failure */</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e">  141</a></span>&#160;M_API M_bool <a class="code" href="group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e">M_bitlist_tohash</a>(<a class="code" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> **hash_toint, <a class="code" href="group__m__hash__u64str.html#gae127f925ec502c61f07988bcf8d2eb6e">M_hash_u64str_t</a> **hash_tostr, <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> error_len);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">/*! Generate an integer after parsing the provided human-readable string of bits/flags.</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment"> * \param[out]    out        64bit integer of set bits</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment"> * \param[in]     flags      Flags used when parsing the provided human-readable string</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment"> * \param[in]     hash_toint hash_toint returned from M_bitlist_tohash() with appropriate list.</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment"> * \param[in]     data       Human-readable bits/flags in null terminated string form</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment"> * \param[in]     delim      Delimiter for human-readable list input</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment"> * \param[in,out] error      Buffer to hold error string.</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment"> * \param[in]     error_len  Length of error buffer</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment"> * \return M_TRUE on success, M_FALSE on failure */</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f">  154</a></span>&#160;M_API M_bool <a class="code" href="group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f">M_bitlist_hash_parse</a>(M_uint64 *out, <a class="code" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <a class="code" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *hash_toint, <span class="keyword">const</span> <span class="keywordtype">char</span> *data, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> delim, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> error_len);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">/*! Extract a single name from a bitlist that exactly matches the passed in id.</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment"> * \param[in] list Array passed in defining all bits to human-readable name</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment"> * \param[in] id   ID to match</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment"> * \return NULL if not found, otherwise pointer to name in bitlist</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc">  162</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc">M_bitlist_single_tostr</a>(<span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, M_uint64 <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">/*! Extract a single id from a bitlist that exactly matches the passed in name.</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment"> * \param[in] list  Array passed in defining all bits to human-readable name</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment"> * \param[in] name  name to match</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment"> * \return 0 if not found, otherwise id of name in bitlist</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c">  170</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c">M_bitlist_single_toint</a>(<span class="keyword">const</span> <a class="code" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_BIT_BUF_H__ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="agroup__m__bitlist_html_ad868996ab7e21b5dffe38fed628de0ba"><div class="ttname"><a href="group__m__bitlist.html#ad868996ab7e21b5dffe38fed628de0ba">M_bitlist_t::name</a></div><div class="ttdeci">const char * name</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:86</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_ae6fac73314757e211660a5b69248ce1c"><div class="ttname"><a href="group__m__bitlist.html#ae6fac73314757e211660a5b69248ce1c">M_bitlist_t::id</a></div><div class="ttdeci">M_uint64 id</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:85</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_ga18cb0ca1bd11fd5fa976a792e03ebacc"><div class="ttname"><a href="group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc">M_bitlist_single_tostr</a></div><div class="ttdeci">const char * M_bitlist_single_tostr(const M_bitlist_t *list, M_uint64 id)</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_ga1a90d28d44833b2365c803113d475e8c"><div class="ttname"><a href="group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c">M_bitlist_single_toint</a></div><div class="ttdeci">M_uint64 M_bitlist_single_toint(const M_bitlist_t *list, const char *name)</div></div>
 <div class="ttc" id="agroup__m__bitlist_html_ga56e46bb764f5795ce54289212cf31628"><div class="ttname"><a href="group__m__bitlist.html#ga56e46bb764f5795ce54289212cf31628">M_bitlist_list</a></div><div class="ttdeci">M_bool M_bitlist_list(char **out, M_bitlist_flags_t flags, const M_bitlist_t *list, M_uint64 bits, unsigned char delim, char *error, size_t error_len)</div></div>
 <div class="ttc" id="agroup__m__bitlist_html_ga61cc1ab7350871d9844b6cb33c670477"><div class="ttname"><a href="group__m__bitlist.html#ga61cc1ab7350871d9844b6cb33c670477">M_bitlist_parse</a></div><div class="ttdeci">M_bool M_bitlist_parse(M_uint64 *out, M_bitlist_flags_t flags, const M_bitlist_t *list, const char *data, unsigned char delim, char *error, size_t error_len)</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_ga9eb5696e0c6fc2c97d0b123bdbaaa033"><div class="ttname"><a href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a></div><div class="ttdeci">M_bitlist_flags_t</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:87</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">M_BITLIST_FLAG_IGNORE_UNKNOWN</a></div><div class="ttdeci">@ M_BITLIST_FLAG_IGNORE_UNKNOWN</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:91</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74">M_BITLIST_FLAG_CASE_SENSITIVE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_CASE_SENSITIVE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:90</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</a></div><div class="ttdeci">@ M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:92</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136">M_BITLIST_FLAG_DONT_TRIM_WHITESPACE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_DONT_TRIM_WHITESPACE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:89</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">M_BITLIST_FLAG_NONE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:88</div></div>
-<div class="ttc" id="agroup__m__bitlist_html_structM__bitlist__t"><div class="ttname"><a href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a></div><div class="ttdef"><b>Definition:</b> m_bitlist.h:81</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_ga941313d433676c93f43a5e06c1e6a27e"><div class="ttname"><a href="group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e">M_bitlist_tohash</a></div><div class="ttdeci">M_bool M_bitlist_tohash(M_hash_stru64_t **hash_toint, M_hash_u64str_t **hash_tostr, M_bitlist_flags_t flags, const M_bitlist_t *list, char *error, size_t error_len)</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_ga9eb5696e0c6fc2c97d0b123bdbaaa033"><div class="ttname"><a href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a></div><div class="ttdeci">M_bitlist_flags_t</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:90</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gab506bcdada42c01e676b09f461c38f2f"><div class="ttname"><a href="group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f">M_bitlist_hash_parse</a></div><div class="ttdeci">M_bool M_bitlist_hash_parse(M_uint64 *out, M_bitlist_flags_t flags, M_hash_stru64_t *hash_toint, const char *data, unsigned char delim, char *error, size_t error_len)</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033a1056d0c9bc656dc8e4bda85251cd1337"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a1056d0c9bc656dc8e4bda85251cd1337">M_BITLIST_FLAG_IGNORE_DUPLICATE_ID</a></div><div class="ttdeci">@ M_BITLIST_FLAG_IGNORE_DUPLICATE_ID</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:94</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a77d1f3989d0ce4d38d41e2f718ce66e4">M_BITLIST_FLAG_IGNORE_UNKNOWN</a></div><div class="ttdeci">@ M_BITLIST_FLAG_IGNORE_UNKNOWN</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:95</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a84f14341c5df2b6e02fb67d40ddb1f74">M_BITLIST_FLAG_CASE_SENSITIVE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_CASE_SENSITIVE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:93</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033a9ca14cb3f8ebecaa31b0e105d1d139c3">M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</a></div><div class="ttdeci">@ M_BITLIST_FLAG_DONT_REQUIRE_POWEROF2</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:96</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033ae93d66293cfae48d48b4722bb77cb136">M_BITLIST_FLAG_DONT_TRIM_WHITESPACE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_DONT_TRIM_WHITESPACE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:92</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b"><div class="ttname"><a href="group__m__bitlist.html#gga9eb5696e0c6fc2c97d0b123bdbaaa033afd0866cc2614e82b75fe59331f16d54b">M_BITLIST_FLAG_NONE</a></div><div class="ttdeci">@ M_BITLIST_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_bitlist.h:91</div></div>
+<div class="ttc" id="agroup__m__bitlist_html_structM__bitlist__t"><div class="ttname"><a href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a></div><div class="ttdef"><b>Definition:</b> m_bitlist.h:84</div></div>
+<div class="ttc" id="agroup__m__hash__stru64_html_ga864c212c70c9914c2d4db8274368a982"><div class="ttname"><a href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a></div><div class="ttdeci">struct M_hash_stru64 M_hash_stru64_t</div><div class="ttdef"><b>Definition:</b> m_hash_stru64.h:51</div></div>
+<div class="ttc" id="agroup__m__hash__u64str_html_gae127f925ec502c61f07988bcf8d2eb6e"><div class="ttname"><a href="group__m__hash__u64str.html#gae127f925ec502c61f07988bcf8d2eb6e">M_hash_u64str_t</a></div><div class="ttdeci">struct M_hash_u64str M_hash_u64str_t</div><div class="ttdef"><b>Definition:</b> m_hash_u64str.h:52</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_00070d739ffbaafdff8b3f90dd540ebc.html">base</a></li><li class="navelem"><b>m_bitlist.h</b></li>
-    <li class="footer">Generated on Thu Feb 24 2022 18:05:18 for Mstdlib-1.17.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Feb 28 2022 16:26:51 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
