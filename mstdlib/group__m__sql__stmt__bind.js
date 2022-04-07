@@ -1,6 +1,7 @@
 var group__m__sql__stmt__bind =
 [
     [ "M_sql_stmt_bind_clear", "group__m__sql__stmt__bind.html#ga0d016a911cb4bef6aa7b15fbb687f617", null ],
+    [ "M_sql_stmt_bind_clear_row", "group__m__sql__stmt__bind.html#gaa07b1f1ce4260173647d762267261fd4", null ],
     [ "M_sql_stmt_bind_new_row", "group__m__sql__stmt__bind.html#ga110bdd78ceeb848e5ed3e09d059a7a72", null ],
     [ "M_sql_stmt_bind_bool", "group__m__sql__stmt__bind.html#gae6bca3cd8522e6e7eba63f94ed9f3d50", null ],
     [ "M_sql_stmt_bind_bool_null", "group__m__sql__stmt__bind.html#gae82031a89e4c495166bb34cd2acdeea2", null ],

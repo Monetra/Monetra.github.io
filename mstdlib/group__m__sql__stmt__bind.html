@@ -92,6 +92,8 @@ $(document).ready(function(){initNavTree('group__m__sql__stmt__bind.html',''); i
 Functions</h2></td></tr>
 <tr class="memitem:ga0d016a911cb4bef6aa7b15fbb687f617"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__stmt__bind.html#ga0d016a911cb4bef6aa7b15fbb687f617">M_sql_stmt_bind_clear</a> (<a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *stmt)</td></tr>
 <tr class="separator:ga0d016a911cb4bef6aa7b15fbb687f617"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa07b1f1ce4260173647d762267261fd4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__stmt__bind.html#gaa07b1f1ce4260173647d762267261fd4">M_sql_stmt_bind_clear_row</a> (<a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *stmt)</td></tr>
+<tr class="separator:gaa07b1f1ce4260173647d762267261fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga110bdd78ceeb848e5ed3e09d059a7a72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__stmt__bind.html#ga110bdd78ceeb848e5ed3e09d059a7a72">M_sql_stmt_bind_new_row</a> (<a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *stmt)</td></tr>
 <tr class="separator:ga110bdd78ceeb848e5ed3e09d059a7a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae6bca3cd8522e6e7eba63f94ed9f3d50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__sql__error.html#gaae10ff11eb7d5583afcffa6ec87c753e">M_sql_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__stmt__bind.html#gae6bca3cd8522e6e7eba63f94ed9f3d50">M_sql_stmt_bind_bool</a> (<a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *stmt, M_bool val)</td></tr>
@@ -141,7 +143,32 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Clear bound parameters from a prepared statement object.</p>
+<p>Clear all bound parameters from a prepared statement object.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">stmt</td><td>Initialized <a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gaa07b1f1ce4260173647d762267261fd4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa07b1f1ce4260173647d762267261fd4">&#9670;&nbsp;</a></span>M_sql_stmt_bind_clear_row()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void M_sql_stmt_bind_clear_row </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *&#160;</td>
+          <td class="paramname"><em>stmt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Clear current row bound parameters for prepared statement object. This can be used if the caller wants to cancel the current row parameters due to an internal condition.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">stmt</td><td>Initialized <a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> object </td></tr>
@@ -704,7 +731,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Apr 7 2022 20:55:44 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Apr 7 2022 21:19:57 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
