@@ -265,32 +265,39 @@ Functions</h2></td></tr>
 <p>It is possible to construct an invalid XML document. It is also possible that an invalid XML document created with M_xml will not be readable by M_xml. Specifically, when dealing with attribute and text encoding options for M_xml_read and M_xml_write. Also, attribute keys and tag names are not validated to ensure they are valid XML names. This must happen outside of M_xml.</p>
 <p>M_xml is not susceptible to common XML entity expansion attaches such as billion laughs, quadratic blowup, and external entity expansion. Only basic XML entities are expanded and only one level is expanded. Further external entity references are not downloaded. Neither are external DTDs. This will mitigate against network based attacks relying on retrieval.</p>
 <p>Example:</p>
-<div class="fragment"><div class="line"><a class="code" href="group__m__xml.html#gac6ec4dfbdf5090e4d6b20cdc93b360fb">M_xml_node_t</a> *xml;</div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span>   *data = <span class="stringliteral">&quot;&lt;r&gt;&lt;tag1&gt;abc&lt;/tag1&gt;&lt;tag2&gt;123&lt;/tag2&gt;&lt;tag3&gt;xyz&lt;/tag3&gt;&lt;/r&gt;&quot;</span>;</div>
-<div class="line"><span class="keywordtype">char</span>         *out;</div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;mstdlib/mstdlib.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mstdlib/mstdlib_formats.h&gt;</span></div>
 <div class="line"> </div>
-<div class="line">xml = <a class="code" href="group__m__xml.html#ga3499efb006b61f31263dd0c74a4dfd19">M_xml_read</a>(data, <a class="code" href="group__m__str__check.html#gabebfa875d1ada2b43f52b9344b0844d0">M_str_len</a>(data), <a class="code" href="group__m__xml.html#ggaeb17f61bc386c6d1dc4369c1cce15163abc9e6d308926be7479d8e8abc5ed4207">M_XML_READER_NONE</a>, NULL, NULL, NULL);</div>
-<div class="line"><span class="keywordflow">if</span> (xml == NULL) {</div>
-<div class="line">    <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;xml parse error\n&quot;</span>);</div>
-<div class="line">    <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>** argv)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__xml.html#gac6ec4dfbdf5090e4d6b20cdc93b360fb">M_xml_node_t</a> *xml;</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">char</span>   *data = <span class="stringliteral">&quot;&lt;r&gt;&lt;tag1&gt;abc&lt;/tag1&gt;&lt;tag2&gt;123&lt;/tag2&gt;&lt;tag3&gt;xyz&lt;/tag3&gt;&lt;/r&gt;&quot;</span>;</div>
+<div class="line">    <span class="keywordtype">char</span>         *out;</div>
+<div class="line"> </div>
+<div class="line">    xml = <a class="code" href="group__m__xml.html#ga3499efb006b61f31263dd0c74a4dfd19">M_xml_read</a>(data, <a class="code" href="group__m__str__check.html#gabebfa875d1ada2b43f52b9344b0844d0">M_str_len</a>(data), <a class="code" href="group__m__xml.html#ggaeb17f61bc386c6d1dc4369c1cce15163abc9e6d308926be7479d8e8abc5ed4207">M_XML_READER_NONE</a>, NULL, NULL, NULL, NULL);</div>
+<div class="line">    <span class="keywordflow">if</span> (xml == NULL) {</div>
+<div class="line">        <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;xml parse error\n&quot;</span>);</div>
+<div class="line">        <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__xml.html#ga04b6ab6bd3f43735767ce8a8efd20f6e">M_xml_create_element_with_text</a>(<span class="stringliteral">&quot;AbCd&quot;</span>, <span class="stringliteral">&quot;blah blah blah&quot;</span>, 0, xml);</div>
+<div class="line"> </div>
+<div class="line">    out = <a class="code" href="group__m__xml.html#ga6abdbf8fbfe972082dc929a693b0992a">M_xml_write</a>(xml, <a class="code" href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978aaafca58f8317b990d4a2636d6f9ca626">M_XML_WRITER_LOWER_TAGS</a>|<a class="code" href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a6e422660b9b73b8d906ee9612c7ade8e">M_XML_WRITER_LOWER_ATTRS</a>|<a class="code" href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a357a355d2fd0998cd78c5aaec6b8abe5">M_XML_WRITER_PRETTYPRINT_SPACE</a>, NULL);</div>
+<div class="line">    <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;out=\n%s\n&quot;</span>, out);</div>
+<div class="line">    <a class="code" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a>(out);</div>
+<div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="line"> </div>
-<div class="line"><a class="code" href="group__m__xml.html#ga04b6ab6bd3f43735767ce8a8efd20f6e">M_xml_create_element_with_text</a>(<span class="stringliteral">&quot;AbCd&quot;</span>, <span class="stringliteral">&quot;blah blah blah&quot;</span>, 0, xml);</div>
-<div class="line"> </div>
-<div class="line">out = <a class="code" href="group__m__xml.html#ga6abdbf8fbfe972082dc929a693b0992a">M_xml_write</a>(xml, <a class="code" href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978aaafca58f8317b990d4a2636d6f9ca626">M_XML_WRITER_LOWER_TAGS</a>|<a class="code" href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a6e422660b9b73b8d906ee9612c7ade8e">M_XML_WRITER_LOWER_ATTRS</a>|<a class="code" href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a357a355d2fd0998cd78c5aaec6b8abe5">M_XML_WRITER_PRETTYPRINT_SPACE</a>, NULL);</div>
-<div class="line"><a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;out=\n%s\n&quot;</span>, out);</div>
-<div class="line"><a class="code" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a>(out);</div>
 <div class="ttc" id="agroup__m__fmt_html_gae54b252ea2bcf34b09ef1fa0f134ffa8"><div class="ttname"><a href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a></div><div class="ttdeci">ssize_t M_printf(const char *fmt,...)</div></div>
 <div class="ttc" id="agroup__m__mem_html_gac4b3c1d73d6efe2542f5e729b58a271d"><div class="ttname"><a href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a></div><div class="ttdeci">void M_free(void *ptr) M_FREE(1)</div></div>
 <div class="ttc" id="agroup__m__str__check_html_gabebfa875d1ada2b43f52b9344b0844d0"><div class="ttname"><a href="group__m__str__check.html#gabebfa875d1ada2b43f52b9344b0844d0">M_str_len</a></div><div class="ttdeci">size_t M_str_len(const char *s) M_WARN_UNUSED_RESULT</div></div>
 <div class="ttc" id="agroup__m__xml_html_ga04b6ab6bd3f43735767ce8a8efd20f6e"><div class="ttname"><a href="group__m__xml.html#ga04b6ab6bd3f43735767ce8a8efd20f6e">M_xml_create_element_with_text</a></div><div class="ttdeci">M_xml_node_t * M_xml_create_element_with_text(const char *name, const char *text, size_t max_len, M_xml_node_t *parent) M_MALLOC</div></div>
 <div class="ttc" id="agroup__m__xml_html_ga3499efb006b61f31263dd0c74a4dfd19"><div class="ttname"><a href="group__m__xml.html#ga3499efb006b61f31263dd0c74a4dfd19">M_xml_read</a></div><div class="ttdeci">M_xml_node_t * M_xml_read(const char *data, size_t data_len, M_uint32 flags, size_t *processed_len, M_xml_error_t *error, size_t *error_line, size_t *error_pos) M_MALLOC</div></div>
 <div class="ttc" id="agroup__m__xml_html_ga6abdbf8fbfe972082dc929a693b0992a"><div class="ttname"><a href="group__m__xml.html#ga6abdbf8fbfe972082dc929a693b0992a">M_xml_write</a></div><div class="ttdeci">char * M_xml_write(const M_xml_node_t *node, M_uint32 flags, size_t *len) M_WARN_UNUSED_RESULT M_MALLOC</div></div>
-<div class="ttc" id="agroup__m__xml_html_gac6ec4dfbdf5090e4d6b20cdc93b360fb"><div class="ttname"><a href="group__m__xml.html#gac6ec4dfbdf5090e4d6b20cdc93b360fb">M_xml_node_t</a></div><div class="ttdeci">struct M_xml_node M_xml_node_t</div><div class="ttdef"><b>Definition:</b> m_xml.h:84</div></div>
-<div class="ttc" id="agroup__m__xml_html_gga2e5e3ca2147d1c90e619734e01e9a978a357a355d2fd0998cd78c5aaec6b8abe5"><div class="ttname"><a href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a357a355d2fd0998cd78c5aaec6b8abe5">M_XML_WRITER_PRETTYPRINT_SPACE</a></div><div class="ttdeci">@ M_XML_WRITER_PRETTYPRINT_SPACE</div><div class="ttdef"><b>Definition:</b> m_xml.h:143</div></div>
-<div class="ttc" id="agroup__m__xml_html_gga2e5e3ca2147d1c90e619734e01e9a978a6e422660b9b73b8d906ee9612c7ade8e"><div class="ttname"><a href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a6e422660b9b73b8d906ee9612c7ade8e">M_XML_WRITER_LOWER_ATTRS</a></div><div class="ttdeci">@ M_XML_WRITER_LOWER_ATTRS</div><div class="ttdef"><b>Definition:</b> m_xml.h:136</div></div>
-<div class="ttc" id="agroup__m__xml_html_gga2e5e3ca2147d1c90e619734e01e9a978aaafca58f8317b990d4a2636d6f9ca626"><div class="ttname"><a href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978aaafca58f8317b990d4a2636d6f9ca626">M_XML_WRITER_LOWER_TAGS</a></div><div class="ttdeci">@ M_XML_WRITER_LOWER_TAGS</div><div class="ttdef"><b>Definition:</b> m_xml.h:135</div></div>
-<div class="ttc" id="agroup__m__xml_html_ggaeb17f61bc386c6d1dc4369c1cce15163abc9e6d308926be7479d8e8abc5ed4207"><div class="ttname"><a href="group__m__xml.html#ggaeb17f61bc386c6d1dc4369c1cce15163abc9e6d308926be7479d8e8abc5ed4207">M_XML_READER_NONE</a></div><div class="ttdeci">@ M_XML_READER_NONE</div><div class="ttdef"><b>Definition:</b> m_xml.h:119</div></div>
+<div class="ttc" id="agroup__m__xml_html_gac6ec4dfbdf5090e4d6b20cdc93b360fb"><div class="ttname"><a href="group__m__xml.html#gac6ec4dfbdf5090e4d6b20cdc93b360fb">M_xml_node_t</a></div><div class="ttdeci">struct M_xml_node M_xml_node_t</div><div class="ttdef"><b>Definition:</b> m_xml.h:91</div></div>
+<div class="ttc" id="agroup__m__xml_html_gga2e5e3ca2147d1c90e619734e01e9a978a357a355d2fd0998cd78c5aaec6b8abe5"><div class="ttname"><a href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a357a355d2fd0998cd78c5aaec6b8abe5">M_XML_WRITER_PRETTYPRINT_SPACE</a></div><div class="ttdeci">@ M_XML_WRITER_PRETTYPRINT_SPACE</div><div class="ttdef"><b>Definition:</b> m_xml.h:150</div></div>
+<div class="ttc" id="agroup__m__xml_html_gga2e5e3ca2147d1c90e619734e01e9a978a6e422660b9b73b8d906ee9612c7ade8e"><div class="ttname"><a href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978a6e422660b9b73b8d906ee9612c7ade8e">M_XML_WRITER_LOWER_ATTRS</a></div><div class="ttdeci">@ M_XML_WRITER_LOWER_ATTRS</div><div class="ttdef"><b>Definition:</b> m_xml.h:143</div></div>
+<div class="ttc" id="agroup__m__xml_html_gga2e5e3ca2147d1c90e619734e01e9a978aaafca58f8317b990d4a2636d6f9ca626"><div class="ttname"><a href="group__m__xml.html#gga2e5e3ca2147d1c90e619734e01e9a978aaafca58f8317b990d4a2636d6f9ca626">M_XML_WRITER_LOWER_TAGS</a></div><div class="ttdeci">@ M_XML_WRITER_LOWER_TAGS</div><div class="ttdef"><b>Definition:</b> m_xml.h:142</div></div>
+<div class="ttc" id="agroup__m__xml_html_ggaeb17f61bc386c6d1dc4369c1cce15163abc9e6d308926be7479d8e8abc5ed4207"><div class="ttname"><a href="group__m__xml.html#ggaeb17f61bc386c6d1dc4369c1cce15163abc9e6d308926be7479d8e8abc5ed4207">M_XML_READER_NONE</a></div><div class="ttdeci">@ M_XML_READER_NONE</div><div class="ttdef"><b>Definition:</b> m_xml.h:126</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Typedef Documentation</h2>
 <a id="gac6ec4dfbdf5090e4d6b20cdc93b360fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gac6ec4dfbdf5090e4d6b20cdc93b360fb">&#9670;&nbsp;</a></span>M_xml_node_t</h2>
@@ -1984,7 +1991,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Apr 11 2022 21:46:00 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 11 2022 21:51:22 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
