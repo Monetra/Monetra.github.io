@@ -23,5 +23,8 @@ var group__m__utf8__check =
     [ "M_utf8_ispunct", "group__m__utf8__check.html#ga57d9a832d7a1eee0ceac0764b1adce64", null ],
     [ "M_utf8_isprint_cp", "group__m__utf8__check.html#ga17ff28a15332644d256de856d25aaaee", null ],
     [ "M_utf8_isprint_chr", "group__m__utf8__check.html#gad4a8f0a968c677a52f38e797855af4e1", null ],
-    [ "M_utf8_isprint", "group__m__utf8__check.html#ga33d2db893bc1c243cf091c7e8d62d61b", null ]
+    [ "M_utf8_isprint", "group__m__utf8__check.html#ga33d2db893bc1c243cf091c7e8d62d61b", null ],
+    [ "M_utf8_isunihan_cp", "group__m__utf8__check.html#ga468485e51752cb13d54d7305728a4cfd", null ],
+    [ "M_utf8_isunihan_chr", "group__m__utf8__check.html#ga1ed8def213922f147329db570d6a27d0", null ],
+    [ "M_utf8_isunihan", "group__m__utf8__check.html#gabbcb796c9946969a8e1bd427bb595b11", null ]
 ];

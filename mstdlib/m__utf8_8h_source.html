@@ -673,9 +673,9 @@ $(document).ready(function(){initNavTree('m__utf8_8h_source.html',''); initResiz
 <div class="line"><a name="l00586"></a><span class="lineno"><a class="line" href="group__m__utf8__check.html#ga57d9a832d7a1eee0ceac0764b1adce64">  586</a></span>&#160;M_API M_bool <a class="code" href="group__m__utf8__check.html#ga57d9a832d7a1eee0ceac0764b1adce64">M_utf8_ispunct</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);</div>
 <div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160; </div>
 <div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="comment">/*! Checks if a utf-8 a printable codepoint.</span></div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="comment">/*! Checks for a printable codepoint.</span></div>
 <div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="comment"> * Defined as tables L, M, N, P, S and ASCII space</span></div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="comment"> * Defined as tables L, M, N, P, S, ASCII space, and UniHan.</span></div>
 <div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="comment"> * \param[in] cp Code point.</span></div>
 <div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="comment"> *</span></div>
@@ -699,21 +699,52 @@ $(document).ready(function(){initNavTree('m__utf8_8h_source.html',''); initResiz
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="comment">/*! Checks if a utf-8 string is printable.</span></div>
 <div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;<span class="comment"> * Defined as tables L, M, N, P, S and ASCII space</span></div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;<span class="comment"> * Defined as tables L, M, N, P, S, ASCII space, and UniHan.</span></div>
 <div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;<span class="comment"> * \param[in] str utf-8 string.</span></div>
 <div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="comment"> * \return M_TRUE if printable. Otherwise M_FALSE.</span></div>
 <div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00621"></a><span class="lineno"><a class="line" href="group__m__utf8__check.html#ga33d2db893bc1c243cf091c7e8d62d61b">  621</a></span>&#160;M_API M_bool <a class="code" href="group__m__utf8__check.html#ga33d2db893bc1c243cf091c7e8d62d61b">M_utf8_isprint</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160; </div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160; </div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_UTF8_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160; </div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="comment">/*! Checks for a unihan codepoint.</span></div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="comment"> * Defined as tables L, M, N, P, S, ASCII space, and UniHan.</span></div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;<span class="comment"> * \param[in] cp Code point.</span></div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;<span class="comment"> * \return M_TRUE if unihan. Otherwise M_FALSE.</span></div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00632"></a><span class="lineno"><a class="line" href="group__m__utf8__check.html#ga468485e51752cb13d54d7305728a4cfd">  632</a></span>&#160;M_API M_bool <a class="code" href="group__m__utf8__check.html#ga468485e51752cb13d54d7305728a4cfd">M_utf8_isunihan_cp</a>(M_uint32 cp);</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160; </div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;<span class="comment">/*! Checks if a utf-8 sequence is unihan.</span></div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;<span class="comment"> * \param[in]  str  utf-8 string.</span></div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;<span class="comment"> * \param[out] next Start of next character. Will point to NULL terminator</span></div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="comment"> *                  if last character.</span></div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="comment"> * \return M_TRUE if unihan. Otherwise M_FALSE.</span></div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00643"></a><span class="lineno"><a class="line" href="group__m__utf8__check.html#ga1ed8def213922f147329db570d6a27d0">  643</a></span>&#160;M_API M_bool <a class="code" href="group__m__utf8__check.html#ga1ed8def213922f147329db570d6a27d0">M_utf8_isunihan_chr</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str, <span class="keyword">const</span> <span class="keywordtype">char</span> **next);</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160; </div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="comment">/*! Checks if a utf-8 string is unihan.</span></div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="comment"> * \param[in] str utf-8 string.</span></div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;<span class="comment"> * \return M_TRUE if unihan. Otherwise M_FALSE.</span></div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00652"></a><span class="lineno"><a class="line" href="group__m__utf8__check.html#gabbcb796c9946969a8e1bd427bb595b11">  652</a></span>&#160;M_API M_bool <a class="code" href="group__m__utf8__check.html#gabbcb796c9946969a8e1bd427bb595b11">M_utf8_isunihan</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *str);</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160; </div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160; </div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_UTF8_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="agroup__m__buf_html_ga6c543ecf0004fc310faa23c6ed8b267f"><div class="ttname"><a href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a></div><div class="ttdeci">struct M_buf M_buf_t</div><div class="ttdef"><b>Definition:</b> m_buf.h:77</div></div>
 <div class="ttc" id="agroup__m__utf8__case_html_ga0c34725bca23b9b5bd6f696ebdb42df6"><div class="ttname"><a href="group__m__utf8__case.html#ga0c34725bca23b9b5bd6f696ebdb42df6">M_utf8_tolower</a></div><div class="ttdeci">M_utf8_error_t M_utf8_tolower(const char *str, char **out)</div></div>
 <div class="ttc" id="agroup__m__utf8__case_html_ga10a0c2ba47ca694d781dca75084d6914"><div class="ttname"><a href="group__m__utf8__case.html#ga10a0c2ba47ca694d781dca75084d6914">M_utf8_tolower_chr</a></div><div class="ttdeci">M_utf8_error_t M_utf8_tolower_chr(const char *str, char *buf, size_t buf_size, size_t *len, const char **next)</div></div>
@@ -726,8 +757,10 @@ $(document).ready(function(){initNavTree('m__utf8_8h_source.html',''); initResiz
 <div class="ttc" id="agroup__m__utf8__case_html_gae13ac5e95c0343f0d0d7a1934b37a816"><div class="ttname"><a href="group__m__utf8__case.html#gae13ac5e95c0343f0d0d7a1934b37a816">M_utf8_tolower_buf</a></div><div class="ttdeci">M_utf8_error_t M_utf8_tolower_buf(const char *str, M_buf_t *buf)</div></div>
 <div class="ttc" id="agroup__m__utf8__case_html_gae8c51b6c4c69253c57095c5d05362755"><div class="ttname"><a href="group__m__utf8__case.html#gae8c51b6c4c69253c57095c5d05362755">M_utf8_toupper_chr</a></div><div class="ttdeci">M_utf8_error_t M_utf8_toupper_chr(const char *str, char *buf, size_t buf_size, size_t *len, const char **next)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_ga17ff28a15332644d256de856d25aaaee"><div class="ttname"><a href="group__m__utf8__check.html#ga17ff28a15332644d256de856d25aaaee">M_utf8_isprint_cp</a></div><div class="ttdeci">M_bool M_utf8_isprint_cp(M_uint32 cp)</div></div>
+<div class="ttc" id="agroup__m__utf8__check_html_ga1ed8def213922f147329db570d6a27d0"><div class="ttname"><a href="group__m__utf8__check.html#ga1ed8def213922f147329db570d6a27d0">M_utf8_isunihan_chr</a></div><div class="ttdeci">M_bool M_utf8_isunihan_chr(const char *str, const char **next)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_ga33d2db893bc1c243cf091c7e8d62d61b"><div class="ttname"><a href="group__m__utf8__check.html#ga33d2db893bc1c243cf091c7e8d62d61b">M_utf8_isprint</a></div><div class="ttdeci">M_bool M_utf8_isprint(const char *str)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_ga45010c5e14fc60ec149f63457ece7e61"><div class="ttname"><a href="group__m__utf8__check.html#ga45010c5e14fc60ec149f63457ece7e61">M_utf8_isalpha_cp</a></div><div class="ttdeci">M_bool M_utf8_isalpha_cp(M_uint32 cp)</div></div>
+<div class="ttc" id="agroup__m__utf8__check_html_ga468485e51752cb13d54d7305728a4cfd"><div class="ttname"><a href="group__m__utf8__check.html#ga468485e51752cb13d54d7305728a4cfd">M_utf8_isunihan_cp</a></div><div class="ttdeci">M_bool M_utf8_isunihan_cp(M_uint32 cp)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_ga51a7c59c7a06f487c85c28393149464f"><div class="ttname"><a href="group__m__utf8__check.html#ga51a7c59c7a06f487c85c28393149464f">M_utf8_islower</a></div><div class="ttdeci">M_bool M_utf8_islower(const char *str)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_ga54f283431ad196f538d9ee80f5fb44f2"><div class="ttname"><a href="group__m__utf8__check.html#ga54f283431ad196f538d9ee80f5fb44f2">M_utf8_isupper</a></div><div class="ttdeci">M_bool M_utf8_isupper(const char *str)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_ga57d9a832d7a1eee0ceac0764b1adce64"><div class="ttname"><a href="group__m__utf8__check.html#ga57d9a832d7a1eee0ceac0764b1adce64">M_utf8_ispunct</a></div><div class="ttdeci">M_bool M_utf8_ispunct(const char *str)</div></div>
@@ -738,6 +771,7 @@ $(document).ready(function(){initNavTree('m__utf8_8h_source.html',''); initResiz
 <div class="ttc" id="agroup__m__utf8__check_html_ga97ae2e63f2adf8b210417895aafb9154"><div class="ttname"><a href="group__m__utf8__check.html#ga97ae2e63f2adf8b210417895aafb9154">M_utf8_isnum_chr</a></div><div class="ttdeci">M_bool M_utf8_isnum_chr(const char *str, const char **next)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_ga9fb05b3a82d40682b86f9ea7dc2c19e9"><div class="ttname"><a href="group__m__utf8__check.html#ga9fb05b3a82d40682b86f9ea7dc2c19e9">M_utf8_isupper_chr</a></div><div class="ttdeci">M_bool M_utf8_isupper_chr(const char *str, const char **next)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_gaa08c9ed694036b4a5a817d6749f997a4"><div class="ttname"><a href="group__m__utf8__check.html#gaa08c9ed694036b4a5a817d6749f997a4">M_utf8_isupper_cp</a></div><div class="ttdeci">M_bool M_utf8_isupper_cp(M_uint32 cp)</div></div>
+<div class="ttc" id="agroup__m__utf8__check_html_gabbcb796c9946969a8e1bd427bb595b11"><div class="ttname"><a href="group__m__utf8__check.html#gabbcb796c9946969a8e1bd427bb595b11">M_utf8_isunihan</a></div><div class="ttdeci">M_bool M_utf8_isunihan(const char *str)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_gac504a51e2e7ce8b523c8d3e2975b8d17"><div class="ttname"><a href="group__m__utf8__check.html#gac504a51e2e7ce8b523c8d3e2975b8d17">M_utf8_isnum_cp</a></div><div class="ttdeci">M_bool M_utf8_isnum_cp(M_uint32 cp)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_gac84c63f3e1d1cbbc341516f877cfb6aa"><div class="ttname"><a href="group__m__utf8__check.html#gac84c63f3e1d1cbbc341516f877cfb6aa">M_utf8_islower_chr</a></div><div class="ttdeci">M_bool M_utf8_islower_chr(const char *str, const char **next)</div></div>
 <div class="ttc" id="agroup__m__utf8__check_html_gad3e16182299673ac15d20362cf605902"><div class="ttname"><a href="group__m__utf8__check.html#gad3e16182299673ac15d20362cf605902">M_utf8_iscntrl_cp</a></div><div class="ttdeci">M_bool M_utf8_iscntrl_cp(M_uint32 cp)</div></div>
@@ -774,7 +808,7 @@ $(document).ready(function(){initNavTree('m__utf8_8h_source.html',''); initResiz
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_00070d739ffbaafdff8b3f90dd540ebc.html">base</a></li><li class="navelem"><b>m_utf8.h</b></li>
-    <li class="footer">Generated on Mon Apr 11 2022 19:50:15 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 11 2022 21:45:19 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

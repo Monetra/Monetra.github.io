@@ -138,6 +138,12 @@ Functions</h2></td></tr>
 <tr class="separator:gad4a8f0a968c677a52f38e797855af4e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga33d2db893bc1c243cf091c7e8d62d61b"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__check.html#ga33d2db893bc1c243cf091c7e8d62d61b">M_utf8_isprint</a> (const char *str)</td></tr>
 <tr class="separator:ga33d2db893bc1c243cf091c7e8d62d61b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga468485e51752cb13d54d7305728a4cfd"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__check.html#ga468485e51752cb13d54d7305728a4cfd">M_utf8_isunihan_cp</a> (M_uint32 cp)</td></tr>
+<tr class="separator:ga468485e51752cb13d54d7305728a4cfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1ed8def213922f147329db570d6a27d0"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__check.html#ga1ed8def213922f147329db570d6a27d0">M_utf8_isunihan_chr</a> (const char *str, const char **next)</td></tr>
+<tr class="separator:ga1ed8def213922f147329db570d6a27d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabbcb796c9946969a8e1bd427bb595b11"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__check.html#gabbcb796c9946969a8e1bd427bb595b11">M_utf8_isunihan</a> (const char *str)</td></tr>
+<tr class="separator:gabbcb796c9946969a8e1bd427bb595b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>UTF-8 Checking and Validation</p>
@@ -788,8 +794,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Checks if a utf-8 a printable codepoint.</p>
-<p>Defined as tables L, M, N, P, S and ASCII space</p>
+<p>Checks for a printable codepoint.</p>
+<p>Defined as tables L, M, N, P, S, ASCII space, and UniHan.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">cp</td><td>Code point.</td></tr>
@@ -854,7 +860,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Checks if a utf-8 string is printable.</p>
-<p>Defined as tables L, M, N, P, S and ASCII space</p>
+<p>Defined as tables L, M, N, P, S, ASCII space, and UniHan.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>utf-8 string.</td></tr>
@@ -865,12 +871,102 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga468485e51752cb13d54d7305728a4cfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga468485e51752cb13d54d7305728a4cfd">&#9670;&nbsp;</a></span>M_utf8_isunihan_cp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_utf8_isunihan_cp </td>
+          <td>(</td>
+          <td class="paramtype">M_uint32&#160;</td>
+          <td class="paramname"><em>cp</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks for a unihan codepoint.</p>
+<p>Defined as tables L, M, N, P, S, ASCII space, and UniHan.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cp</td><td>Code point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE if unihan. Otherwise M_FALSE. </dd></dl>
+
+</div>
+</div>
+<a id="ga1ed8def213922f147329db570d6a27d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1ed8def213922f147329db570d6a27d0">&#9670;&nbsp;</a></span>M_utf8_isunihan_chr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_utf8_isunihan_chr </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>next</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks if a utf-8 sequence is unihan.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>utf-8 string. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">next</td><td>Start of next character. Will point to NULL terminator if last character.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE if unihan. Otherwise M_FALSE. </dd></dl>
+
+</div>
+</div>
+<a id="gabbcb796c9946969a8e1bd427bb595b11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gabbcb796c9946969a8e1bd427bb595b11">&#9670;&nbsp;</a></span>M_utf8_isunihan()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_utf8_isunihan </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Checks if a utf-8 string is unihan.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>utf-8 string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE if unihan. Otherwise M_FALSE. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Apr 11 2022 19:50:21 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 11 2022 21:45:26 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
