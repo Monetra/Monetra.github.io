@@ -20,5 +20,8 @@ var group__m__utf8__check =
     [ "M_utf8_iscntrl", "group__m__utf8__check.html#gaee1d2591567ca30413fa9d7c30924298", null ],
     [ "M_utf8_ispunct_cp", "group__m__utf8__check.html#gae85a5f5b06364daa1d33417caff280d4", null ],
     [ "M_utf8_ispunct_chr", "group__m__utf8__check.html#ga79ce74d47bcf99aaec7fe97885f3c71f", null ],
-    [ "M_utf8_ispunct", "group__m__utf8__check.html#ga57d9a832d7a1eee0ceac0764b1adce64", null ]
+    [ "M_utf8_ispunct", "group__m__utf8__check.html#ga57d9a832d7a1eee0ceac0764b1adce64", null ],
+    [ "M_utf8_isprint_cp", "group__m__utf8__check.html#ga17ff28a15332644d256de856d25aaaee", null ],
+    [ "M_utf8_isprint_chr", "group__m__utf8__check.html#gad4a8f0a968c677a52f38e797855af4e1", null ],
+    [ "M_utf8_isprint", "group__m__utf8__check.html#ga33d2db893bc1c243cf091c7e8d62d61b", null ]
 ];
