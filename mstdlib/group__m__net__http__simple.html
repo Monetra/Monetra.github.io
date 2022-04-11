@@ -145,7 +145,7 @@ Functions</h2></td></tr>
 <div class="line">    <span class="keywordtype">size_t</span>               len;</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">if</span> (net_error != <a class="code" href="group__m__net__common.html#ggaa3294221a2148caa4239f649dd7962dfa5168d726e175f2aaa681774cd9365b01">M_NET_ERROR_SUCCESS</a>) {</div>
-<div class="line">        <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;Ner Error: %s: %s\n&quot;</span>, <a class="code" href="group__m__net__common.html#gab235bdf1e3f78678f2548d001473bb7b">M_net_errcode_to_str</a>(net_error), error);</div>
+<div class="line">        <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;Net Error: %s: %s\n&quot;</span>, <a class="code" href="group__m__net__common.html#gab235bdf1e3f78678f2548d001473bb7b">M_net_errcode_to_str</a>(net_error), error);</div>
 <div class="line">        <a class="code" href="group__m__event.html#ga91277642f8c76eb816003d2cea649897">M_event_done</a>(el);</div>
 <div class="line">        <span class="keywordflow">return</span>;</div>
 <div class="line">    }</div>
@@ -225,7 +225,7 @@ Functions</h2></td></tr>
 <div class="line">    <a class="code" href="group__m__tls__funcs.html#ga926973c7a274988ccc7c65ca90cb8d6d">M_tls_clientctx_t</a>   *ctx;</div>
 <div class="line"> </div>
 <div class="line">    el  = <a class="code" href="group__m__event.html#gae169dca80125767d87fe196f32ea8d74">M_event_create</a>(<a class="code" href="group__m__event.html#gga72bc04891ff7b6142b7672a207ae74b1ac7efcb61cf28fa27d4a0a3daf68aaecf">M_EVENT_FLAG_NONE</a>);</div>
-<div class="line">    dns = <a class="code" href="group__m__dns.html#ga5175216540121322108fc571d5206ca7">M_dns_create</a>();</div>
+<div class="line">    dns = <a class="code" href="group__m__dns.html#ga5175216540121322108fc571d5206ca7">M_dns_create</a>(el);</div>
 <div class="line"> </div>
 <div class="line">    ctx = <a class="code" href="group__m__tls__funcs.html#ga466b388617ba458ea935448b1fc94276">M_tls_clientctx_create</a>();</div>
 <div class="line">    <a class="code" href="group__m__tls__funcs.html#ga08e14903c8aba305505e8eed3dbcb913">M_tls_clientctx_set_default_trust</a>(ctx);</div>
@@ -774,7 +774,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Apr 11 2022 21:45:32 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 11 2022 21:46:04 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
