@@ -287,6 +287,8 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">QUOTED_PRINTABLE   </td><td class="markdownTableBodyNone">puoted-printable   </td><td class="markdownTableBodyNone">qp   </td></tr>
 </table>
+<p>If validating UTF-8 strings, use <a class="el" href="group__m__utf8.html#ga55ceb25389e82f13613fc2f70a863972">M_utf8_is_valid()</a>.</p>
+<p>UTF-8 to UTF-8 conversion for decode and encode is supported and intended to be used with the replace error handler. Specifically when dealing with UTF-8 strings that are known to be or could be invalid and need to be "sanitized" for continued use. The difference between encode and decode with UTF-8 to UTF-8 is the replacement character. </p>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="gabce257a204b55a46ad9835114b8673df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gabce257a204b55a46ad9835114b8673df">&#9670;&nbsp;</a></span>M_textcodec_ehandler_t</h2>
@@ -817,7 +819,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sun Apr 10 2022 17:03:19 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 11 2022 15:04:07 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
