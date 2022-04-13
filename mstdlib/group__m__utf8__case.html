@@ -110,16 +110,20 @@ Functions</h2></td></tr>
 <tr class="separator:ga0c34725bca23b9b5bd6f696ebdb42df6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae13ac5e95c0343f0d0d7a1934b37a816"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__case.html#gae13ac5e95c0343f0d0d7a1934b37a816">M_utf8_tolower_buf</a> (const char *str, <a class="el" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *buf)</td></tr>
 <tr class="separator:gae13ac5e95c0343f0d0d7a1934b37a816"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga3113dcc5453aea194b6b811c206096d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__case.html#ga3113dcc5453aea194b6b811c206096d8">M_utf8_totitle_cp</a> (M_uint32 cp, M_uint32 *title_cp)</td></tr>
+<tr class="separator:ga3113dcc5453aea194b6b811c206096d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a70705ec4bcc8c1e9de9805de62371e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__case.html#ga8a70705ec4bcc8c1e9de9805de62371e">M_utf8_totitle_chr</a> (const char *str, char *buf, size_t buf_size, size_t *len, const char **next)</td></tr>
+<tr class="separator:ga8a70705ec4bcc8c1e9de9805de62371e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab8fd77683d34c4c6ffc4ee3d04a45744"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__case.html#gab8fd77683d34c4c6ffc4ee3d04a45744">M_utf8_totitle_chr_buf</a> (const char *str, <a class="el" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *buf, const char **next)</td></tr>
+<tr class="separator:gab8fd77683d34c4c6ffc4ee3d04a45744"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga145e49a721606ca1646659a0c4db20bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__case.html#ga145e49a721606ca1646659a0c4db20bb">M_utf8_totitle</a> (const char *str, char **out)</td></tr>
+<tr class="separator:ga145e49a721606ca1646659a0c4db20bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac7b188206563368b39c62291a7c5bbf1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__utf8__case.html#gac7b188206563368b39c62291a7c5bbf1">M_utf8_totitle_buf</a> (const char *str, <a class="el" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *buf)</td></tr>
+<tr class="separator:gac7b188206563368b39c62291a7c5bbf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>One-to-one case mappings.</p>
-<p>This is intended for programmatic comparison only. It is not intended for display. Locale specific handling is not supported.</p>
-<p>Does not account for:</p><ul>
-<li>One to many mapping</li>
-<li>Many to many mapping</li>
-<li>Equivalents. Such as, the German Eszett and ss</li>
-</ul>
-<p>One to many mappings use the lowest code point that matches. For example, 0x004B (capital K) maps to 0x006B (lower k). 0x212A (kelvin sign) also maps to 0x006B. The lowest code points are 0x0048 and 0x006B so those are used for the one to one case fold.</p>
+<p>The case folding as defined by the official UTF-8 mapping is utalized. UTF-8 does not have a one to one mapping for case folding. Multiple codes can fold to the same code point. Coversion to upper, then to lower, then back to upper can result in a different upper case string than the original input.</p>
+<p>For example, 0x004B (capital K) maps to 0x006B (lower k). 0x212A (kelvin sign) also maps to 0x006B. 0x006B maps to 0x004B. So converting 0x212A to lower then back to upper will output 0x004B.</p>
 <dl class="section note"><dt>Note</dt><dd>Not all characters have a case equivalent. These characters will return themselves when folded. </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="ga547c0f75614dc29ca9729b0429e2cb5b"></a>
@@ -550,12 +554,226 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga3113dcc5453aea194b6b811c206096d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga3113dcc5453aea194b6b811c206096d8">&#9670;&nbsp;</a></span>M_utf8_totitle_cp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a> M_utf8_totitle_cp </td>
+          <td>(</td>
+          <td class="paramtype">M_uint32&#160;</td>
+          <td class="paramname"><em>cp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">M_uint32 *&#160;</td>
+          <td class="paramname"><em>title_cp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Convert a code point to the equivalent title case code point.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cp</td><td>Code point to convert. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">title_cp</td><td>Equivalent title case code point. Or cp if there is no equivalent.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result. </dd></dl>
+
+</div>
+</div>
+<a id="ga8a70705ec4bcc8c1e9de9805de62371e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a70705ec4bcc8c1e9de9805de62371e">&#9670;&nbsp;</a></span>M_utf8_totitle_chr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a> M_utf8_totitle_chr </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>buf_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t *&#160;</td>
+          <td class="paramname"><em>len</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>next</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read a utf-8 sequence converting to title case.</p>
+<p>Output is <em>not</em> NULL terminated.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>utf-8 string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Buffer to put utf-8 sequence. Can be NULL. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buf_size</td><td>Size of the buffer. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">len</td><td>Length of the sequence that was put into buffer. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">next</td><td>Start of next character. Will point to NULL terminator if last character.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result. </dd></dl>
+
+</div>
+</div>
+<a id="gab8fd77683d34c4c6ffc4ee3d04a45744"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab8fd77683d34c4c6ffc4ee3d04a45744">&#9670;&nbsp;</a></span>M_utf8_totitle_chr_buf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a> M_utf8_totitle_chr_buf </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>next</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read a utf-8 sequence into an M_buf_t converting to title case.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>utf-8 string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Buffer to put title case utf-8 sequence. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">next</td><td>Start of next character. Will point to NULL terminator if last character.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result. </dd></dl>
+
+</div>
+</div>
+<a id="ga145e49a721606ca1646659a0c4db20bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga145e49a721606ca1646659a0c4db20bb">&#9670;&nbsp;</a></span>M_utf8_totitle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a> M_utf8_totitle </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Convert a utf-8 string to an title case equivalent string.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>utf-8 string. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out</td><td>Lower case utf-8 string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result. </dd></dl>
+
+</div>
+</div>
+<a id="gac7b188206563368b39c62291a7c5bbf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac7b188206563368b39c62291a7c5bbf1">&#9670;&nbsp;</a></span>M_utf8_totitle_buf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__m__utf8.html#ga28785f3b98f542c6f04fed54b7e341ed">M_utf8_error_t</a> M_utf8_totitle_buf </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *&#160;</td>
+          <td class="paramname"><em>buf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Read a utf-8 string into an M_buf_t converting to title case.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str</td><td>utf-8 string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buf</td><td>Buffer to put title case utf-8 string.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Result. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Apr 12 2022 19:35:00 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Apr 13 2022 13:11:33 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
