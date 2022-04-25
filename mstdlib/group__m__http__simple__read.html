@@ -149,6 +149,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga9fef00388f36d1ed4b5c62551661d1ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae2371cc5bbf6c2dbf8423bcea933ee9e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__http__simple__read.html#gae2371cc5bbf6c2dbf8423bcea933ee9e">M_http_simple_read_get_set_cookie</a> (const <a class="el" href="group__m__http__simple__read.html#ga8bac178e94ce5b0230b6321a27282442">M_http_simple_read_t</a> *simple)</td></tr>
 <tr class="separator:gae2371cc5bbf6c2dbf8423bcea933ee9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7912fff7b8f6c82315730160f1d43467"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__http__simple__read.html#ga7912fff7b8f6c82315730160f1d43467">M_http_simple_read_is_body_form_data</a> (const <a class="el" href="group__m__http__simple__read.html#ga8bac178e94ce5b0230b6321a27282442">M_http_simple_read_t</a> *simple)</td></tr>
+<tr class="separator:ga7912fff7b8f6c82315730160f1d43467"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga757f218d628a72b7cff87ae04f3e0014"><td class="memItemLeft" align="right" valign="top">const unsigned char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__http__simple__read.html#ga757f218d628a72b7cff87ae04f3e0014">M_http_simple_read_body</a> (const <a class="el" href="group__m__http__simple__read.html#ga8bac178e94ce5b0230b6321a27282442">M_http_simple_read_t</a> *simple, size_t *len)</td></tr>
 <tr class="separator:ga757f218d628a72b7cff87ae04f3e0014"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac67e7a86673567d7417fa213dd319e6a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__m__hash__dict.html#ga01ab9873e5c24644b27b099a032bea00">M_hash_dict_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__http__simple__read.html#gac67e7a86673567d7417fa213dd319e6a">M_http_simple_read_body_form_data</a> (const <a class="el" href="group__m__http__simple__read.html#ga8bac178e94ce5b0230b6321a27282442">M_http_simple_read_t</a> *simple)</td></tr>
@@ -161,7 +163,12 @@ Functions</h2></td></tr>
 <tr class="separator:gabbcab2e7de4c88b8439feedc0d5b4577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Reads a full HTTP message. Useful for small messages. Alls all data is contained within on object for easy processing. </p>
+<p>Reads a full HTTP message. Useful for small messages. All data is contained within on object for easy processing.</p>
+<p>Will attempt to decode body data based on the detected charset unless M_HTTP_SIMPLE_READ_NODECODE_BODY is set.</p>
+<p>Use <a class="el" href="group__m__http__simple__read.html#ga7912fff7b8f6c82315730160f1d43467">M_http_simple_read_is_body_form_data()</a> to determine which accessors to use. M_http_simple_read_codec will dictated the current encoding of the body data. If form encoded this is the encoding of the key value pairs not the raw body data. If not form data this is the encoding of the body data. M_http_simple_read_is_body will always return body data. If from encoded the data will still be form encoded.</p>
+<p>Codec will be set to the codec of the body data. Unless form encoded, in which case it is the codec for the key value pairs from <a class="el" href="group__m__http__simple__read.html#ga7912fff7b8f6c82315730160f1d43467">M_http_simple_read_is_body_form_data()</a>.</p>
+<p>If the encoding could not be detected or is not supported the codec will be unknown. Use <a class="el" href="group__m__http__simple__read.html#gabbcab2e7de4c88b8439feedc0d5b4577">M_http_simple_read_charset()</a> to determine the charset of the data.</p>
+<p>Charset and codec will only be read from the Content-Type header. Content type and encoding set in an HTML tag is not supported. </p>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ga8bac178e94ce5b0230b6321a27282442"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga8bac178e94ce5b0230b6321a27282442">&#9670;&nbsp;</a></span>M_http_simple_read_t</h2>
@@ -191,7 +198,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggad2b7dd9942cccd2e30b5260b60642f4eaa3ed825aba9d53f96692101e83be9c56"></a>M_HTTP_SIMPLE_READ_NONE&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggad2b7dd9942cccd2e30b5260b60642f4ead3c7ab5474089d9620b6431160de363c"></a>M_HTTP_SIMPLE_READ_NODECODE_BODY&#160;</td><td class="fielddoc"><p>Do not attempt to decode the body data (form detected charset). </p>
+<tr><td class="fieldname"><a id="ggad2b7dd9942cccd2e30b5260b60642f4ead3c7ab5474089d9620b6431160de363c"></a>M_HTTP_SIMPLE_READ_NODECODE_BODY&#160;</td><td class="fielddoc"><p>Do not attempt to decode the body data (from detected charset). </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggad2b7dd9942cccd2e30b5260b60642f4ea7ab08415875470b6e0a2d39b47ad365c"></a>M_HTTP_SIMPLE_READ_LEN_REQUIRED&#160;</td><td class="fielddoc"><p>Require content-length, cannot be chunked data. </p>
 </td></tr>
@@ -818,6 +825,32 @@ The returned dictionary does not include "Set-Cookie" headers, because they can 
 
 </div>
 </div>
+<a id="ga7912fff7b8f6c82315730160f1d43467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7912fff7b8f6c82315730160f1d43467">&#9670;&nbsp;</a></span>M_http_simple_read_is_body_form_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_http_simple_read_is_body_form_data </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__m__http__simple__read.html#ga8bac178e94ce5b0230b6321a27282442">M_http_simple_read_t</a> *&#160;</td>
+          <td class="paramname"><em>simple</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Whether the decoded body data is form encoded and can be accessed using <a class="el" href="group__m__http__simple__read.html#gac67e7a86673567d7417fa213dd319e6a">M_http_simple_read_body_form_data()</a>. If the text codec is set, the codec represents the codec of the form data key value pairs. While <a class="el" href="group__m__http__simple__read.html#ga757f218d628a72b7cff87ae04f3e0014">M_http_simple_read_body()</a> will still be encoded as form data.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">simple</td><td>Parsed HTTP message.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Bytes from body of message. </dd></dl>
+
+</div>
+</div>
 <a id="ga757f218d628a72b7cff87ae04f3e0014"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga757f218d628a72b7cff87ae04f3e0014">&#9670;&nbsp;</a></span>M_http_simple_read_body()</h2>
 
@@ -844,7 +877,8 @@ The returned dictionary does not include "Set-Cookie" headers, because they can 
       </table>
 </div><div class="memdoc">
 <p>Return the body of the parsed message (if any).</p>
-<p>If the body is application/x-www-form-urlencoded this will return the raw body and it will not be decoded. Even if decoding the body content is enabled. The decoded data can be accessed as a dict of key value pairs.</p>
+<p>If the body is application/x-www-form-urlencoded this will return the raw form data encoded body. Form data decodes to key value pairs so accessing the data will need to be used through <a class="el" href="group__m__http__simple__read.html#gac67e7a86673567d7417fa213dd319e6a">M_http_simple_read_body_form_data()</a>.</p>
+<p>When not form encoded. The body data will be in be represented by the codec from <a class="el" href="group__m__http__simple__read.html#ga531c6c2295e3ee1a79e07936c251b62c">M_http_simple_read_codec()</a>.</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="group__m__http__simple__read.html#gac67e7a86673567d7417fa213dd319e6a">M_http_simple_read_body_form_data()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -872,8 +906,8 @@ The returned dictionary does not include "Set-Cookie" headers, because they can 
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Return the body of the parsed message (if any).</p>
-<p>This will only be filled when the content-type is application/x-www-form-urlencoded and there is key value pair body data.</p>
+<p>Return the body of the parsed message (if any) if it was form data encoded.</p>
+<p>This will only be filled when the content-type is application/x-www-form-urlencoded and there is key value pair body data. The data within the key value pairs will have be represented by the codec from <a class="el" href="group__m__http__simple__read.html#ga531c6c2295e3ee1a79e07936c251b62c">M_http_simple_read_codec()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">simple</td><td>Parsed HTTP message.</td></tr>
@@ -900,7 +934,8 @@ The returned dictionary does not include "Set-Cookie" headers, because they can 
       </table>
 </div><div class="memdoc">
 <p>Get the content type.</p>
-<p>May be empty if the content type was not set. Or if it was application/x-www-form-urlencoded and the body was auto decoded. It's not known what the content type when this encoding is used.</p>
+<p>May be empty if the content type was not set. Or if it was application/x-www-form-urlencoded and the body was auto decoded.</p>
+<p>application/x-www-form-urlencoded does not allows allow the encoding to be known. Preventing auto deciding from taking place. Leaving this as application/x-www-form-urlencoded and the codec as unknown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">simple</td><td>Parsed HTTP message.</td></tr>
@@ -927,7 +962,8 @@ The returned dictionary does not include "Set-Cookie" headers, because they can 
       </table>
 </div><div class="memdoc">
 <p>Get the codec of the data.</p>
-<p>Codec is detected by charset. May be unkown if charset was not present or if the charset is not supported by mstdlib's text encoding functionality. If body decoding takes place and the data can be decoded this will be utf-8.</p>
+<p>Codec is detected by charset from the Content-Type header. May be unknown if charset was not present or if the charset is not supported by mstdlib's text encoding functionality.</p>
+<p>If body decoding takes place and the data will have been be decoded to utf-8. The codec will have been updated to utf-8 and the content length will have been updated to match the new body length.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">simple</td><td>Parsed HTTP message.</td></tr>
@@ -955,7 +991,7 @@ The returned dictionary does not include "Set-Cookie" headers, because they can 
       </table>
 </div><div class="memdoc">
 <p>Get the text charset of the data.</p>
-<p>May be empty if charset was not present. If the data encoded codec is unknown this can be used to determine if it was not present or if the encoding is a type not supported by mstdlib's text codec. If not suppored it is up to the caller to handle decoding.</p>
+<p>The charater set as defined in the Content-Type header. This should correspond to codec returned by M_http_simple_read_codec. However, if codec is unknown due to not being supported by mstdlib's text codec, this is the charset used by the data. Body decoding will not take place if codec is unknown. It is up to the application to determine how to decoded the body data in this situation.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">simple</td><td>Parsed HTTP message.</td></tr>
@@ -972,7 +1008,7 @@ The returned dictionary does not include "Set-Cookie" headers, because they can 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Apr 20 2022 14:04:49 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Apr 25 2022 12:47:55 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
