@@ -23,7 +23,8 @@ var group__m__sql__tabledata =
       [ "M_SQL_TABLEDATA_FLAG_ID", "group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402ba62dbee2c67a800ff17da9cae1156baf6", null ],
       [ "M_SQL_TABLEDATA_FLAG_ID_GENERATE", "group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402ba6613bee13f27ce28b725c99c45b8be87", null ],
       [ "M_SQL_TABLEDATA_FLAG_ID_REQUIRED", "group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402ba7db87b3fe1535c5d998943b31455c65b", null ],
-      [ "M_SQL_TABLEDATA_FLAG_TIMESTAMP", "group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402baa0c4829f4e17e50356e60a8563e3203f", null ]
+      [ "M_SQL_TABLEDATA_FLAG_TIMESTAMP", "group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402baa0c4829f4e17e50356e60a8563e3203f", null ],
+      [ "M_SQL_TABLEDATA_FLAG_ALLOW_NONPRINT_SEP", "group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402bac8f6154635fcd10f848f4bf384a95ce6", null ]
     ] ],
     [ "M_sql_tabledata_txn_field_select_t", "group__m__sql__tabledata.html#ga53379aeabd1417bacae05f195c3fe67e", [
       [ "M_SQL_TABLEDATA_TXN_FIELD_MERGED", "group__m__sql__tabledata.html#gga53379aeabd1417bacae05f195c3fe67ea2c576cbf94b1acbc7bd287f9ee7b9d12", null ],

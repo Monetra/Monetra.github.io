@@ -129,6 +129,8 @@ Enumerations</h2></td></tr>
 &#160;&#160;<a class="el" href="group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402ba7db87b3fe1535c5d998943b31455c65b">M_SQL_TABLEDATA_FLAG_ID_REQUIRED</a> = 1 &lt;&lt; 5
 , <br />
 &#160;&#160;<a class="el" href="group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402baa0c4829f4e17e50356e60a8563e3203f">M_SQL_TABLEDATA_FLAG_TIMESTAMP</a> = 1 &lt;&lt; 6
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__tabledata.html#ggaf5e35f940fabf4f7dbe7330b2e59402bac8f6154635fcd10f848f4bf384a95ce6">M_SQL_TABLEDATA_FLAG_ALLOW_NONPRINT_SEP</a> = 1 &lt;&lt; 7
 <br />
  }</td></tr>
 <tr class="separator:gaf5e35f940fabf4f7dbe7330b2e59402b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -471,6 +473,8 @@ validate_cb</td>
 <tr><td class="fieldname"><a id="ggaf5e35f940fabf4f7dbe7330b2e59402ba7db87b3fe1535c5d998943b31455c65b"></a>M_SQL_TABLEDATA_FLAG_ID_REQUIRED&#160;</td><td class="fielddoc"><p>On edits, this ID must be specified. On some DBs, you may not have any required IDs as there may be multiple lookup indexes </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggaf5e35f940fabf4f7dbe7330b2e59402baa0c4829f4e17e50356e60a8563e3203f"></a>M_SQL_TABLEDATA_FLAG_TIMESTAMP&#160;</td><td class="fielddoc"><p>Field is an auto-generated unix timestamp. Must be INT64. Cannot be specified with ID. Field fetcher will never be called. If M_SQL_TABLEDATA_FLAG_EDITABLE is specified, will update on edit </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggaf5e35f940fabf4f7dbe7330b2e59402bac8f6154635fcd10f848f4bf384a95ce6"></a>M_SQL_TABLEDATA_FLAG_ALLOW_NONPRINT_SEP&#160;</td><td class="fielddoc"><p>Allow non-printable characters designated as separators (e.g. 0x1C, 0x1D, 0x1E) </p>
 </td></tr>
 </table>
 
@@ -2409,7 +2413,7 @@ validate_cb</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon May 16 2022 23:52:11 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 18 2022 19:25:29 for Mstdlib-1.18.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
