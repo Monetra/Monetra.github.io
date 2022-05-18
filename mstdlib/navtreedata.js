@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Mstdlib-1.18.0", "index.html", [
+  [ "Mstdlib-1.19.0", "index.html", [
     [ "About", "index.html", [
       [ "Rationale/Use", "index.html#autotoc_md0", null ],
       [ "Goals", "index.html#autotoc_md1", [
