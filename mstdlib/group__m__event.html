@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mstdlib-1.19.0: Event Subsystem</title>
+<title>Mstdlib-1.20.0: Event Subsystem</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Mstdlib-1.19.0
+   <div id="projectname">Mstdlib-1.20.0
    </div>
   </td>
  </tr>
@@ -137,7 +137,7 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="group__m__event.html#gga72bc04891ff7b6142b7672a207ae74b1aec67bef19d068700f0372808c69a5490">M_EVENT_FLAG_EXITONEMPTY_NOTIMERS</a> = 1 &lt;&lt; 2
 , <br />
-&#160;&#160;<a class="el" href="group__m__event.html#gga72bc04891ff7b6142b7672a207ae74b1ae700043b0e68bf5d44c08076c4bb6a08">M_EVENT_FLAG_SCALABLE_ONLY</a> = 1 &lt;&lt; 3
+&#160;&#160;<a class="el" href="group__m__event.html#gga72bc04891ff7b6142b7672a207ae74b1a971c9e90d7705130a8a2135ffcadb7cd">M_EVENT_FLAG_NON_SCALABLE</a> = 1 &lt;&lt; 3
 <br />
  }</td></tr>
 <tr class="separator:ga72bc04891ff7b6142b7672a207ae74b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -594,7 +594,7 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="gga72bc04891ff7b6142b7672a207ae74b1aec67bef19d068700f0372808c69a5490"></a>M_EVENT_FLAG_EXITONEMPTY_NOTIMERS&#160;</td><td class="fielddoc"><p>When combined with M_EVENT_FLAG_EXITONEMPTY, will ignore timers </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga72bc04891ff7b6142b7672a207ae74b1ae700043b0e68bf5d44c08076c4bb6a08"></a>M_EVENT_FLAG_SCALABLE_ONLY&#160;</td><td class="fielddoc"><p>Only utilize the 'scalable/large' event subsystem instead of dynamically switching at a certain load. Useful mostly for test cases, in general this should not be used. </p>
+<tr><td class="fieldname"><a id="gga72bc04891ff7b6142b7672a207ae74b1a971c9e90d7705130a8a2135ffcadb7cd"></a>M_EVENT_FLAG_NON_SCALABLE&#160;</td><td class="fielddoc"><p>Utilize the 'non-scalable/small' event subsystem, generally implemented using poll() instead of the more scalable solution using kqueue() or epoll(). The main reason one might want to use this is if a large number of event loops are being created such as when using the blocking APIs, using the scalable solution generally consumes additional file descriptors which may not be desirable. Not all systems have different subsystems, in which case this flag will be ignored. </p>
 </td></tr>
 </table>
 
@@ -1959,7 +1959,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jun 21 2022 15:09:23 for Mstdlib-1.19.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jun 23 2022 21:26:16 for Mstdlib-1.20.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
