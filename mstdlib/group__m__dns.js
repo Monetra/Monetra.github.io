@@ -13,6 +13,7 @@ var group__m__dns =
     [ "M_dns_result", "group__m__dns.html#gafbd6525307b497ac18e911bd0f966e2e", [
       [ "M_DNS_RESULT_SUCCESS", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2eaff0e56d2bfe22a0baf8eca49eef04799", null ],
       [ "M_DNS_RESULT_SUCCESS_CACHE", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2ea032c566e390a820885adcceec68189b5", null ],
+      [ "M_DNS_RESULT_SUCCESS_CACHE_EVICT", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2ea7329ab3409738b3a57021f88978fc939", null ],
       [ "M_DNS_RESULT_SERVFAIL", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2ea03b69b88ec543ff84bf8b9f1efdf2594", null ],
       [ "M_DNS_RESULT_NOTFOUND", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2ea9c9461b5df5758d9f3bce104f766d41b", null ],
       [ "M_DNS_RESULT_TIMEOUT", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2eace18ebdc0ad9b89c8033d233d1a9d0e8", null ],
