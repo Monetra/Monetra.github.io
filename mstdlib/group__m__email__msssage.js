@@ -34,6 +34,8 @@ var group__m__email__msssage =
     [ "M_email_reply_to_remove", "group__m__email__msssage.html#gaf06022140a4034ba8b6809f7abb3078d", null ],
     [ "M_email_set_subject", "group__m__email__msssage.html#ga3727c0b03c7190ce425291dd287ca1a2", null ],
     [ "M_email_subject", "group__m__email__msssage.html#ga57cfe96b00b56dba06d4152c55608328", null ],
+    [ "M_email_messageid", "group__m__email__msssage.html#ga2b1e5aad8e46aa4dccfeceb3fe4944c6", null ],
+    [ "M_email_date", "group__m__email__msssage.html#gae61869512e0dbd4c39c58d3c1ebc3b86", null ],
     [ "M_email_preamble", "group__m__email__msssage.html#gad8a19d3faa4f790294a08d580cd22ec3", null ],
     [ "M_email_set_preamble", "group__m__email__msssage.html#ga864a5bbce6be1f236f760d9cd99055d7", null ],
     [ "M_email_epilouge", "group__m__email__msssage.html#ga1fbe356bf0a9185538a064631f0e36cf", null ],

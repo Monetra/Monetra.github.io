@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "Mstdlib-1.20.0", "index.html", [
+  [ "Mstdlib-1.21.0", "index.html", [
     [ "About", "index.html", [
       [ "Rationale/Use", "index.html#autotoc_md0", null ],
       [ "Goals", "index.html#autotoc_md1", [
@@ -71,21 +71,21 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "group__m__cache__strvp.html",
-"group__m__email__reader.html#ga446e5082e213e947d521d5fd288d22f4",
-"group__m__fs__common.html#gga9f871fa0defd7df345576a62f711e6d2aa088ebb4548cd057ac086c78688b0557",
-"group__m__hash__strbin.html#ga88d7b34ffccb1b6295fa161b06751787",
-"group__m__hashtable.html",
-"group__m__ini.html#ga986c8e43b761c0d0bf1cb1b878540922",
-"group__m__io__jni.html#gafb011a8b8b38473f71a29c7eee748877",
-"group__m__json.html#gadedfb5de59e2062609c9c177464d0cfb",
-"group__m__llist__bin.html#gadf36cb84ad02dad3d0cfec266020e44c",
-"group__m__math.html#ga6237309498df9996986cce08c6550824",
-"group__m__parser.html#gaee24382838045df85d9a2c5fabad273e",
-"group__m__sql__driver.html#ga5e9b0c315d768258c6ceefd3ec1a603f",
-"group__m__sql__tabledata.html#a4b9fffe2e225587a2a1273149b55b4ee",
-"group__m__str__check.html#gac1d4b8ab44f94acd379e0f51bcea23e1",
-"group__m__thread__common__create.html#ga88a661c786896ac217cdda76734eca5d",
-"group__m__tls__funcs.html#ga51c06e025803c379f0e7c9a03ada1ed1"
+"group__m__email__reader.html#ga2dae77212c36cf9e06a6259bc1da8c93",
+"group__m__fs__common.html#gga9acb1de835f3a567cfc81faafc949363a9696c3add8bd8e41f3d9a5f44b578d96",
+"group__m__hash__strbin.html#ga7ffa009a6edb804cdd982db7ba24393f",
+"group__m__hash__u64vp.html#gga4e377af4af0b4539bd6bd849c0e16052ad46504aacc989bef862b23db3215dd7c",
+"group__m__ini.html#ga93c54e7a2ee486d2fb0dd6315e5196ce",
+"group__m__io__jni.html#gae3f2b5d23fd2885fb9bec51d967d2513",
+"group__m__json.html#gad1fe5df3df9b4227a41f4659ba51c18d",
+"group__m__llist__bin.html#gace67597f4299288b49afda2cc74d15c0",
+"group__m__math.html#ga5006a59bc9a4ecdfb219ec3e6c853e2b",
+"group__m__parser.html#gaed443e35e16f0ba3af67ac62d22bc8d7",
+"group__m__sql__driver.html#ga52f8e60b8469dd482c9f9d5c957ae505",
+"group__m__sql__tabledata.html#a34ec8c9401fa45dfd5c02ab32f11bf80",
+"group__m__str__check.html#gab975e7079d6bfe24474665aa07e51054",
+"group__m__thread__common__create.html#ga81cc22738c7bcec33d207f70e69d064b",
+"group__m__tls__funcs.html#ga4bd3ec730b98cd8115c3e18feb5d3a01"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

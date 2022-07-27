@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Mstdlib-1.20.0: Email Message</title>
+<title>Mstdlib-1.21.0: Email Message</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">Mstdlib-1.20.0
+   <div id="projectname">Mstdlib-1.21.0
    </div>
   </td>
  </tr>
@@ -162,6 +162,10 @@ Functions</h2></td></tr>
 <tr class="separator:ga3727c0b03c7190ce425291dd287ca1a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga57cfe96b00b56dba06d4152c55608328"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#ga57cfe96b00b56dba06d4152c55608328">M_email_subject</a> (const <a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email)</td></tr>
 <tr class="separator:ga57cfe96b00b56dba06d4152c55608328"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga2b1e5aad8e46aa4dccfeceb3fe4944c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#ga2b1e5aad8e46aa4dccfeceb3fe4944c6">M_email_messageid</a> (<a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email, const char *prefix, const char *suffix)</td></tr>
+<tr class="separator:ga2b1e5aad8e46aa4dccfeceb3fe4944c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae61869512e0dbd4c39c58d3c1ebc3b86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#gae61869512e0dbd4c39c58d3c1ebc3b86">M_email_date</a> (<a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email, const char *format)</td></tr>
+<tr class="separator:gae61869512e0dbd4c39c58d3c1ebc3b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad8a19d3faa4f790294a08d580cd22ec3"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#gad8a19d3faa4f790294a08d580cd22ec3">M_email_preamble</a> (const <a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email)</td></tr>
 <tr class="separator:gad8a19d3faa4f790294a08d580cd22ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga864a5bbce6be1f236f760d9cd99055d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#ga864a5bbce6be1f236f760d9cd99055d7">M_email_set_preamble</a> (<a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email, const char *data, size_t len)</td></tr>
@@ -1121,6 +1125,85 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga2b1e5aad8e46aa4dccfeceb3fe4944c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga2b1e5aad8e46aa4dccfeceb3fe4944c6">&#9670;&nbsp;</a></span>M_email_messageid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void M_email_messageid </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *&#160;</td>
+          <td class="paramname"><em>email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>prefix</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>suffix</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Stamp email with randomized message id. That is, generate and assign to header "Message-ID".</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">email</td><td>The email to stamp.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">prefix</td><td>Prefix to id string</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">suffix</td><td>Suffix to id string </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="gae61869512e0dbd4c39c58d3c1ebc3b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae61869512e0dbd4c39c58d3c1ebc3b86">&#9670;&nbsp;</a></span>M_email_date()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void M_email_date </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *&#160;</td>
+          <td class="paramname"><em>email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>format</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Stamp email with date. That is, generate and assign to header "Date".</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">email</td><td>The email to stamp.</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">format</td><td>Date format string. NULL defaults to "%a, %d %b %Y %T %z" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="gad8a19d3faa4f790294a08d580cd22ec3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad8a19d3faa4f790294a08d580cd22ec3">&#9670;&nbsp;</a></span>M_email_preamble()</h2>
 
@@ -1614,7 +1697,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Jul 22 2022 16:19:29 for Mstdlib-1.20.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed Jul 27 2022 22:32:29 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
