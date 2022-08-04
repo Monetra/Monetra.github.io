@@ -593,7 +593,7 @@ Server</h2>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">io_out</td><td>io object for communication. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">port</td><td>Port to listen on. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">port</td><td>Port to listen on. If 0 is used, the OS will assign an unused port which can be retrieved immediately after successful return of this function via <a class="el" href="group__m__io__net.html#ga1ea4d8faa134421ebe9765d2c60e032a">M_io_net_get_port()</a>. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">bind_ip</td><td>NULL to listen on all interfaces, or an explicit ip address to listen on. Note that listening on localhost ::1 will be ipv6 only, or localhost 127.0.0.1 will be ipv4 only. </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Connection type.</td></tr>
   </table>
@@ -1150,7 +1150,7 @@ Server</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Aug 2 2022 21:52:53 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Aug 4 2022 16:07:16 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

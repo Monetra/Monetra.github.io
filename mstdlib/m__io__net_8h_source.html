@@ -431,190 +431,191 @@ $(document).ready(function(){initNavTree('m__io__net_8h_source.html',''); initRe
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">/*! Create a server listener net object.</span></div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;<span class="comment"> * \param[out] io_out  io object for communication.</span></div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment"> * \param[in]  port    Port to listen on.</span></div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment"> * \param[in]  bind_ip NULL to listen on all interfaces, or an explicit ip address to listen on.</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment"> *                     Note that listening on localhost ::1 will be ipv6 only, or localhost 127.0.0.1 will be</span></div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment"> *                     ipv4 only.</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment"> * \param[in]  type    Connection type.</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment"> * \return Result.</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gabb60697b08a7ee07079ea683a1060747">  355</a></span>&#160;M_API <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> <a class="code" href="group__m__io__net.html#gabb60697b08a7ee07079ea683a1060747">M_io_net_server_create</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> **io_out, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port, <span class="keyword">const</span> <span class="keywordtype">char</span> *bind_ip, <a class="code" href="group__m__io__net.html#ga0d3c956e19a647267f818beb367de6bc">M_io_net_type_t</a> type);</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160; </div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment">/*! Create a client net object.</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment"> * \param[out] io_out  io object for communication.</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment"> * \param[in]  dns     DNS object for host name lookup. Required. It will be reference counted allowing it to be</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"> *                     destroyed while still in use by the io object.</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment"> * \param[in]  host    Host to connect to. Can be a host name or ip address.</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment"> * \param[in]  port    Port to connect to.</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="comment"> * \param[in]  type    Connection type.</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment"> * \return Result.</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00369"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9c11a4575c3389ee8d11b6f084e257bd">  369</a></span>&#160;M_API <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> <a class="code" href="group__m__io__net.html#ga9c11a4575c3389ee8d11b6f084e257bd">M_io_net_client_create</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> **io_out, <a class="code" href="group__m__dns.html#ga6d7651186321b1cc222aa53bd0fa3d22">M_dns_t</a> *dns, <span class="keyword">const</span> <span class="keywordtype">char</span> *host, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port, <a class="code" href="group__m__io__net.html#ga0d3c956e19a647267f818beb367de6bc">M_io_net_type_t</a> type);</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment">/*! Set keep alive.</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment"> * \param[in] io           io object.</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment"> * \param[in] idle_time_s  Idle time in seconds.</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment"> * \param[in] retry_time_s Retry time in seconds.</span></div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment"> * \param[in] retry_cnt    Retry count.</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on failure.</span></div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00381"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gacac8aafcb587102ac35b7cb4f3cdfcc6">  381</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#gacac8aafcb587102ac35b7cb4f3cdfcc6">M_io_net_set_keepalives</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, M_uint64 idle_time_s, M_uint64 retry_time_s, M_uint64 retry_cnt);</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment">/*! Enable/disable Nagle algorithm.</span></div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment"> * \param[in] io            io object.</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment"> * \param[in] nagle_enabled M_TRUE to enable, M_FALSE to disable.</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment"> *         Will return M_TRUE if state being set is the same as already set.</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment"> *         Meaning, enabling on an io that already has it enabled will return success.</span></div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00393"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga062314e26ee4553238d8d46a2f862146">  393</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#ga062314e26ee4553238d8d46a2f862146">M_io_net_set_nagle</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, M_bool nagle_enabled);</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160; </div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment">/*! Set connect timeout.</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment"> * This is the timeout to wait for a connection to finish.</span></div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment"> * \param[in] io         io object.</span></div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment"> * \param[in] timeout_ms Timeout in milliseconds.</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gadc02de1ab6bcb56b453eb8515f02674c">  405</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#gadc02de1ab6bcb56b453eb8515f02674c">M_io_net_set_connect_timeout_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, M_uint64 timeout_ms);</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">/*! Get the Fully Qualified Domain Name.</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment"> * \return String.</span></div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00412"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gaa687a683e208d9a009cf728caf6f96df">  412</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#gaa687a683e208d9a009cf728caf6f96df">M_io_net_get_fqdn</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment">/*! Get the hostname of the connected endpoint.</span></div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment"> * This may return an IP address for inbound connections, or for outbound connections</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment"> * where an ip address was passed. This will not do a reverse hostname lookup.</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment"> * \return String.</span></div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00424"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga800a91973aafe81a5ad3977fbc28c7ca">  424</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#ga800a91973aafe81a5ad3977fbc28c7ca">M_io_net_get_host</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment">/*! Get the IP address of the connected endpoint.</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment"> * \return String.</span></div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00433"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga11f193aa2d827dcd1faf26dd20a3d2a0">  433</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#ga11f193aa2d827dcd1faf26dd20a3d2a0">M_io_net_get_ipaddr</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment">/*! Get the IP address of the server interface the end point connected to.</span></div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment"> * \return String.</span></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00442"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9c00804a3f50b3cc60c4aa245b2a377c">  442</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#ga9c00804a3f50b3cc60c4aa245b2a377c">M_io_net_get_server_ipaddr</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="comment">/*! Get the port of the connected endpoint.</span></div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment"> * \return Port.</span></div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00451"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga1ea4d8faa134421ebe9765d2c60e032a">  451</a></span>&#160;M_API <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="group__m__io__net.html#ga1ea4d8faa134421ebe9765d2c60e032a">M_io_net_get_port</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160; </div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="comment">/*! Get the ephemeral (dynamic) port of the connected endpoint</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment"> * \return Port.</span></div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00460"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9b5c7120aabf48773a689e3b17ddf33b">  460</a></span>&#160;M_API <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="group__m__io__net.html#ga9b5c7120aabf48773a689e3b17ddf33b">M_io_net_get_ephemeral_port</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160; </div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="comment">/*! Get connection type</span></div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="comment"> * \return Type.</span></div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;M_API <span class="keyword">enum</span> <a class="code" href="group__m__io__net.html#ga84d77b37b252e30d90cc6fd2a416267e">M_io_net_type</a> <a class="code" href="group__m__io__net.html#ga79dfed55a6ba8ccf55d1cef9fc89f8c3">M_io_net_get_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160; </div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="comment">/*! Get connection timeout</span></div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="comment"> * This is not the amount of time connec took, this is the</span></div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;<span class="comment"> * timeout allowe for connect to take place.</span></div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;<span class="comment"> * \return Timeout in milliseconds.</span></div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00481"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gaf3d9099f03e6b83e69bedc5316482cb8">  481</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__io__net.html#gaf3d9099f03e6b83e69bedc5316482cb8">M_io_net_get_connect_timeout_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;<span class="comment">/*! Amount of time DNS query took</span></div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;<span class="comment"> * \return Time in milliseconds.</span></div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00489"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga2432418ae7518ec1b29853ad9d6ac6f3">  489</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__io__net.html#ga2432418ae7518ec1b29853ad9d6ac6f3">M_io_net_time_dns_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160; </div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="comment">/*! Amount of time connection establishment took, not including DNS resolution time</span></div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="comment"> * \return Time in milliseconds.</span></div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00498"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gaa365d2376afcc59c072f3f6d30c5df5d">  498</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__io__net.html#gaa365d2376afcc59c072f3f6d30c5df5d">M_io_net_time_connect_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160; </div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="comment">/*! Convert an ip address in string form into its binary network byte order representation.</span></div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="comment"> *  \param[out] ipaddr_bin      User-supplied buffer of at least 16 bytes to store result.</span></div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="comment"> *  \param[in]  ipaddr_bin_size Size of user-supplied buffer.</span></div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="comment"> *  \param[in]  ipaddr_str      IPv4 or IPv6 address in string form.</span></div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="comment"> *  \param[out] ipaddr_bin_len  Pointer to hold length of ip address in binary form.  Result</span></div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="comment"> *                              will be 4 or 16 depending on the address type.</span></div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="comment"> *  \return M_TRUE if conversion was possible, M_FALSE otherwise</span></div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00510"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga24d7ccc2e2cd558a75601ea06c559a3e">  510</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#ga24d7ccc2e2cd558a75601ea06c559a3e">M_io_net_ipaddr_to_bin</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ipaddr_bin, <span class="keywordtype">size_t</span> ipaddr_bin_size, <span class="keyword">const</span> <span class="keywordtype">char</span> *ipaddr_str, <span class="keywordtype">size_t</span> *ipaddr_bin_len);</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="comment">/*! Convert an ip address in its binary network byte order representation to string form.</span></div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="comment"> *  \param[out] ipaddr_str      User-supplied buffer of at least 40 bytes to store IPv6</span></div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="comment"> *                              address, or 16 bytes to store IPv4 address.</span></div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="comment"> *  \param[in]  ipaddr_str_size Size of user-supplied buffer.</span></div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="comment"> *  \param[in]  ipaddr_bin      IPv4 or IPv6 address in binary form.</span></div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="comment"> *  \param[in]  ipaddr_bin_len  Length of ip address in binary form (must be 4 or 16).</span></div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="comment"> *  \return M_TRUE if conversion was possible, M_FALSE otherwise</span></div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00523"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9c6bb6eb74bae838ffe5d53e908874bb">  523</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#ga9c6bb6eb74bae838ffe5d53e908874bb">M_io_net_bin_to_ipaddr</a>(<span class="keywordtype">char</span> *ipaddr_str, <span class="keywordtype">size_t</span> ipaddr_str_size, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ipaddr_bin, <span class="keywordtype">size_t</span> ipaddr_bin_len);</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160; </div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment"> * \param[in]  port    Port to listen on.  If 0 is used, the OS will assign an unused port which can be retrieved</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment"> *                     immediately after successful return of this function via M_io_net_get_port().</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment"> * \param[in]  bind_ip NULL to listen on all interfaces, or an explicit ip address to listen on.</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment"> *                     Note that listening on localhost ::1 will be ipv6 only, or localhost 127.0.0.1 will be</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment"> *                     ipv4 only.</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment"> * \param[in]  type    Connection type.</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment"> * \return Result.</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gabb60697b08a7ee07079ea683a1060747">  356</a></span>&#160;M_API <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> <a class="code" href="group__m__io__net.html#gabb60697b08a7ee07079ea683a1060747">M_io_net_server_create</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> **io_out, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port, <span class="keyword">const</span> <span class="keywordtype">char</span> *bind_ip, <a class="code" href="group__m__io__net.html#ga0d3c956e19a647267f818beb367de6bc">M_io_net_type_t</a> type);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">/*! Create a client net object.</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment"> * \param[out] io_out  io object for communication.</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"> * \param[in]  dns     DNS object for host name lookup. Required. It will be reference counted allowing it to be</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment"> *                     destroyed while still in use by the io object.</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment"> * \param[in]  host    Host to connect to. Can be a host name or ip address.</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="comment"> * \param[in]  port    Port to connect to.</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment"> * \param[in]  type    Connection type.</span></div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment"> * \return Result.</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9c11a4575c3389ee8d11b6f084e257bd">  370</a></span>&#160;M_API <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> <a class="code" href="group__m__io__net.html#ga9c11a4575c3389ee8d11b6f084e257bd">M_io_net_client_create</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> **io_out, <a class="code" href="group__m__dns.html#ga6d7651186321b1cc222aa53bd0fa3d22">M_dns_t</a> *dns, <span class="keyword">const</span> <span class="keywordtype">char</span> *host, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port, <a class="code" href="group__m__io__net.html#ga0d3c956e19a647267f818beb367de6bc">M_io_net_type_t</a> type);</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment">/*! Set keep alive.</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment"> * \param[in] io           io object.</span></div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment"> * \param[in] idle_time_s  Idle time in seconds.</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment"> * \param[in] retry_time_s Retry time in seconds.</span></div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="comment"> * \param[in] retry_cnt    Retry count.</span></div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on failure.</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gacac8aafcb587102ac35b7cb4f3cdfcc6">  382</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#gacac8aafcb587102ac35b7cb4f3cdfcc6">M_io_net_set_keepalives</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, M_uint64 idle_time_s, M_uint64 retry_time_s, M_uint64 retry_cnt);</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="comment">/*! Enable/disable Nagle algorithm.</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment"> * \param[in] io            io object.</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment"> * \param[in] nagle_enabled M_TRUE to enable, M_FALSE to disable.</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment"> *         Will return M_TRUE if state being set is the same as already set.</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="comment"> *         Meaning, enabling on an io that already has it enabled will return success.</span></div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga062314e26ee4553238d8d46a2f862146">  394</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#ga062314e26ee4553238d8d46a2f862146">M_io_net_set_nagle</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, M_bool nagle_enabled);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment">/*! Set connect timeout.</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment"> * This is the timeout to wait for a connection to finish.</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment"> * \param[in] io         io object.</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment"> * \param[in] timeout_ms Timeout in milliseconds.</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gadc02de1ab6bcb56b453eb8515f02674c">  406</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#gadc02de1ab6bcb56b453eb8515f02674c">M_io_net_set_connect_timeout_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, M_uint64 timeout_ms);</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment">/*! Get the Fully Qualified Domain Name.</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00413"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gaa687a683e208d9a009cf728caf6f96df">  413</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#gaa687a683e208d9a009cf728caf6f96df">M_io_net_get_fqdn</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment">/*! Get the hostname of the connected endpoint.</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment"> * This may return an IP address for inbound connections, or for outbound connections</span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment"> * where an ip address was passed. This will not do a reverse hostname lookup.</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga800a91973aafe81a5ad3977fbc28c7ca">  425</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#ga800a91973aafe81a5ad3977fbc28c7ca">M_io_net_get_host</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; </div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment">/*! Get the IP address of the connected endpoint.</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00434"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga11f193aa2d827dcd1faf26dd20a3d2a0">  434</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#ga11f193aa2d827dcd1faf26dd20a3d2a0">M_io_net_get_ipaddr</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="comment">/*! Get the IP address of the server interface the end point connected to.</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00443"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9c00804a3f50b3cc60c4aa245b2a377c">  443</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__net.html#ga9c00804a3f50b3cc60c4aa245b2a377c">M_io_net_get_server_ipaddr</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160; </div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="comment">/*! Get the port of the connected endpoint.</span></div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment"> * \return Port.</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00452"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga1ea4d8faa134421ebe9765d2c60e032a">  452</a></span>&#160;M_API <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="group__m__io__net.html#ga1ea4d8faa134421ebe9765d2c60e032a">M_io_net_get_port</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160; </div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="comment">/*! Get the ephemeral (dynamic) port of the connected endpoint</span></div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment"> * \return Port.</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00461"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9b5c7120aabf48773a689e3b17ddf33b">  461</a></span>&#160;M_API <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="group__m__io__net.html#ga9b5c7120aabf48773a689e3b17ddf33b">M_io_net_get_ephemeral_port</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="comment">/*! Get connection type</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="comment"> * \return Type.</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;M_API <span class="keyword">enum</span> <a class="code" href="group__m__io__net.html#ga84d77b37b252e30d90cc6fd2a416267e">M_io_net_type</a> <a class="code" href="group__m__io__net.html#ga79dfed55a6ba8ccf55d1cef9fc89f8c3">M_io_net_get_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;<span class="comment">/*! Get connection timeout</span></div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;<span class="comment"> * This is not the amount of time connec took, this is the</span></div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;<span class="comment"> * timeout allowe for connect to take place.</span></div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;<span class="comment"> * \return Timeout in milliseconds.</span></div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00482"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gaf3d9099f03e6b83e69bedc5316482cb8">  482</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__io__net.html#gaf3d9099f03e6b83e69bedc5316482cb8">M_io_net_get_connect_timeout_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="comment">/*! Amount of time DNS query took</span></div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;<span class="comment"> * \return Time in milliseconds.</span></div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00490"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga2432418ae7518ec1b29853ad9d6ac6f3">  490</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__io__net.html#ga2432418ae7518ec1b29853ad9d6ac6f3">M_io_net_time_dns_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="comment">/*! Amount of time connection establishment took, not including DNS resolution time</span></div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="comment"> * \return Time in milliseconds.</span></div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00499"></a><span class="lineno"><a class="line" href="group__m__io__net.html#gaa365d2376afcc59c072f3f6d30c5df5d">  499</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__io__net.html#gaa365d2376afcc59c072f3f6d30c5df5d">M_io_net_time_connect_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="comment">/*! Convert an ip address in string form into its binary network byte order representation.</span></div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="comment"> *  \param[out] ipaddr_bin      User-supplied buffer of at least 16 bytes to store result.</span></div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="comment"> *  \param[in]  ipaddr_bin_size Size of user-supplied buffer.</span></div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="comment"> *  \param[in]  ipaddr_str      IPv4 or IPv6 address in string form.</span></div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="comment"> *  \param[out] ipaddr_bin_len  Pointer to hold length of ip address in binary form.  Result</span></div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="comment"> *                              will be 4 or 16 depending on the address type.</span></div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="comment"> *  \return M_TRUE if conversion was possible, M_FALSE otherwise</span></div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00511"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga24d7ccc2e2cd558a75601ea06c559a3e">  511</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#ga24d7ccc2e2cd558a75601ea06c559a3e">M_io_net_ipaddr_to_bin</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ipaddr_bin, <span class="keywordtype">size_t</span> ipaddr_bin_size, <span class="keyword">const</span> <span class="keywordtype">char</span> *ipaddr_str, <span class="keywordtype">size_t</span> *ipaddr_bin_len);</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160; </div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;<span class="comment">/*! Convert an ip address in its binary network byte order representation to string form.</span></div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="comment"> *  \param[out] ipaddr_str      User-supplied buffer of at least 40 bytes to store IPv6</span></div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="comment"> *                              address, or 16 bytes to store IPv4 address.</span></div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="comment"> *  \param[in]  ipaddr_str_size Size of user-supplied buffer.</span></div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="comment"> *  \param[in]  ipaddr_bin      IPv4 or IPv6 address in binary form.</span></div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="comment"> *  \param[in]  ipaddr_bin_len  Length of ip address in binary form (must be 4 or 16).</span></div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="comment"> *  \return M_TRUE if conversion was possible, M_FALSE otherwise</span></div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00524"></a><span class="lineno"><a class="line" href="group__m__io__net.html#ga9c6bb6eb74bae838ffe5d53e908874bb">  524</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__net.html#ga9c6bb6eb74bae838ffe5d53e908874bb">M_io_net_bin_to_ipaddr</a>(<span class="keywordtype">char</span> *ipaddr_str, <span class="keywordtype">size_t</span> ipaddr_str_size, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ipaddr_bin, <span class="keywordtype">size_t</span> ipaddr_bin_len);</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160; </div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;__END_DECLS</div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160; </div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="agroup__m__dns_html_ga6d7651186321b1cc222aa53bd0fa3d22"><div class="ttname"><a href="group__m__dns.html#ga6d7651186321b1cc222aa53bd0fa3d22">M_dns_t</a></div><div class="ttdeci">struct M_dns M_dns_t</div><div class="ttdef"><b>Definition:</b> m_dns.h:43</div></div>
 <div class="ttc" id="agroup__m__io__net_html_ga062314e26ee4553238d8d46a2f862146"><div class="ttname"><a href="group__m__io__net.html#ga062314e26ee4553238d8d46a2f862146">M_io_net_set_nagle</a></div><div class="ttdeci">M_bool M_io_net_set_nagle(M_io_t *io, M_bool nagle_enabled)</div></div>
 <div class="ttc" id="agroup__m__io__net_html_ga0d3c956e19a647267f818beb367de6bc"><div class="ttname"><a href="group__m__io__net.html#ga0d3c956e19a647267f818beb367de6bc">M_io_net_type_t</a></div><div class="ttdeci">enum M_io_net_type M_io_net_type_t</div><div class="ttdef"><b>Definition:</b> m_io_net.h:340</div></div>
@@ -646,7 +647,7 @@ $(document).ready(function(){initNavTree('m__io__net_8h_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_f600ff02be773a4843cbb67ff47f4261.html">io</a></li><li class="navelem"><b>m_io_net.h</b></li>
-    <li class="footer">Generated on Tue Aug 2 2022 21:52:38 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Aug 4 2022 16:07:02 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
