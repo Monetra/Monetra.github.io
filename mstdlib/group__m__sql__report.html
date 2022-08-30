@@ -100,6 +100,8 @@ Typedefs</h2></td></tr>
 <tr class="separator:gad119e6f3df43fd4f5f6a077136096a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8395a1aa809332e58ab29edae99c9fed"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__m__sql__report.html#gafbce3c1366f175c2a43b977798307186">M_sql_report_cberror_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#ga8395a1aa809332e58ab29edae99c9fed">M_sql_report_cell_cb_t</a>) (<a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *stmt, void *arg, const char *name, size_t row, ssize_t col, <a class="el" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *buf, M_bool *is_null)</td></tr>
 <tr class="separator:ga8395a1aa809332e58ab29edae99c9fed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4769e863a3e2a731fe7fe586f4527eec"><td class="memItemLeft" align="right" valign="top">typedef struct M_sql_report_filter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a></td></tr>
+<tr class="separator:ga4769e863a3e2a731fe7fe586f4527eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -123,6 +125,36 @@ Enumerations</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:gafbce3c1366f175c2a43b977798307186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga31a51507cc00b3c6af436d3c4c0f8dae"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#ga31a51507cc00b3c6af436d3c4c0f8dae">M_sql_report_filter_type_t</a> { <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#gga31a51507cc00b3c6af436d3c4c0f8daeae55c7a5ac65766a04daf5b04eff0a671">M_SQL_REPORT_FILTER_TYPE_OR</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#gga31a51507cc00b3c6af436d3c4c0f8daea3c715d4bbd665a9d452bea46ce37c1bd">M_SQL_REPORT_FILTER_TYPE_AND</a> = 2
+<br />
+ }</td></tr>
+<tr class="separator:ga31a51507cc00b3c6af436d3c4c0f8dae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gacc4841ede6cabecf2033bf48a50c4e64"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#gacc4841ede6cabecf2033bf48a50c4e64">M_sql_report_filter_rule_t</a> { <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64ab4d8dc84ee33f8adca8bc55557cea001">M_SQL_REPORT_FILTER_RULE_MATCHES</a> = 1
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64a982b8ded4d2c70b8e46c91b3fd0a1c83">M_SQL_REPORT_FILTER_RULE_NOT_MATCHES</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64a1c4fbeae51124e326aef536e8fa5ac87">M_SQL_REPORT_FILTER_RULE_CONTAINS</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64a36701ca82d9dbf8dc930514151c2bc54">M_SQL_REPORT_FILTER_RULE_NOT_CONTAINS</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64a74d53c270960e50853f2f66a6e491d49">M_SQL_REPORT_FILTER_RULE_BEGINS_WITH</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64a83105b6b7e5c40d73e7951dd09a6ffbb">M_SQL_REPORT_FILTER_RULE_NOT_BEGINS_WITH</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64ab4956f48985ce970d64ed5657bab1533">M_SQL_REPORT_FILTER_RULE_ENDS_WITH</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64ade7d8430821e27df198078365283f925">M_SQL_REPORT_FILTER_RULE_NOT_ENDS_WITH</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64abfeab0b09bf9bb577371a0dc14230f86">M_SQL_REPORT_FILTER_RULE_EMPTY</a>
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64a398506ece2663385d78a6789a66c756a">M_SQL_REPORT_FILTER_RULE_NOT_EMPTY</a>
+<br />
+ }</td></tr>
+<tr class="separator:gacc4841ede6cabecf2033bf48a50c4e64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -148,6 +180,14 @@ Functions</h2></td></tr>
 <tr class="separator:gaccee8d2f61a20b6a34b5f6b5f043f6a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafa488e7db2277ecac6dca66c9878f3b4"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#gafa488e7db2277ecac6dca66c9878f3b4">M_sql_report_hide_column</a> (<a class="el" href="group__m__sql__report.html#gabb3ea44dceb739bea17900689f1168e9">M_sql_report_t</a> *report, const char *sql_col_name, ssize_t sql_col_idx)</td></tr>
 <tr class="separator:gafa488e7db2277ecac6dca66c9878f3b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga30e18efa2ed8424eca82baab7724428e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#ga30e18efa2ed8424eca82baab7724428e">M_sql_report_filter_create</a> (<a class="el" href="group__m__sql__report.html#ga31a51507cc00b3c6af436d3c4c0f8dae">M_sql_report_filter_type_t</a> type)</td></tr>
+<tr class="separator:ga30e18efa2ed8424eca82baab7724428e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga5f1fd49161e8e065a07a12e0c8b7ce89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#ga5f1fd49161e8e065a07a12e0c8b7ce89">M_sql_report_filter_destroy</a> (<a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a> *filter)</td></tr>
+<tr class="separator:ga5f1fd49161e8e065a07a12e0c8b7ce89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga734d4ff27a5b5cc87e235f2511b7d264"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#ga734d4ff27a5b5cc87e235f2511b7d264">M_sql_report_filter_add_rule</a> (<a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a> *filter, const char *column, <a class="el" href="group__m__sql__report.html#gacc4841ede6cabecf2033bf48a50c4e64">M_sql_report_filter_rule_t</a> rule, M_bool case_insensitive, const char *data)</td></tr>
+<tr class="separator:ga734d4ff27a5b5cc87e235f2511b7d264"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga62e432ea089cf816fb101da30846314c"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#ga62e432ea089cf816fb101da30846314c">M_sql_report_add_filter</a> (<a class="el" href="group__m__sql__report.html#gabb3ea44dceb739bea17900689f1168e9">M_sql_report_t</a> *report, <a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a> *filter)</td></tr>
+<tr class="separator:ga62e432ea089cf816fb101da30846314c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadd1e167bbf4cb627e13c37fcbc5c2edb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__sql__error.html#gaae10ff11eb7d5583afcffa6ec87c753e">M_sql_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#gadd1e167bbf4cb627e13c37fcbc5c2edb">M_sql_report_process</a> (const <a class="el" href="group__m__sql__report.html#gabb3ea44dceb739bea17900689f1168e9">M_sql_report_t</a> *report, <a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *stmt, void *arg, char **out, size_t *out_len, char *error, size_t error_size)</td></tr>
 <tr class="separator:gadd1e167bbf4cb627e13c37fcbc5c2edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae4ebf3f4f5ed7e5959048075fdeaa4b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__sql__error.html#gaae10ff11eb7d5583afcffa6ec87c753e">M_sql_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__report.html#gae4ebf3f4f5ed7e5959048075fdeaa4b5">M_sql_report_process_json</a> (const <a class="el" href="group__m__sql__report.html#gabb3ea44dceb739bea17900689f1168e9">M_sql_report_t</a> *report, <a class="el" href="group__m__sql__stmt.html#ga4a726e8b7d1b5cffc6f92fdb3e8fb498">M_sql_stmt_t</a> *stmt, void *arg, <a class="el" href="group__m__json.html#ga7a262990e06e6100889ff7896820e41f">M_json_node_t</a> *json, char *error, size_t error_size)</td></tr>
@@ -246,6 +286,21 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga4769e863a3e2a731fe7fe586f4527eec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga4769e863a3e2a731fe7fe586f4527eec">&#9670;&nbsp;</a></span>M_sql_report_filter_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct M_sql_report_filter <a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Filter object created by <a class="el" href="group__m__sql__report.html#ga30e18efa2ed8424eca82baab7724428e">M_sql_report_filter_create()</a> </p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="ga1c7af596258c77ade7036067ab197663"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga1c7af596258c77ade7036067ab197663">&#9670;&nbsp;</a></span>M_sql_report_flags_t</h2>
@@ -289,6 +344,62 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="ggafbce3c1366f175c2a43b977798307186a1ebadcbe8578b669d2f90cb7c12f4d0f"></a>M_SQL_REPORT_SUCCESS&#160;</td><td class="fielddoc"><p>Success </p>
 </td></tr>
 <tr><td class="fieldname"><a id="ggafbce3c1366f175c2a43b977798307186ad5233d762937d91b2488117db494ade7"></a>M_SQL_REPORT_SKIP_ROW&#160;</td><td class="fielddoc"><p>Do not output this row, but continue </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="ga31a51507cc00b3c6af436d3c4c0f8dae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga31a51507cc00b3c6af436d3c4c0f8dae">&#9670;&nbsp;</a></span>M_sql_report_filter_type_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__m__sql__report.html#ga31a51507cc00b3c6af436d3c4c0f8dae">M_sql_report_filter_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga31a51507cc00b3c6af436d3c4c0f8daeae55c7a5ac65766a04daf5b04eff0a671"></a>M_SQL_REPORT_FILTER_TYPE_OR&#160;</td><td class="fielddoc"><p>Rules for filter will be treated as OR </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga31a51507cc00b3c6af436d3c4c0f8daea3c715d4bbd665a9d452bea46ce37c1bd"></a>M_SQL_REPORT_FILTER_TYPE_AND&#160;</td><td class="fielddoc"><p>Rules for filter will be treated as AND </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<a id="gacc4841ede6cabecf2033bf48a50c4e64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gacc4841ede6cabecf2033bf48a50c4e64">&#9670;&nbsp;</a></span>M_sql_report_filter_rule_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__m__sql__report.html#gacc4841ede6cabecf2033bf48a50c4e64">M_sql_report_filter_rule_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64ab4d8dc84ee33f8adca8bc55557cea001"></a>M_SQL_REPORT_FILTER_RULE_MATCHES&#160;</td><td class="fielddoc"><p>Data matches </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64a982b8ded4d2c70b8e46c91b3fd0a1c83"></a>M_SQL_REPORT_FILTER_RULE_NOT_MATCHES&#160;</td><td class="fielddoc"><p>Data does not match </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64a1c4fbeae51124e326aef536e8fa5ac87"></a>M_SQL_REPORT_FILTER_RULE_CONTAINS&#160;</td><td class="fielddoc"><p>Data contains (sub string) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64a36701ca82d9dbf8dc930514151c2bc54"></a>M_SQL_REPORT_FILTER_RULE_NOT_CONTAINS&#160;</td><td class="fielddoc"><p>Data does not contain (sub string) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64a74d53c270960e50853f2f66a6e491d49"></a>M_SQL_REPORT_FILTER_RULE_BEGINS_WITH&#160;</td><td class="fielddoc"><p>Data begins with </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64a83105b6b7e5c40d73e7951dd09a6ffbb"></a>M_SQL_REPORT_FILTER_RULE_NOT_BEGINS_WITH&#160;</td><td class="fielddoc"><p>Data does not begin with </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64ab4956f48985ce970d64ed5657bab1533"></a>M_SQL_REPORT_FILTER_RULE_ENDS_WITH&#160;</td><td class="fielddoc"><p>Data ends with </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64ade7d8430821e27df198078365283f925"></a>M_SQL_REPORT_FILTER_RULE_NOT_ENDS_WITH&#160;</td><td class="fielddoc"><p>Data does not end with </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64abfeab0b09bf9bb577371a0dc14230f86"></a>M_SQL_REPORT_FILTER_RULE_EMPTY&#160;</td><td class="fielddoc"><p>Data is empty </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ggacc4841ede6cabecf2033bf48a50c4e64a398506ece2663385d78a6789a66c756a"></a>M_SQL_REPORT_FILTER_RULE_NOT_EMPTY&#160;</td><td class="fielddoc"><p>Data is not empty </p>
 </td></tr>
 </table>
 
@@ -884,6 +995,155 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga30e18efa2ed8424eca82baab7724428e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga30e18efa2ed8424eca82baab7724428e">&#9670;&nbsp;</a></span>M_sql_report_filter_create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a>* M_sql_report_filter_create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__sql__report.html#ga31a51507cc00b3c6af436d3c4c0f8dae">M_sql_report_filter_type_t</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Create filter object</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">type</td><td>Type of filter to create </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>filter object on success </dd></dl>
+
+</div>
+</div>
+<a id="ga5f1fd49161e8e065a07a12e0c8b7ce89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f1fd49161e8e065a07a12e0c8b7ce89">&#9670;&nbsp;</a></span>M_sql_report_filter_destroy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void M_sql_report_filter_destroy </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a> *&#160;</td>
+          <td class="paramname"><em>filter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Destroy filter object</p>
+<dl class="section note"><dt>Note</dt><dd>Do NOT call if passed to <a class="el" href="group__m__sql__report.html#ga62e432ea089cf816fb101da30846314c">M_sql_report_add_filter()</a> as it takes ownership</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter</td><td>Initialized filter object by <a class="el" href="group__m__sql__report.html#ga30e18efa2ed8424eca82baab7724428e">M_sql_report_filter_create()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ga734d4ff27a5b5cc87e235f2511b7d264"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga734d4ff27a5b5cc87e235f2511b7d264">&#9670;&nbsp;</a></span>M_sql_report_filter_add_rule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_sql_report_filter_add_rule </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a> *&#160;</td>
+          <td class="paramname"><em>filter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>column</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__m__sql__report.html#gacc4841ede6cabecf2033bf48a50c4e64">M_sql_report_filter_rule_t</a>&#160;</td>
+          <td class="paramname"><em>rule</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">M_bool&#160;</td>
+          <td class="paramname"><em>case_insensitive</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Add filter rule</p>
+<dl class="section note"><dt>Note</dt><dd>when using OR type filters, you can specify the same column more than once</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter</td><td>Initialized filter object from <a class="el" href="group__m__sql__report.html#ga30e18efa2ed8424eca82baab7724428e">M_sql_report_filter_create()</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">column</td><td>Name of column in report </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rule</td><td>Type of rule </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">case_insensitive</td><td>For rules with data, whether the data should match case insensitive or not </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">data</td><td>Data for matching </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE on success, M_FALSE on failure </dd></dl>
+
+</div>
+</div>
+<a id="ga62e432ea089cf816fb101da30846314c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga62e432ea089cf816fb101da30846314c">&#9670;&nbsp;</a></span>M_sql_report_add_filter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_sql_report_add_filter </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__sql__report.html#gabb3ea44dceb739bea17900689f1168e9">M_sql_report_t</a> *&#160;</td>
+          <td class="paramname"><em>report</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="group__m__sql__report.html#ga4769e863a3e2a731fe7fe586f4527eec">M_sql_report_filter_t</a> *&#160;</td>
+          <td class="paramname"><em>filter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Attach a filter to a report. Only a single filter can be added to a report.</p>
+<dl class="section note"><dt>Note</dt><dd>in the future filters will be allowed to add subfilters to do complex logic, but that is not yet supported</dd></dl>
+<p>This function will take ownership of the filter object </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">report</td><td>Initialized report object </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">filter</td><td>Initialized filter object with at least one rule </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE on success, M_FALSE on failure (such as bad arguments) </dd></dl>
+
+</div>
+</div>
 <a id="gadd1e167bbf4cb627e13c37fcbc5c2edb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gadd1e167bbf4cb627e13c37fcbc5c2edb">&#9670;&nbsp;</a></span>M_sql_report_process()</h2>
 
@@ -1219,7 +1479,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Aug 10 2022 18:30:27 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Aug 30 2022 16:24:03 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
