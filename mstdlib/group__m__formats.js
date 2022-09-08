@@ -9,5 +9,6 @@ var group__m__formats =
     [ "Mstdlib TZ File", "group__m__mtzfile.html", "group__m__mtzfile" ],
     [ "Settings", "group__m__settings.html", "group__m__settings" ],
     [ "Table", "group__m__table.html", "group__m__table" ],
+    [ "URL", "group__m__url.html", "group__m__url" ],
     [ "XML", "group__m__xml.html", "group__m__xml" ]
 ];
