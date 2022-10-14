@@ -220,6 +220,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga7cc2ffa4f595f828e84a0a42eb3bbabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gafdb4b2120cb1d4e18fe872e41f67d505"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#gafdb4b2120cb1d4e18fe872e41f67d505">M_event_timer_reset</a> (<a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *timer, M_uint64 interval_ms)</td></tr>
 <tr class="separator:gafdb4b2120cb1d4e18fe872e41f67d505"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga19c232f69715afa99eb01931c65f8300"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#ga19c232f69715afa99eb01931c65f8300">M_event_timer_adjust</a> (<a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *timer, M_uint64 interval_ms)</td></tr>
+<tr class="separator:ga19c232f69715afa99eb01931c65f8300"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac0bdd95d42641e30f805d2ef9a8b0708"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#gac0bdd95d42641e30f805d2ef9a8b0708">M_event_timer_set_starttv</a> (<a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *timer, <a class="el" href="group__m__time.html#structM__timeval__t">M_timeval_t</a> *start_tv)</td></tr>
 <tr class="separator:gac0bdd95d42641e30f805d2ef9a8b0708"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaafa2ce45f12e462c6047fe490e022f61"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#gaafa2ce45f12e462c6047fe490e022f61">M_event_timer_set_endtv</a> (<a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *timer, <a class="el" href="group__m__time.html#structM__timeval__t">M_timeval_t</a> *end_tv)</td></tr>
@@ -232,6 +234,8 @@ Functions</h2></td></tr>
 <tr class="separator:gaa7461b01a5cd6e6471e8c96df6dbb96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga804fd582353c5c71a984141921a9bd6b"><td class="memItemLeft" align="right" valign="top">M_uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#ga804fd582353c5c71a984141921a9bd6b">M_event_timer_get_remaining_ms</a> (<a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *timer)</td></tr>
 <tr class="separator:ga804fd582353c5c71a984141921a9bd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6ad4067ecf98b90f7a17ee5a4fe60cd8"><td class="memItemLeft" align="right" valign="top">M_uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#ga6ad4067ecf98b90f7a17ee5a4fe60cd8">M_event_timer_get_interval_ms</a> (<a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *timer)</td></tr>
+<tr class="separator:ga6ad4067ecf98b90f7a17ee5a4fe60cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabdfd1c19b7c99ee9d8411b87beeb5a4f"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#gabdfd1c19b7c99ee9d8411b87beeb5a4f">M_event_timer_get_status</a> (<a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *timer)</td></tr>
 <tr class="separator:gabdfd1c19b7c99ee9d8411b87beeb5a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabf6eeab8c12ebe666cf38557e57b105f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__event.html#gabf6eeab8c12ebe666cf38557e57b105f">M_event_timer_oneshot</a> (<a class="el" href="group__m__event.html#ga747f0301bfcc6db3b51eaf07e2582350">M_event_t</a> *event, M_uint64 interval_ms, M_bool autoremove, <a class="el" href="group__m__event.html#ga454e48a58bf322de6666c6d9e65c3b51">M_event_callback_t</a> callback, void *cb_data)</td></tr>
@@ -1279,6 +1283,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga19c232f69715afa99eb01931c65f8300"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga19c232f69715afa99eb01931c65f8300">&#9670;&nbsp;</a></span>M_event_timer_adjust()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_event_timer_adjust </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *&#160;</td>
+          <td class="paramname"><em>timer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">M_uint64&#160;</td>
+          <td class="paramname"><em>interval_ms</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adjust the timer interval_ms.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__m__event.html#gafdb4b2120cb1d4e18fe872e41f67d505">M_event_timer_reset</a> will stop the timer and schedule it to start again in interval_ms in the future. Adjusting the time does not stop the timer. It is used to prevent timers from not being run if the interval_ms is constancy being adjusted.</dd></dl>
+<p>If the remaining time on the timer is &gt; the new interval_ms the timer will be reset to run after the new interval_ms. If the timer has less time remaining than the new interval_ms it will be allowed to trigger after the remaining time and then be scheduled to run using the new interval_ms.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">timer</td><td>Timer handle returned by <a class="el" href="group__m__event.html#ga3fb88400e7101b24886e55e0e24d495b">M_event_timer_add()</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">interval_ms</td><td>Time in milliseconds before the timer will expire. 0 is considered an error.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE on success, M_FALSE on failure. </dd></dl>
+
+</div>
+</div>
 <a id="gac0bdd95d42641e30f805d2ef9a8b0708"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gac0bdd95d42641e30f805d2ef9a8b0708">&#9670;&nbsp;</a></span>M_event_timer_set_starttv()</h2>
 
@@ -1489,6 +1532,32 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Number of milliseconds remaining on timer, or 0 if stopped. </dd></dl>
+
+</div>
+</div>
+<a id="ga6ad4067ecf98b90f7a17ee5a4fe60cd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6ad4067ecf98b90f7a17ee5a4fe60cd8">&#9670;&nbsp;</a></span>M_event_timer_get_interval_ms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_uint64 M_event_timer_get_interval_ms </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *&#160;</td>
+          <td class="paramname"><em>timer</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Retrieve the current millisecond interval the time is using.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">timer</td><td>Timer handle returned by <a class="el" href="group__m__event.html#ga3fb88400e7101b24886e55e0e24d495b">M_event_timer_add()</a></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Number of milliseconds the timer is configured to use. Set from start, reset, or adjust. </dd></dl>
 
 </div>
 </div>
@@ -1959,7 +2028,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Oct 1 2022 11:57:27 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Oct 14 2022 15:50:04 for Mstdlib-1.21.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
