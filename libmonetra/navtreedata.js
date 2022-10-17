@@ -24,7 +24,7 @@
 */
 var NAVTREE =
 [
-  [ "LibMonetra-8.10.0", "index.html", [
+  [ "LibMonetra-8.11.0", "index.html", [
     [ "About", "index.html", [
       [ "v8 Changes", "index.html#autotoc_md0", null ],
       [ "Building", "index.html#autotoc_md1", [
