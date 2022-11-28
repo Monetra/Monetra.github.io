@@ -102,12 +102,12 @@ Typedefs</h2></td></tr>
 <tr class="separator:gae57d7bc037d1875558918f1bd58cf382"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaa4045ad6a0ed1926526138559ecbaccf"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#gaa4045ad6a0ed1926526138559ecbaccf">M_net_smtp_connect_cb</a>) (const char *address, M_uint16 port, void *thunk)</td></tr>
 <tr class="separator:gaa4045ad6a0ed1926526138559ecbaccf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga2dfd89e328fda01590644f8c5610dc2c"><td class="memItemLeft" align="right" valign="top">typedef M_bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga2dfd89e328fda01590644f8c5610dc2c">M_net_smtp_connect_fail_cb</a>) (const char *address, M_uint16 port, <a class="el" href="group__m__net__common.html#gaa3294221a2148caa4239f649dd7962df">M_net_error_t</a> net_err, const char *error, void *thunk)</td></tr>
-<tr class="separator:ga2dfd89e328fda01590644f8c5610dc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8721090df2763580ca17d9aa4a83c5eb"><td class="memItemLeft" align="right" valign="top">typedef M_uint64(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga8721090df2763580ca17d9aa4a83c5eb">M_net_smtp_connect_fail_cb</a>) (const char *address, M_uint16 port, <a class="el" href="group__m__net__common.html#gaa3294221a2148caa4239f649dd7962df">M_net_error_t</a> net_err, const char *error, void *thunk)</td></tr>
+<tr class="separator:ga8721090df2763580ca17d9aa4a83c5eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaad67ad5424cdfbcdf9dae18ca9b19453"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#gaad67ad5424cdfbcdf9dae18ca9b19453">M_net_smtp_disconnect_cb</a>) (const char *address, M_uint16 port, void *thunk)</td></tr>
 <tr class="separator:gaad67ad5424cdfbcdf9dae18ca9b19453"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga3eeb09d84cc1583bda56c1dde5110cdf"><td class="memItemLeft" align="right" valign="top">typedef M_bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga3eeb09d84cc1583bda56c1dde5110cdf">M_net_smtp_process_fail_cb</a>) (const char *command, int result_code, const char *proc_stdout, const char *proc_stderror, void *thunk)</td></tr>
-<tr class="separator:ga3eeb09d84cc1583bda56c1dde5110cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga351837a54b4e73c40f5d56a47847f7bb"><td class="memItemLeft" align="right" valign="top">typedef M_uint64(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga351837a54b4e73c40f5d56a47847f7bb">M_net_smtp_process_fail_cb</a>) (const char *command, int result_code, const char *proc_stdout, const char *proc_stderror, void *thunk)</td></tr>
+<tr class="separator:ga351837a54b4e73c40f5d56a47847f7bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga83f00e296a3d5066af4731ad756901af"><td class="memItemLeft" align="right" valign="top">typedef M_uint64(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga83f00e296a3d5066af4731ad756901af">M_net_smtp_processing_halted_cb</a>) (M_bool no_endpoints, void *thunk)</td></tr>
 <tr class="separator:ga83f00e296a3d5066af4731ad756901af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae6cb36017b15ccf24011fba48199e967"><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#gae6cb36017b15ccf24011fba48199e967">M_net_smtp_sent_cb</a>) (const <a class="el" href="group__m__hash__dict.html#ga01ab9873e5c24644b27b099a032bea00">M_hash_dict_t</a> *headers, void *thunk)</td></tr>
@@ -203,7 +203,7 @@ connect_cb</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a02093db5842042f20126926f3c8aec20"></a><a class="el" href="group__m__net__smtp.html#ga2dfd89e328fda01590644f8c5610dc2c">M_net_smtp_connect_fail_cb</a></td>
+<a id="a02093db5842042f20126926f3c8aec20"></a><a class="el" href="group__m__net__smtp.html#ga8721090df2763580ca17d9aa4a83c5eb">M_net_smtp_connect_fail_cb</a></td>
 <td class="fieldname">
 connect_fail_cb</td>
 <td class="fielddoc">
@@ -215,7 +215,7 @@ disconnect_cb</td>
 <td class="fielddoc">
 </td></tr>
 <tr><td class="fieldtype">
-<a id="a533837cbc382d7724f893f0bf0d9e381"></a><a class="el" href="group__m__net__smtp.html#ga3eeb09d84cc1583bda56c1dde5110cdf">M_net_smtp_process_fail_cb</a></td>
+<a id="a533837cbc382d7724f893f0bf0d9e381"></a><a class="el" href="group__m__net__smtp.html#ga351837a54b4e73c40f5d56a47847f7bb">M_net_smtp_process_fail_cb</a></td>
 <td class="fieldname">
 process_fail_cb</td>
 <td class="fielddoc">
@@ -293,14 +293,14 @@ iocreate_cb</td>
 
 </div>
 </div>
-<a id="ga2dfd89e328fda01590644f8c5610dc2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga2dfd89e328fda01590644f8c5610dc2c">&#9670;&nbsp;</a></span>M_net_smtp_connect_fail_cb</h2>
+<a id="ga8721090df2763580ca17d9aa4a83c5eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8721090df2763580ca17d9aa4a83c5eb">&#9670;&nbsp;</a></span>M_net_smtp_connect_fail_cb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef M_bool(* M_net_smtp_connect_fail_cb) (const char *address, M_uint16 port, <a class="el" href="group__m__net__common.html#gaa3294221a2148caa4239f649dd7962df">M_net_error_t</a> net_err, const char *error, void *thunk)</td>
+          <td class="memname">typedef M_uint64(* M_net_smtp_connect_fail_cb) (const char *address, M_uint16 port, <a class="el" href="group__m__net__common.html#gaa3294221a2148caa4239f649dd7962df">M_net_error_t</a> net_err, const char *error, void *thunk)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -316,7 +316,7 @@ iocreate_cb</td>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>M_FALSE if the endpoint should be be removed from the pool. M_TRUE to allow the server to be retried later. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the endpoint should be be removed from the pool. Otherwise number of seconds to wait before retrying the server later. </dd></dl>
 
 </div>
 </div>
@@ -345,14 +345,14 @@ iocreate_cb</td>
 
 </div>
 </div>
-<a id="ga3eeb09d84cc1583bda56c1dde5110cdf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3eeb09d84cc1583bda56c1dde5110cdf">&#9670;&nbsp;</a></span>M_net_smtp_process_fail_cb</h2>
+<a id="ga351837a54b4e73c40f5d56a47847f7bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga351837a54b4e73c40f5d56a47847f7bb">&#9670;&nbsp;</a></span>M_net_smtp_process_fail_cb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef M_bool(* M_net_smtp_process_fail_cb) (const char *command, int result_code, const char *proc_stdout, const char *proc_stderror, void *thunk)</td>
+          <td class="memname">typedef M_uint64(* M_net_smtp_process_fail_cb) (const char *command, int result_code, const char *proc_stdout, const char *proc_stderror, void *thunk)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -368,7 +368,7 @@ iocreate_cb</td>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>M_FALSE if the endpoint should be be removed from the pool. M_TRUE to allow the server to be retried later. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>0 if the endpoint should be be removed from the pool. Otherwise the number of seconds to wait before retrying the server later. </dd></dl>
 
 </div>
 </div>
@@ -1165,7 +1165,7 @@ iocreate_cb</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Nov 18 2022 19:16:05 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Nov 28 2022 14:47:48 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
