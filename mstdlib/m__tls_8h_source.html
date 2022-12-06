@@ -576,305 +576,327 @@ $(document).ready(function(){initNavTree('m__tls_8h_source.html',''); initResiza
 <div class="line"><a name="l00489"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga82d75bcdbdc975d5140e0136a79b7bc1">  489</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga82d75bcdbdc975d5140e0136a79b7bc1">M_tls_serverctx_set_ciphers</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *ciphers);</div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160; </div>
 <div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="comment">/*! Load a CA certificate for validating the certificate presented by the client.</span></div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="comment">/*! Set the server to prefer its own cipher order rather than the client.</span></div>
 <div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;<span class="comment"> * If set the client will be required to present a certificate.</span></div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="comment"> * This will not clear existing CAs that were already loaded.</span></div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="comment"> * \param[in] ca  CA data.</span></div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="comment"> * \param[in] len CA length.</span></div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;<span class="comment"> * By default, the client cipher order is preferred, this is recommended as a</span></div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="comment"> * client may be a mobile device where a cipher like TLS_CHACHA20_POLY1305_SHA256</span></div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="comment"> * is more efficient than TLS_AES_256_GCM_SHA384 and will provide a better</span></div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="comment"> * customer experience.  However a desktop client may prefer TLS_AES_256_GCM_SHA384</span></div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="comment"> * as it supports AES-NI instruction helpers or similar.  Since the server is</span></div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="comment"> * often more powerful than the client, it is better suited to the additional</span></div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="comment"> * compute.</span></div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00504"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga460e46f6940ed6607869060c1e4f1df4">  504</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga460e46f6940ed6607869060c1e4f1df4">M_tls_serverctx_set_trust_ca</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ca, <span class="keywordtype">size_t</span> len);</div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160; </div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="comment">/*! Load a CA certificate from a file for validating the certificate presented by the client.</span></div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="comment"> * This will not clear existing CAs that were already loaded.</span></div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="comment"> * \param[in] path Path to CA file.</span></div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="comment"> * Assuming the server is configured to only allow strong ciphers, there should</span></div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="comment"> * be no security risk in allowing the client to decide the most efficient.</span></div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="comment"> * \param[in] ctx     Server context.</span></div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="comment"> * \param[in] tf      M_TRUE to enable server preference, M_FALSE to disable.</span></div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="comment"> * \see M_tls_clientctx_get_cipherlist</span></div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00510"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga185c8491e4a7242bb67d9f65f11b2dad">  510</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga185c8491e4a7242bb67d9f65f11b2dad">M_tls_serverctx_set_server_preference</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, M_bool tf);</div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160; </div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;<span class="comment">/*! Load a CA certificate for validating the certificate presented by the client.</span></div>
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_ca</span></div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00518"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga84e5d83139da7b879a1fb1d89d31ade2">  518</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga84e5d83139da7b879a1fb1d89d31ade2">M_tls_serverctx_set_trust_ca_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160; </div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="comment">/*! Load a certificate for validation of the certificate presented by the client.</span></div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="comment"> * This is for loading intermediate certificate used as part of the trust chain.</span></div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="comment"> * This will not clear existing certificates that were already loaded.</span></div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="comment"> * \param[in] path Path to CA directory.</span></div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_ca</span></div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00534"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gacc1dab8c13fd3cee4edccbaf6f4ccd53">  534</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gacc1dab8c13fd3cee4edccbaf6f4ccd53">M_tls_serverctx_set_trust_ca_dir</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160; </div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="comment">/*! Load a certificate for validation of the certificate presented by the client.</span></div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="comment"> * This is for loading intermediate certificate used as part of the trust chain.</span></div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;<span class="comment"> * This will not clear existing certificates that were already loaded.</span></div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="comment"> * \param[in] crt Certificate.</span></div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="comment"> * \param[in] len Certificate length.</span></div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="comment"> * If set the client will be required to present a certificate.</span></div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="comment"> * This will not clear existing CAs that were already loaded.</span></div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="comment"> * \param[in] ca  CA data.</span></div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="comment"> * \param[in] len CA length.</span></div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00526"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga460e46f6940ed6607869060c1e4f1df4">  526</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga460e46f6940ed6607869060c1e4f1df4">M_tls_serverctx_set_trust_ca</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ca, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160; </div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;<span class="comment">/*! Load a CA certificate from a file for validating the certificate presented by the client.</span></div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="comment"> * This will not clear existing CAs that were already loaded.</span></div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;<span class="comment"> * \param[in] path Path to CA file.</span></div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_ca</span></div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00540"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga84e5d83139da7b879a1fb1d89d31ade2">  540</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga84e5d83139da7b879a1fb1d89d31ade2">M_tls_serverctx_set_trust_ca_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160; </div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="comment">/*! Load a certificate for validation of the certificate presented by the client.</span></div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="comment"> * This is for loading intermediate certificate used as part of the trust chain.</span></div>
 <div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00549"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gaf70a77bd8de43cfbe7ee6067a75ef2f3">  549</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gaf70a77bd8de43cfbe7ee6067a75ef2f3">M_tls_serverctx_set_trust_cert</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *crt, <span class="keywordtype">size_t</span> len);</div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160; </div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="comment">/*! Load a certificate from a file for validation of the certificate presented by the client.</span></div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;<span class="comment"> * This will not clear existing certificates that were already loaded.</span></div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;<span class="comment"> * \param[in] path Path to CA directory.</span></div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
 <div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="comment"> * This is for loading intermediate certificate used as part of the trust chain.</span></div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="comment"> * This will not clear existing certificates that were already loaded.</span></div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="comment"> * \param[in] path Path to certificate file.</span></div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_ca</span></div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00556"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gacc1dab8c13fd3cee4edccbaf6f4ccd53">  556</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gacc1dab8c13fd3cee4edccbaf6f4ccd53">M_tls_serverctx_set_trust_ca_dir</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160; </div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="comment">/*! Load a certificate for validation of the certificate presented by the client.</span></div>
 <div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="comment"> * This is for loading intermediate certificate used as part of the trust chain.</span></div>
 <div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_cert</span></div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00565"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga1951d4cff6a2a15854da05244ac0c512">  565</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga1951d4cff6a2a15854da05244ac0c512">M_tls_serverctx_set_trust_cert_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160; </div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;<span class="comment">/*! Load a certificate revocation list to validate the certificate presented by the client.</span></div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;<span class="comment"> * This will not clear existing revocations already loaded.</span></div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="comment"> * \param[in] crl CRL.</span></div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="comment"> * \param[in] len CRL Length.</span></div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="comment"> * This will not clear existing certificates that were already loaded.</span></div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;<span class="comment"> * \param[in] crt Certificate.</span></div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;<span class="comment"> * \param[in] len Certificate length.</span></div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00571"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gaf70a77bd8de43cfbe7ee6067a75ef2f3">  571</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gaf70a77bd8de43cfbe7ee6067a75ef2f3">M_tls_serverctx_set_trust_cert</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *crt, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160; </div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="comment">/*! Load a certificate from a file for validation of the certificate presented by the client.</span></div>
 <div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00578"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga9d2b21b3f11a32ee55548d47c348fe1f">  578</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga9d2b21b3f11a32ee55548d47c348fe1f">M_tls_serverctx_add_trust_crl</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *crl, <span class="keywordtype">size_t</span> len);</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;<span class="comment">/*! Load a certificate revocation from a file list to validate the certificate presented by the client.</span></div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="comment"> * This is for loading intermediate certificate used as part of the trust chain.</span></div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="comment"> * This will not clear existing certificates that were already loaded.</span></div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;<span class="comment"> * \param[in] path Path to certificate file.</span></div>
 <div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;<span class="comment"> * This will not clear existing revocations already loaded.</span></div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
 <div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="comment"> * \param[in] path Path to certificate revocation list file.</span></div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_cert_file</span></div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00592"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga10af2271dbecaf5169857e82d21973a4">  592</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga10af2271dbecaf5169857e82d21973a4">M_tls_serverctx_add_trust_crl_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160; </div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="comment">/*! Set the dhparam for the context.</span></div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="comment"> * If not set, uses internal 2236 dhparam.</span></div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="comment"> * DHparam data must be PEM-encoded.</span></div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="comment"> * \param[in] ctx         Server context.</span></div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;<span class="comment"> * \param[in] dhparam     DHparam data. If dhparam is NULL, disables the use of DHE negotiation.</span></div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="comment"> * \param[in] dhparam_len Length of data.</span></div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00606"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga0c03eab9f5c3ab8b8b6f2f8976ddd1bd">  606</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga0c03eab9f5c3ab8b8b6f2f8976ddd1bd">M_tls_serverctx_set_dhparam</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *dhparam, <span class="keywordtype">size_t</span> dhparam_len);</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160; </div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;<span class="comment">/*! Set the dhparam for the context from a file.</span></div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;<span class="comment"> * If not set, uses internal 2236 dhparam.</span></div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<span class="comment"> * DHparam data must be PEM-encoded.</span></div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;<span class="comment"> * \param[in] ctx          Server context.</span></div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;<span class="comment"> * \param[in] dhparam_path Path to DHparam data.</span></div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_cert</span></div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00587"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga1951d4cff6a2a15854da05244ac0c512">  587</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga1951d4cff6a2a15854da05244ac0c512">M_tls_serverctx_set_trust_cert_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160; </div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="comment">/*! Load a certificate revocation list to validate the certificate presented by the client.</span></div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="comment"> * This will not clear existing revocations already loaded.</span></div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="comment"> * \param[in] crl CRL.</span></div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;<span class="comment"> * \param[in] len CRL Length.</span></div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00600"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga9d2b21b3f11a32ee55548d47c348fe1f">  600</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga9d2b21b3f11a32ee55548d47c348fe1f">M_tls_serverctx_add_trust_crl</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *crl, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160; </div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="comment">/*! Load a certificate revocation from a file list to validate the certificate presented by the client.</span></div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="comment"> * This will not clear existing revocations already loaded.</span></div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="comment"> * \param[in] ctx  Server context.</span></div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="comment"> * \param[in] path Path to certificate revocation list file.</span></div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_trust_cert_file</span></div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00614"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga10af2271dbecaf5169857e82d21973a4">  614</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga10af2271dbecaf5169857e82d21973a4">M_tls_serverctx_add_trust_crl_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *path);</div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160; </div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;<span class="comment">/*! Set the dhparam for the context.</span></div>
 <div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_dhparam</span></div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00621"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gaf023a1807fc5881f70fe928b76db5033">  621</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gaf023a1807fc5881f70fe928b76db5033">M_tls_serverctx_set_dhparam_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *dhparam_path);</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160; </div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="comment">/*! Enable or disable session resumption.</span></div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;<span class="comment"> * If not set, uses internal 2236 dhparam.</span></div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;<span class="comment"> * DHparam data must be PEM-encoded.</span></div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;<span class="comment"> * \param[in] ctx         Server context.</span></div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;<span class="comment"> * \param[in] dhparam     DHparam data. If dhparam is NULL, disables the use of DHE negotiation.</span></div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;<span class="comment"> * \param[in] dhparam_len Length of data.</span></div>
 <div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="comment"> * Session resumption is enabled by default.</span></div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;<span class="comment"> * \param[in] ctx    Server context.</span></div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;<span class="comment"> * \param[in] enable M_TRUE to enable. M_FALSE to disable.</span></div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00633"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gadd8fa393cc79e75e83116c5955708392">  633</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gadd8fa393cc79e75e83116c5955708392">M_tls_serverctx_set_session_resumption</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, M_bool enable);</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160; </div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;<span class="comment">/*! Retrieves a colon separated list of ciphers that are enabled.</span></div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="comment"> * \return String.</span></div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00642"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga4fa33cd5b418fa34b1b404b34eba77d8">  642</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga4fa33cd5b418fa34b1b404b34eba77d8">M_tls_serverctx_get_cipherlist</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx);</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;<span class="comment">/*! Set ALPN supported applications.</span></div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="comment"> * \param[in] ctx          Server context.</span></div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="comment"> * \param[in] applications List of supported applications.</span></div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00651"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gaf7ec0efcdf8f87e87943a6e876c55ba1">  651</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gaf7ec0efcdf8f87e87943a6e876c55ba1">M_tls_serverctx_set_applications</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *applications);</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160; </div>
-<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;<span class="comment">/*! Set the negotiation timeout.</span></div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;<span class="comment"> * How long the server should wait to establish a connection.</span></div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;<span class="comment"> * \param[in] ctx        Server context.</span></div>
-<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="comment"> * \param[in] timeout_ms Time in milliseconds.</span></div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00663"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga65f1b0c8bb202cbc7b6e292ba3bbc8ed">  663</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga65f1b0c8bb202cbc7b6e292ba3bbc8ed">M_tls_serverctx_set_negotiation_timeout_ms</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, M_uint64 timeout_ms);</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;<span class="comment">/*! Wrap existing IO channel with TLS.</span></div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;<span class="comment"> * \param[in]  io       io object.</span></div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;<span class="comment"> * \param[in]  ctx      Server context.</span></div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;<span class="comment"> * \param[out] layer_id Layer id this is added at.</span></div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00628"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga0c03eab9f5c3ab8b8b6f2f8976ddd1bd">  628</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga0c03eab9f5c3ab8b8b6f2f8976ddd1bd">M_tls_serverctx_set_dhparam</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *dhparam, <span class="keywordtype">size_t</span> dhparam_len);</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160; </div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;<span class="comment">/*! Set the dhparam for the context from a file.</span></div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;<span class="comment"> * If not set, uses internal 2236 dhparam.</span></div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;<span class="comment"> * DHparam data must be PEM-encoded.</span></div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;<span class="comment"> * \param[in] ctx          Server context.</span></div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;<span class="comment"> * \param[in] dhparam_path Path to DHparam data.</span></div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;<span class="comment"> * \see M_tls_serverctx_set_dhparam</span></div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00643"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gaf023a1807fc5881f70fe928b76db5033">  643</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gaf023a1807fc5881f70fe928b76db5033">M_tls_serverctx_set_dhparam_file</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keyword">const</span> <span class="keywordtype">char</span> *dhparam_path);</div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160; </div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;<span class="comment">/*! Enable or disable session resumption.</span></div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;<span class="comment"> * Session resumption is enabled by default.</span></div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;<span class="comment"> * \param[in] ctx    Server context.</span></div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;<span class="comment"> * \param[in] enable M_TRUE to enable. M_FALSE to disable.</span></div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00655"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gadd8fa393cc79e75e83116c5955708392">  655</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gadd8fa393cc79e75e83116c5955708392">M_tls_serverctx_set_session_resumption</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, M_bool enable);</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160; </div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;<span class="comment">/*! Retrieves a colon separated list of ciphers that are enabled.</span></div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;<span class="comment"> * \param[in] ctx Server context.</span></div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00664"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga4fa33cd5b418fa34b1b404b34eba77d8">  664</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga4fa33cd5b418fa34b1b404b34eba77d8">M_tls_serverctx_get_cipherlist</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx);</div>
+<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;<span class="comment">/*! Set ALPN supported applications.</span></div>
+<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;<span class="comment"> * \param[in] ctx          Server context.</span></div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;<span class="comment"> * \param[in] applications List of supported applications.</span></div>
 <div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;<span class="comment"> * \return Result.</span></div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
 <div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00673"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga9109e84c3a06c99dd50fcf4ee8fde824">  673</a></span>&#160;M_API <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> <a class="code" href="group__m__tls__funcs.html#ga9109e84c3a06c99dd50fcf4ee8fde824">M_io_tls_server_add</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keywordtype">size_t</span> *layer_id);</div>
+<div class="line"><a name="l00673"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gaf7ec0efcdf8f87e87943a6e876c55ba1">  673</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#gaf7ec0efcdf8f87e87943a6e876c55ba1">M_tls_serverctx_set_applications</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *applications);</div>
 <div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160; </div>
 <div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="comment">/*! Get the host name the connected client requested.</span></div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="comment">/*! Set the negotiation timeout.</span></div>
 <div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;<span class="comment"> * \return String.</span></div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00683"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga1ccf192805939cf853abf8428cfe75b3">  683</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga1ccf192805939cf853abf8428cfe75b3">M_tls_server_get_hostname</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160; </div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160; </div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;<span class="comment"> * Common to both server and client</span></div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160; </div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="comment">/*! Get the protocol the connection was establish with.</span></div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;<span class="comment"> * How long the server should wait to establish a connection.</span></div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;<span class="comment"> * \param[in] ctx        Server context.</span></div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;<span class="comment"> * \param[in] timeout_ms Time in milliseconds.</span></div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;<span class="comment"> * \return M_TRUE on success, otherwise M_FALSE on error.</span></div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00685"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga65f1b0c8bb202cbc7b6e292ba3bbc8ed">  685</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga65f1b0c8bb202cbc7b6e292ba3bbc8ed">M_tls_serverctx_set_negotiation_timeout_ms</a>(<a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, M_uint64 timeout_ms);</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;<span class="comment">/*! Wrap existing IO channel with TLS.</span></div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;<span class="comment"> * \param[in]  io       io object.</span></div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;<span class="comment"> * \param[in]  ctx      Server context.</span></div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;<span class="comment"> * \param[out] layer_id Layer id this is added at.</span></div>
 <div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;<span class="comment"> * \return Protocol.</span></div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00698"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gabf66bf9ba4027fa3b4f665595eda8a28">  698</a></span>&#160;M_API <a class="code" href="group__m__tls__funcs.html#gac069c82e8b870995ea2c7d7e01e2e476">M_tls_protocols_t</a> <a class="code" href="group__m__tls__funcs.html#gabf66bf9ba4027fa3b4f665595eda8a28">M_tls_get_protocol</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160; </div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;<span class="comment">/*! Was the session for this connection reused from a previous connection?</span></div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;<span class="comment"> * \return Result.</span></div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00695"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga9109e84c3a06c99dd50fcf4ee8fde824">  695</a></span>&#160;M_API <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> <a class="code" href="group__m__tls__funcs.html#ga9109e84c3a06c99dd50fcf4ee8fde824">M_io_tls_server_add</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, <span class="keywordtype">size_t</span> *layer_id);</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160; </div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;<span class="comment">/*! Get the host name the connected client requested.</span></div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
 <div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;<span class="comment"> * \return M_TRUE if reused, otherwise M_FALSE.</span></div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00708"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga2e3b3bf20eb77dcefefca3f267a773ad">  708</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga2e3b3bf20eb77dcefefca3f267a773ad">M_tls_get_sessionreused</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160; </div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;<span class="comment">/*! Get the cipher negotiated.</span></div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="comment"> * \return String.</span></div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00718"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga8a6e5ed1f09a4a0d44cff68efb97c471">  718</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga8a6e5ed1f09a4a0d44cff68efb97c471">M_tls_get_cipher</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160; </div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;<span class="comment">/*! Get the application negotiated.</span></div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment"> * \return NULL if there is no ALPN support or on error, or will return the application.</span></div>
-<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00728"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga269becbb75ab369b1c5557647928f7e9">  728</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga269becbb75ab369b1c5557647928f7e9">M_tls_get_application</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160; </div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;<span class="comment">/*! Get the certificate presented by the other end.</span></div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="comment"> * \return X509 PEM encoded certificate.</span></div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00738"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga35a23d7dfd1c2ebcc27011b8a88fb007">  738</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga35a23d7dfd1c2ebcc27011b8a88fb007">M_tls_get_peer_cert</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160; </div>
-<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;<span class="comment">/*! How long negotiated took.</span></div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="comment"> * \return Negotiation time (success or fail) in ms */</span></div>
-<div class="line"><a name="l00747"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga317aacbbf40cae2c20b7d0fe1a100ecd">  747</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__tls__funcs.html#ga317aacbbf40cae2c20b7d0fe1a100ecd">M_tls_get_negotiation_time_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
-<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160; </div>
-<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;<span class="comment">/*! Convert a protocol to string.</span></div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;<span class="comment"> * Only single protocol should be specified. If multiple are provided</span></div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;<span class="comment"> * it is undefined which will be returned. Used primarily for logging to</span></div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="comment"> * print what protocol a connection is using.</span></div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="comment"> * \param[in] protocol</span></div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00705"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga1ccf192805939cf853abf8428cfe75b3">  705</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga1ccf192805939cf853abf8428cfe75b3">M_tls_server_get_hostname</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160; </div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160; </div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;<span class="comment"> * Common to both server and client</span></div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160; </div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;<span class="comment">/*! Get the protocol the connection was establish with.</span></div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;<span class="comment"> * \return Protocol.</span></div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00720"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gabf66bf9ba4027fa3b4f665595eda8a28">  720</a></span>&#160;M_API <a class="code" href="group__m__tls__funcs.html#gac069c82e8b870995ea2c7d7e01e2e476">M_tls_protocols_t</a> <a class="code" href="group__m__tls__funcs.html#gabf66bf9ba4027fa3b4f665595eda8a28">M_tls_get_protocol</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160; </div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;<span class="comment">/*! Was the session for this connection reused from a previous connection?</span></div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;<span class="comment"> * \return M_TRUE if reused, otherwise M_FALSE.</span></div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00730"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga2e3b3bf20eb77dcefefca3f267a773ad">  730</a></span>&#160;M_API M_bool <a class="code" href="group__m__tls__funcs.html#ga2e3b3bf20eb77dcefefca3f267a773ad">M_tls_get_sessionreused</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160; </div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;<span class="comment">/*! Get the cipher negotiated.</span></div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00740"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga8a6e5ed1f09a4a0d44cff68efb97c471">  740</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga8a6e5ed1f09a4a0d44cff68efb97c471">M_tls_get_cipher</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160; </div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;<span class="comment">/*! Get the application negotiated.</span></div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;<span class="comment"> * \return NULL if there is no ALPN support or on error, or will return the application.</span></div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00750"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga269becbb75ab369b1c5557647928f7e9">  750</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga269becbb75ab369b1c5557647928f7e9">M_tls_get_application</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160; </div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;<span class="comment">/*! Get the certificate presented by the other end.</span></div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
 <div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;<span class="comment"> * \return X509 PEM encoded certificate.</span></div>
 <div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00760"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga27e00d3675d2883fd9de38e6e2d8d003">  760</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga27e00d3675d2883fd9de38e6e2d8d003">M_tls_protocols_to_str</a>(<a class="code" href="group__m__tls__funcs.html#gac069c82e8b870995ea2c7d7e01e2e476">M_tls_protocols_t</a> protocol);</div>
+<div class="line"><a name="l00760"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga35a23d7dfd1c2ebcc27011b8a88fb007">  760</a></span>&#160;M_API <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga35a23d7dfd1c2ebcc27011b8a88fb007">M_tls_get_peer_cert</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
 <div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160; </div>
 <div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;<span class="comment">/*! Convert a string to protocols bitmap</span></div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;<span class="comment">/*! How long negotiated took.</span></div>
 <div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;<span class="comment"> * The value for this field is a space separated list of protocols. Valid</span></div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;<span class="comment"> * protocols are: tlsv1, tlsv1.0, tlsv1.1, tlsv1.2, tlsv1.3.</span></div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;<span class="comment"> * \param[in] io io object.</span></div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;<span class="comment"> * \param[in] id Layer id.</span></div>
 <div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;<span class="comment"> * Entry tlsv1 implies all tls 1.y protocols.</span></div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;<span class="comment"> * If the protocol is appended with a plus (+) sign, then it means that protocol</span></div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;<span class="comment"> * version or higher, for instance, &quot;tlsv1.1+&quot; implies &quot;tlsv1.1 tlsv1.2 tlsv1.3&quot;</span></div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;<span class="comment"> * Protocols are treated as min and max. Enabling protocols with</span></div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;<span class="comment"> * version gaps will result in the gaps being enabled. E.g. specifying</span></div>
-<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;<span class="comment"> * &quot;tlsv1.0 tlsv1.2&quot; will enable tlsv1.0, _tlsv1.1_, and tlsv1.2.</span></div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="comment"> * Unknown entries will be ignored. Protocols that are not supported</span></div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;<span class="comment"> * by the backend will be removed from the list of returned protocols.</span></div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;<span class="comment"> * \return Negotiation time (success or fail) in ms */</span></div>
+<div class="line"><a name="l00769"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga317aacbbf40cae2c20b7d0fe1a100ecd">  769</a></span>&#160;M_API M_uint64 <a class="code" href="group__m__tls__funcs.html#ga317aacbbf40cae2c20b7d0fe1a100ecd">M_tls_get_negotiation_time_ms</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160; </div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;<span class="comment">/*! Convert a protocol to string.</span></div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;<span class="comment"> * Only single protocol should be specified. If multiple are provided</span></div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;<span class="comment"> * it is undefined which will be returned. Used primarily for logging to</span></div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;<span class="comment"> * print what protocol a connection is using.</span></div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;<span class="comment"> * \param[in] protocol</span></div>
 <div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;<span class="comment"> * \param[in] protocols_str String of protocols</span></div>
-<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;<span class="comment"> * \return Protocol bitmap. M_TLS_PROTOCOL_INVALID on error.</span></div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00784"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gabb6946e758b39da9daaca7c57744cc04">  784</a></span>&#160;M_API <a class="code" href="group__m__tls__funcs.html#gac069c82e8b870995ea2c7d7e01e2e476">M_tls_protocols_t</a> <a class="code" href="group__m__tls__funcs.html#gabb6946e758b39da9daaca7c57744cc04">M_tls_protocols_from_str</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *protocols_str);</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160; </div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160; </div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_TLS_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;<span class="comment"> * \return String.</span></div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00782"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#ga27e00d3675d2883fd9de38e6e2d8d003">  782</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__tls__funcs.html#ga27e00d3675d2883fd9de38e6e2d8d003">M_tls_protocols_to_str</a>(<a class="code" href="group__m__tls__funcs.html#gac069c82e8b870995ea2c7d7e01e2e476">M_tls_protocols_t</a> protocol);</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160; </div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;<span class="comment">/*! Convert a string to protocols bitmap</span></div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;<span class="comment"> * The value for this field is a space separated list of protocols. Valid</span></div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;<span class="comment"> * protocols are: tlsv1, tlsv1.0, tlsv1.1, tlsv1.2, tlsv1.3.</span></div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;<span class="comment"> * Entry tlsv1 implies all tls 1.y protocols.</span></div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;<span class="comment"> * If the protocol is appended with a plus (+) sign, then it means that protocol</span></div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;<span class="comment"> * version or higher, for instance, &quot;tlsv1.1+&quot; implies &quot;tlsv1.1 tlsv1.2 tlsv1.3&quot;</span></div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;<span class="comment"> * Protocols are treated as min and max. Enabling protocols with</span></div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;<span class="comment"> * version gaps will result in the gaps being enabled. E.g. specifying</span></div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;<span class="comment"> * &quot;tlsv1.0 tlsv1.2&quot; will enable tlsv1.0, _tlsv1.1_, and tlsv1.2.</span></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;<span class="comment"> * Unknown entries will be ignored. Protocols that are not supported</span></div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;<span class="comment"> * by the backend will be removed from the list of returned protocols.</span></div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;<span class="comment"> * \param[in] protocols_str String of protocols</span></div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;<span class="comment"> * \return Protocol bitmap. M_TLS_PROTOCOL_INVALID on error.</span></div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00806"></a><span class="lineno"><a class="line" href="group__m__tls__funcs.html#gabb6946e758b39da9daaca7c57744cc04">  806</a></span>&#160;M_API <a class="code" href="group__m__tls__funcs.html#gac069c82e8b870995ea2c7d7e01e2e476">M_tls_protocols_t</a> <a class="code" href="group__m__tls__funcs.html#gabb6946e758b39da9daaca7c57744cc04">M_tls_protocols_from_str</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *protocols_str);</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160; </div>
+<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160; </div>
+<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_TLS_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="agroup__m__io_html_ga2d3bea9aaa4491c3c8dad94cf24498a2"><div class="ttname"><a href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a></div><div class="ttdeci">enum M_io_error M_io_error_t</div><div class="ttdef"><b>Definition:</b> m_io.h:93</div></div>
 <div class="ttc" id="agroup__m__io_html_ga845c131d8520206a2a7a9219d1bd1932"><div class="ttname"><a href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a></div><div class="ttdeci">struct M_io M_io_t</div><div class="ttdef"><b>Definition:</b> m_io.h:59</div></div>
 <div class="ttc" id="agroup__m__list__str_html_ga6de38b5604cb0dee336dccb52b5ae077"><div class="ttname"><a href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a></div><div class="ttdeci">struct M_list_str M_list_str_t</div><div class="ttdef"><b>Definition:</b> m_list_str.h:80</div></div>
@@ -883,6 +905,7 @@ $(document).ready(function(){initNavTree('m__tls_8h_source.html',''); initResiza
 <div class="ttc" id="agroup__m__tls__funcs_html_ga10af2271dbecaf5169857e82d21973a4"><div class="ttname"><a href="group__m__tls__funcs.html#ga10af2271dbecaf5169857e82d21973a4">M_tls_serverctx_add_trust_crl_file</a></div><div class="ttdeci">M_bool M_tls_serverctx_add_trust_crl_file(M_tls_serverctx_t *ctx, const char *path)</div></div>
 <div class="ttc" id="agroup__m__tls__funcs_html_ga152105ec374623489cfd927c4c7715f8"><div class="ttname"><a href="group__m__tls__funcs.html#ga152105ec374623489cfd927c4c7715f8">M_tls_serverctx_set_protocols</a></div><div class="ttdeci">M_bool M_tls_serverctx_set_protocols(M_tls_serverctx_t *ctx, int protocols)</div></div>
 <div class="ttc" id="agroup__m__tls__funcs_html_ga154f702fcc28a79289edd906d4260f42"><div class="ttname"><a href="group__m__tls__funcs.html#ga154f702fcc28a79289edd906d4260f42">M_tls_clientctx_set_ciphers</a></div><div class="ttdeci">M_bool M_tls_clientctx_set_ciphers(M_tls_clientctx_t *ctx, const char *ciphers)</div></div>
+<div class="ttc" id="agroup__m__tls__funcs_html_ga185c8491e4a7242bb67d9f65f11b2dad"><div class="ttname"><a href="group__m__tls__funcs.html#ga185c8491e4a7242bb67d9f65f11b2dad">M_tls_serverctx_set_server_preference</a></div><div class="ttdeci">M_bool M_tls_serverctx_set_server_preference(M_tls_serverctx_t *ctx, M_bool tf)</div></div>
 <div class="ttc" id="agroup__m__tls__funcs_html_ga1951d4cff6a2a15854da05244ac0c512"><div class="ttname"><a href="group__m__tls__funcs.html#ga1951d4cff6a2a15854da05244ac0c512">M_tls_serverctx_set_trust_cert_file</a></div><div class="ttdeci">M_bool M_tls_serverctx_set_trust_cert_file(M_tls_serverctx_t *ctx, const char *path)</div></div>
 <div class="ttc" id="agroup__m__tls__funcs_html_ga1ccf192805939cf853abf8428cfe75b3"><div class="ttname"><a href="group__m__tls__funcs.html#ga1ccf192805939cf853abf8428cfe75b3">M_tls_server_get_hostname</a></div><div class="ttdeci">const char * M_tls_server_get_hostname(M_io_t *io, size_t id)</div></div>
 <div class="ttc" id="agroup__m__tls__funcs_html_ga1cf5f91f2948f1c9dc25ed4cd1fac189"><div class="ttname"><a href="group__m__tls__funcs.html#ga1cf5f91f2948f1c9dc25ed4cd1fac189">M_tls_serverctx_get_cert</a></div><div class="ttdeci">char * M_tls_serverctx_get_cert(M_tls_serverctx_t *ctx)</div></div>
@@ -955,7 +978,7 @@ $(document).ready(function(){initNavTree('m__tls_8h_source.html',''); initResiza
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_8b08b365657cbeea6de5ec9ffcb313a1.html">tls</a></li><li class="navelem"><b>m_tls.h</b></li>
-    <li class="footer">Generated on Tue Nov 29 2022 19:08:00 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Dec 6 2022 17:44:55 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

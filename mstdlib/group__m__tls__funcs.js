@@ -51,6 +51,7 @@ var group__m__tls__funcs =
     [ "M_tls_serverctx_get_cert", "group__m__tls__funcs.html#ga1cf5f91f2948f1c9dc25ed4cd1fac189", null ],
     [ "M_tls_serverctx_set_protocols", "group__m__tls__funcs.html#ga152105ec374623489cfd927c4c7715f8", null ],
     [ "M_tls_serverctx_set_ciphers", "group__m__tls__funcs.html#ga82d75bcdbdc975d5140e0136a79b7bc1", null ],
+    [ "M_tls_serverctx_set_server_preference", "group__m__tls__funcs.html#ga185c8491e4a7242bb67d9f65f11b2dad", null ],
     [ "M_tls_serverctx_set_trust_ca", "group__m__tls__funcs.html#ga460e46f6940ed6607869060c1e4f1df4", null ],
     [ "M_tls_serverctx_set_trust_ca_file", "group__m__tls__funcs.html#ga84e5d83139da7b879a1fb1d89d31ade2", null ],
     [ "M_tls_serverctx_set_trust_ca_dir", "group__m__tls__funcs.html#gacc1dab8c13fd3cee4edccbaf6f4ccd53", null ],

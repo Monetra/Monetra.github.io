@@ -197,6 +197,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga152105ec374623489cfd927c4c7715f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga82d75bcdbdc975d5140e0136a79b7bc1"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__tls__funcs.html#ga82d75bcdbdc975d5140e0136a79b7bc1">M_tls_serverctx_set_ciphers</a> (<a class="el" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, const char *ciphers)</td></tr>
 <tr class="separator:ga82d75bcdbdc975d5140e0136a79b7bc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga185c8491e4a7242bb67d9f65f11b2dad"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__tls__funcs.html#ga185c8491e4a7242bb67d9f65f11b2dad">M_tls_serverctx_set_server_preference</a> (<a class="el" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, M_bool tf)</td></tr>
+<tr class="separator:ga185c8491e4a7242bb67d9f65f11b2dad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga460e46f6940ed6607869060c1e4f1df4"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__tls__funcs.html#ga460e46f6940ed6607869060c1e4f1df4">M_tls_serverctx_set_trust_ca</a> (<a class="el" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, const unsigned char *ca, size_t len)</td></tr>
 <tr class="separator:ga460e46f6940ed6607869060c1e4f1df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga84e5d83139da7b879a1fb1d89d31ade2"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__tls__funcs.html#ga84e5d83139da7b879a1fb1d89d31ade2">M_tls_serverctx_set_trust_ca_file</a> (<a class="el" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *ctx, const char *path)</td></tr>
@@ -1473,6 +1475,45 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga185c8491e4a7242bb67d9f65f11b2dad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga185c8491e4a7242bb67d9f65f11b2dad">&#9670;&nbsp;</a></span>M_tls_serverctx_set_server_preference()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_tls_serverctx_set_server_preference </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__tls__funcs.html#gab91dbb011eaefd05db29e22140571b13">M_tls_serverctx_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">M_bool&#160;</td>
+          <td class="paramname"><em>tf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the server to prefer its own cipher order rather than the client.</p>
+<p>By default, the client cipher order is preferred, this is recommended as a client may be a mobile device where a cipher like TLS_CHACHA20_POLY1305_SHA256 is more efficient than TLS_AES_256_GCM_SHA384 and will provide a better customer experience. However a desktop client may prefer TLS_AES_256_GCM_SHA384 as it supports AES-NI instruction helpers or similar. Since the server is often more powerful than the client, it is better suited to the additional compute.</p>
+<p>Assuming the server is configured to only allow strong ciphers, there should be no security risk in allowing the client to decide the most efficient.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ctx</td><td>Server context. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">tf</td><td>M_TRUE to enable server preference, M_FALSE to disable.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="group__m__tls__funcs.html#ga470f184cc2d168a41d2b024e11adb67c">M_tls_clientctx_get_cipherlist</a> </dd></dl>
+
+</div>
+</div>
 <a id="ga460e46f6940ed6607869060c1e4f1df4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga460e46f6940ed6607869060c1e4f1df4">&#9670;&nbsp;</a></span>M_tls_serverctx_set_trust_ca()</h2>
 
@@ -2357,7 +2398,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Nov 29 2022 19:08:15 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Dec 6 2022 17:45:09 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
