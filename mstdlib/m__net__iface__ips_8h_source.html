@@ -188,31 +188,33 @@ $(document).ready(function(){initNavTree('m__net__iface__ips_8h_source.html','')
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment"> * \param[in] ips   Value returned from M_net_iface_ips()</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"> * \param[in] flags Must specify at least M_NET_IFACE_IPS_FLAG_IPV4 or M_NET_IFACE_IPS_FLAG_IPV6.</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment"> * \param[in] name  Only enumerate for a specific interface name.</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"> * \return list of ip addresses matching query.  Must be free&#39;d with M_list_str_destroy().</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="group__m__net__iface__ips.html#ga6b4d16f5e9419e077ce7b6579f2b157f">  106</a></span>&#160;M_API <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *<a class="code" href="group__m__net__iface__ips.html#ga6b4d16f5e9419e077ce7b6579f2b157f">M_net_iface_ips_get_ips</a>(<a class="code" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, <span class="keywordtype">int</span> flags, <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">/*! Retrieve a list of interfaces from the result set matching the query. </span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment"> *  Will only return interface names and not any flags or ip addresses.</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"> * \param[in] ips   Value returned from M_net_iface_ips()</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"> * \param[in] flags If either M_NET_IFACE_IPS_FLAG_IPV4 or M_NET_IFACE_IPS_FLAG_IPV6 is specified, will</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"> *                  exclude interfaces that don&#39;t have the specified address class.</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment"> * \return list of interface names matching query.  Must be free&#39;d with M_list_str_destroy().</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="group__m__net__iface__ips.html#ga8ae121a030f39c5cf09aa9835452253b">  116</a></span>&#160;M_API <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *<a class="code" href="group__m__net__iface__ips.html#ga8ae121a030f39c5cf09aa9835452253b">M_net_iface_ips_get_names</a>(<a class="code" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, <span class="keywordtype">int</span> flags);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">/*! Free the ip address returned from M_net_iface_ips().</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment"> * </span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment"> * \param[in] ips   Value returned from M_net_iface_ips()</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357">  122</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357">M_net_iface_ips_free</a>(<a class="code" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment"> * \return list of ip addresses matching query, NULL on no matches.</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment"> *         Must be free&#39;d with M_list_str_destroy().</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="group__m__net__iface__ips.html#ga6b4d16f5e9419e077ce7b6579f2b157f">  107</a></span>&#160;M_API <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *<a class="code" href="group__m__net__iface__ips.html#ga6b4d16f5e9419e077ce7b6579f2b157f">M_net_iface_ips_get_ips</a>(<a class="code" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, <span class="keywordtype">int</span> flags, <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">/*! Retrieve a list of interfaces from the result set matching the query. </span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment"> *  Will only return interface names and not any flags or ip addresses.</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"> * \param[in] ips   Value returned from M_net_iface_ips()</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment"> * \param[in] flags If either M_NET_IFACE_IPS_FLAG_IPV4 or M_NET_IFACE_IPS_FLAG_IPV6 is specified, will</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment"> *                  exclude interfaces that don&#39;t have the specified address class.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment"> * \return list of interface names matching query, NULL on no matches.</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment"> *         Must be free&#39;d with M_list_str_destroy().</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="group__m__net__iface__ips.html#ga8ae121a030f39c5cf09aa9835452253b">  118</a></span>&#160;M_API <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *<a class="code" href="group__m__net__iface__ips.html#ga8ae121a030f39c5cf09aa9835452253b">M_net_iface_ips_get_names</a>(<a class="code" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, <span class="keywordtype">int</span> flags);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">/*! Free the ip address returned from M_net_iface_ips().</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment"> * </span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment"> * \param[in] ips   Value returned from M_net_iface_ips()</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357">  124</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357">M_net_iface_ips_free</a>(<a class="code" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">/*! @} */</span></div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_NET_IFACE_IPS_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_NET_IFACE_IPS_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="agroup__m__list__str_html_ga6de38b5604cb0dee336dccb52b5ae077"><div class="ttname"><a href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a></div><div class="ttdeci">struct M_list_str M_list_str_t</div><div class="ttdef"><b>Definition:</b> m_list_str.h:80</div></div>
 <div class="ttc" id="agroup__m__net__iface__ips_html_ga111efb8d90446bdaccf57ba3b0d26774"><div class="ttname"><a href="group__m__net__iface__ips.html#ga111efb8d90446bdaccf57ba3b0d26774">M_net_iface_ips_get_flags</a></div><div class="ttdeci">int M_net_iface_ips_get_flags(M_net_iface_ips_t *ips, size_t idx)</div></div>
 <div class="ttc" id="agroup__m__net__iface__ips_html_ga12933d56715158e1738c67700d5629ae"><div class="ttname"><a href="group__m__net__iface__ips.html#ga12933d56715158e1738c67700d5629ae">M_net_iface_ips_count</a></div><div class="ttdeci">size_t M_net_iface_ips_count(M_net_iface_ips_t *ips)</div></div>
@@ -234,7 +236,7 @@ $(document).ready(function(){initNavTree('m__net__iface__ips_8h_source.html','')
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_773d512f0982a2b4971deb2688782761.html">net</a></li><li class="navelem"><b>m_net_iface_ips.h</b></li>
-    <li class="footer">Generated on Mon Dec 12 2022 20:00:37 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Dec 12 2022 21:31:04 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
