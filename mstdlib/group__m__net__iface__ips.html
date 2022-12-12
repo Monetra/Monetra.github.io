@@ -119,6 +119,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga478af802f093e5dc8bb8106727fb3ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga351311888bfc405d8449c98b33b4f1eb"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__iface__ips.html#ga351311888bfc405d8449c98b33b4f1eb">M_net_iface_ips_get_addr</a> (<a class="el" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, size_t idx)</td></tr>
 <tr class="separator:ga351311888bfc405d8449c98b33b4f1eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga24d69525570d72f434f032dc03f143c0"><td class="memItemLeft" align="right" valign="top">M_uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__iface__ips.html#ga24d69525570d72f434f032dc03f143c0">M_net_iface_ips_get_netmask</a> (<a class="el" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, size_t idx)</td></tr>
+<tr class="separator:ga24d69525570d72f434f032dc03f143c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga111efb8d90446bdaccf57ba3b0d26774"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__iface__ips.html#ga111efb8d90446bdaccf57ba3b0d26774">M_net_iface_ips_get_flags</a> (<a class="el" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, size_t idx)</td></tr>
 <tr class="separator:ga111efb8d90446bdaccf57ba3b0d26774"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6b4d16f5e9419e077ce7b6579f2b157f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__iface__ips.html#ga6b4d16f5e9419e077ce7b6579f2b157f">M_net_iface_ips_get_ips</a> (<a class="el" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips, int flags, const char *name)</td></tr>
@@ -127,6 +129,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga8ae121a030f39c5cf09aa9835452253b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gadb82dfbb10d4d6e8d0a9b81720d7b357"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357">M_net_iface_ips_free</a> (<a class="el" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *ips)</td></tr>
 <tr class="separator:gadb82dfbb10d4d6e8d0a9b81720d7b357"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06919c9a8160a2932c7d31ffcaa6c13f"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__iface__ips.html#ga06919c9a8160a2932c7d31ffcaa6c13f">M_net_iface_ips_flags_to_str</a> (int flags)</td></tr>
+<tr class="separator:ga06919c9a8160a2932c7d31ffcaa6c13f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Network Interface Enumeration </p>
@@ -297,6 +301,43 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga24d69525570d72f434f032dc03f143c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga24d69525570d72f434f032dc03f143c0">&#9670;&nbsp;</a></span>M_net_iface_ips_get_netmask()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_uint8 M_net_iface_ips_get_netmask </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__net__iface__ips.html#gaabf67dd0384fd5a84b5745107adc3efb">M_net_iface_ips_t</a> *&#160;</td>
+          <td class="paramname"><em>ips</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>idx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return the netmask for the ip address of interface associated with specified index.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">ips</td><td>Value returned from <a class="el" href="group__m__net__iface__ips.html#ga8669f0ef0b8cecf5bbdce3321adc1243">M_net_iface_ips()</a> </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">idx</td><td>Index to query </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>netmask, only relevant if there is an ip address </dd></dl>
+
+</div>
+</div>
 <a id="ga111efb8d90446bdaccf57ba3b0d26774"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga111efb8d90446bdaccf57ba3b0d26774">&#9670;&nbsp;</a></span>M_net_iface_ips_get_flags()</h2>
 
@@ -440,12 +481,38 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga06919c9a8160a2932c7d31ffcaa6c13f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga06919c9a8160a2932c7d31ffcaa6c13f">&#9670;&nbsp;</a></span>M_net_iface_ips_flags_to_str()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* M_net_iface_ips_flags_to_str </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>flags</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Given a set of flags, convert into human-readable form</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">flags</td><td>Flags to print </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>human readable string, must be <a class="el" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free()</a>'d. </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Dec 12 2022 21:31:12 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Mon Dec 12 2022 22:06:16 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

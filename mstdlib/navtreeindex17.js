@@ -1,5 +1,7 @@
 var NAVTREEINDEX17 =
 {
+"group__mstdlib__base.html":[1,0],
+"index.html":[0],
 "index.html":[],
 "index.html#autotoc_md0":[0,0],
 "index.html#autotoc_md1":[0,1],

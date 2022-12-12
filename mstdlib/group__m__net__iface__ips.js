@@ -11,8 +11,10 @@ var group__m__net__iface__ips =
     [ "M_net_iface_ips_count", "group__m__net__iface__ips.html#ga12933d56715158e1738c67700d5629ae", null ],
     [ "M_net_iface_ips_get_name", "group__m__net__iface__ips.html#ga478af802f093e5dc8bb8106727fb3ee9", null ],
     [ "M_net_iface_ips_get_addr", "group__m__net__iface__ips.html#ga351311888bfc405d8449c98b33b4f1eb", null ],
+    [ "M_net_iface_ips_get_netmask", "group__m__net__iface__ips.html#ga24d69525570d72f434f032dc03f143c0", null ],
     [ "M_net_iface_ips_get_flags", "group__m__net__iface__ips.html#ga111efb8d90446bdaccf57ba3b0d26774", null ],
     [ "M_net_iface_ips_get_ips", "group__m__net__iface__ips.html#ga6b4d16f5e9419e077ce7b6579f2b157f", null ],
     [ "M_net_iface_ips_get_names", "group__m__net__iface__ips.html#ga8ae121a030f39c5cf09aa9835452253b", null ],
-    [ "M_net_iface_ips_free", "group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357", null ]
+    [ "M_net_iface_ips_free", "group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357", null ],
+    [ "M_net_iface_ips_flags_to_str", "group__m__net__iface__ips.html#ga06919c9a8160a2932c7d31ffcaa6c13f", null ]
 ];
