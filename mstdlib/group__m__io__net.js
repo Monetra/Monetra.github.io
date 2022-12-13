@@ -1,6 +1,7 @@
 var group__m__io__net =
 [
     [ "DNS Functions", "group__m__dns.html", "group__m__dns" ],
+    [ "Network Interface Enumeration", "group__m__io__net__iface__ips.html", "group__m__io__net__iface__ips" ],
     [ "M_io_net_type_t", "group__m__io__net.html#ga0d3c956e19a647267f818beb367de6bc", null ],
     [ "M_io_net_type", "group__m__io__net.html#ga84d77b37b252e30d90cc6fd2a416267e", [
       [ "M_IO_NET_ANY", "group__m__io__net.html#gga84d77b37b252e30d90cc6fd2a416267ea5f95bd5b48dcaf1f1d5e911c8bba2d32", null ],
