@@ -14,7 +14,7 @@ var group__m__net__iface__ips =
     [ "M_net_iface_ips_get_netmask", "group__m__net__iface__ips.html#ga24d69525570d72f434f032dc03f143c0", null ],
     [ "M_net_iface_ips_get_flags", "group__m__net__iface__ips.html#ga111efb8d90446bdaccf57ba3b0d26774", null ],
     [ "M_net_iface_ips_get_ips", "group__m__net__iface__ips.html#ga6b4d16f5e9419e077ce7b6579f2b157f", null ],
-    [ "M_net_iface_ips_get_names", "group__m__net__iface__ips.html#ga8ae121a030f39c5cf09aa9835452253b", null ],
+    [ "M_net_iface_ips_get_names", "group__m__net__iface__ips.html#gab060bea45f963b90ed3c1c600031db22", null ],
     [ "M_net_iface_ips_free", "group__m__net__iface__ips.html#gadb82dfbb10d4d6e8d0a9b81720d7b357", null ],
     [ "M_net_iface_ips_flags_to_str", "group__m__net__iface__ips.html#ga06919c9a8160a2932c7d31ffcaa6c13f", null ]
 ];
