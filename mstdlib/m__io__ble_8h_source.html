@@ -1457,107 +1457,135 @@ $(document).ready(function(){initNavTree('m__io__ble_8h_source.html',''); initRe
 <div class="line"><a name="l01370"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gaddc03ff26e59f3cb74c86c31580d5078"> 1370</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#gaddc03ff26e59f3cb74c86c31580d5078">M_io_ble_get_max_write_sizes</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">size_t</span> *with_response, <span class="keywordtype">size_t</span> *without_response);</div>
 <div class="line"><a name="l01371"></a><span class="lineno"> 1371</span>&#160; </div>
 <div class="line"><a name="l01372"></a><span class="lineno"> 1372</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;<span class="comment">/*! Get the service associated with a meta object.</span></div>
+<div class="line"><a name="l01373"></a><span class="lineno"> 1373</span>&#160;<span class="comment">/*! Get the last service and characteristic uuids that generated a write event.</span></div>
 <div class="line"><a name="l01374"></a><span class="lineno"> 1374</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
-<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
-<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160;<span class="comment"> * \return UUID</span></div>
-<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01380"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga769f8bf59271b5812a24dd817b260676"> 1380</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__ble.html#ga769f8bf59271b5812a24dd817b260676">M_io_ble_meta_get_service</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
-<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160; </div>
-<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01383"></a><span class="lineno"> 1383</span>&#160;<span class="comment">/*! Get the characteristic associated with a meta object.</span></div>
-<div class="line"><a name="l01384"></a><span class="lineno"> 1384</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01385"></a><span class="lineno"> 1385</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
-<div class="line"><a name="l01386"></a><span class="lineno"> 1386</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
-<div class="line"><a name="l01387"></a><span class="lineno"> 1387</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01388"></a><span class="lineno"> 1388</span>&#160;<span class="comment"> * \return UUID</span></div>
-<div class="line"><a name="l01389"></a><span class="lineno"> 1389</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01390"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gaec9b32c88aace557ad6de0c5ffef1a57"> 1390</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__ble.html#gaec9b32c88aace557ad6de0c5ffef1a57">M_io_ble_meta_get_characteristic</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
-<div class="line"><a name="l01391"></a><span class="lineno"> 1391</span>&#160; </div>
-<div class="line"><a name="l01392"></a><span class="lineno"> 1392</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160;<span class="comment">/*! Get the write type.</span></div>
-<div class="line"><a name="l01394"></a><span class="lineno"> 1394</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01395"></a><span class="lineno"> 1395</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
-<div class="line"><a name="l01396"></a><span class="lineno"> 1396</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
-<div class="line"><a name="l01397"></a><span class="lineno"> 1397</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01398"></a><span class="lineno"> 1398</span>&#160;<span class="comment"> * \return type.</span></div>
-<div class="line"><a name="l01399"></a><span class="lineno"> 1399</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01400"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gad46ca968f3d322898fea90eac3818e54"> 1400</a></span>&#160;M_API <a class="code" href="group__m__io__ble.html#ga4b55a7fbad9e0c4eaf609d7b0aeb93f7">M_io_ble_wtype_t</a> <a class="code" href="group__m__io__ble.html#gad46ca968f3d322898fea90eac3818e54">M_io_ble_meta_get_write_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
-<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160; </div>
-<div class="line"><a name="l01402"></a><span class="lineno"> 1402</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01403"></a><span class="lineno"> 1403</span>&#160;<span class="comment">/*! Get the read type.</span></div>
-<div class="line"><a name="l01404"></a><span class="lineno"> 1404</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
-<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
-<div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01408"></a><span class="lineno"> 1408</span>&#160;<span class="comment"> * \return type.</span></div>
-<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01410"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga420beb176106ca6905a3156689d8b5d2"> 1410</a></span>&#160;M_API <a class="code" href="group__m__io__ble.html#gafca547d077ba95755aca3592db88a6d9">M_io_ble_rtype_t</a> <a class="code" href="group__m__io__ble.html#ga420beb176106ca6905a3156689d8b5d2">M_io_ble_meta_get_read_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
-<div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160; </div>
-<div class="line"><a name="l01412"></a><span class="lineno"> 1412</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01413"></a><span class="lineno"> 1413</span>&#160;<span class="comment">/*! Get the RSSI value from an RSSI read.</span></div>
-<div class="line"><a name="l01414"></a><span class="lineno"> 1414</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01415"></a><span class="lineno"> 1415</span>&#160;<span class="comment"> * RSSI value is in decibels.</span></div>
-<div class="line"><a name="l01416"></a><span class="lineno"> 1416</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;<span class="comment"> * \param[in]  io   io object.</span></div>
-<div class="line"><a name="l01418"></a><span class="lineno"> 1418</span>&#160;<span class="comment"> * \param[in]  meta Meta.</span></div>
-<div class="line"><a name="l01419"></a><span class="lineno"> 1419</span>&#160;<span class="comment"> * \param[out] rssi RSSI value.</span></div>
-<div class="line"><a name="l01420"></a><span class="lineno"> 1420</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01421"></a><span class="lineno"> 1421</span>&#160;<span class="comment"> * \return M_TRUE if RSSI read. Otherwise, M_FALSE.</span></div>
-<div class="line"><a name="l01422"></a><span class="lineno"> 1422</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01423"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga8c5405dc33555875cf9782e23652eb7f"> 1423</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__ble.html#ga8c5405dc33555875cf9782e23652eb7f">M_io_ble_meta_get_rssi</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, M_int64 *rssi);</div>
-<div class="line"><a name="l01424"></a><span class="lineno"> 1424</span>&#160; </div>
-<div class="line"><a name="l01425"></a><span class="lineno"> 1425</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01426"></a><span class="lineno"> 1426</span>&#160;<span class="comment">/*! Set the service associated with a meta object.</span></div>
-<div class="line"><a name="l01427"></a><span class="lineno"> 1427</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01428"></a><span class="lineno"> 1428</span>&#160;<span class="comment"> * \param[in] io           io object.</span></div>
-<div class="line"><a name="l01429"></a><span class="lineno"> 1429</span>&#160;<span class="comment"> * \param[in] meta         Meta.</span></div>
-<div class="line"><a name="l01430"></a><span class="lineno"> 1430</span>&#160;<span class="comment"> * \param[in] service_uuid UUID of service.</span></div>
-<div class="line"><a name="l01431"></a><span class="lineno"> 1431</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01432"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d"> 1432</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d">M_io_ble_meta_set_service</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, <span class="keyword">const</span> <span class="keywordtype">char</span> *service_uuid);</div>
-<div class="line"><a name="l01433"></a><span class="lineno"> 1433</span>&#160; </div>
-<div class="line"><a name="l01434"></a><span class="lineno"> 1434</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;<span class="comment">/*! Set the characteristic associated with a meta object.</span></div>
-<div class="line"><a name="l01436"></a><span class="lineno"> 1436</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01437"></a><span class="lineno"> 1437</span>&#160;<span class="comment"> * \param[in] io                  io object.</span></div>
-<div class="line"><a name="l01438"></a><span class="lineno"> 1438</span>&#160;<span class="comment"> * \param[in] meta                Meta.</span></div>
-<div class="line"><a name="l01439"></a><span class="lineno"> 1439</span>&#160;<span class="comment"> * \param[in] characteristic_uuid UUID of characteristic.</span></div>
-<div class="line"><a name="l01440"></a><span class="lineno"> 1440</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01441"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gaf9fa5c479c7409045d6f1c3122e95056"> 1441</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#gaf9fa5c479c7409045d6f1c3122e95056">M_io_ble_meta_set_characteristic</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, <span class="keyword">const</span> <span class="keywordtype">char</span> *characteristic_uuid);</div>
-<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160; </div>
-<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01444"></a><span class="lineno"> 1444</span>&#160;<span class="comment">/*! Set whether to receive notifications for characteristic data changes</span></div>
-<div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;<span class="comment"> * If not called the default is to enable notifications.</span></div>
-<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160;<span class="comment"> * Not all characteristic&#39;s support notifications. If not supported polling with M_io_write_meta</span></div>
-<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;<span class="comment"> * using M_IO_BLE_WTYPE_REQVAL is the only way to retrieve the current value.</span></div>
-<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;<span class="comment"> * \param[in] io     io object.</span></div>
-<div class="line"><a name="l01451"></a><span class="lineno"> 1451</span>&#160;<span class="comment"> * \param[in] meta   Meta.</span></div>
-<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160;<span class="comment"> * \param[in] enable Enable or disable receiving notifications.</span></div>
-<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01454"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gae8a0454f1435a66dd00d06f4daf9a7b6"> 1454</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#gae8a0454f1435a66dd00d06f4daf9a7b6">M_io_ble_meta_set_notify</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, M_bool enable);</div>
-<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160; </div>
-<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;<span class="comment">/*! Set whether a write should be blind.</span></div>
-<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;<span class="comment"> * If the type is not set, the default is to have writes</span></div>
-<div class="line"><a name="l01460"></a><span class="lineno"> 1460</span>&#160;<span class="comment"> * wait for confirmation response before subsequent writes will be allowed.</span></div>
-<div class="line"><a name="l01461"></a><span class="lineno"> 1461</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l01462"></a><span class="lineno"> 1462</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
-<div class="line"><a name="l01463"></a><span class="lineno"> 1463</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
-<div class="line"><a name="l01464"></a><span class="lineno"> 1464</span>&#160;<span class="comment"> * \param[in] type Property controlling</span></div>
-<div class="line"><a name="l01465"></a><span class="lineno"> 1465</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l01466"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga1884f2b80b9eb2c0df3b9ab44fbf6b00"> 1466</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#ga1884f2b80b9eb2c0df3b9ab44fbf6b00">M_io_ble_meta_set_write_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, <a class="code" href="group__m__io__ble.html#ga4b55a7fbad9e0c4eaf609d7b0aeb93f7">M_io_ble_wtype_t</a> type);</div>
-<div class="line"><a name="l01467"></a><span class="lineno"> 1467</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l01468"></a><span class="lineno"> 1468</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l01469"></a><span class="lineno"> 1469</span>&#160; </div>
-<div class="line"><a name="l01470"></a><span class="lineno"> 1470</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l01471"></a><span class="lineno"> 1471</span>&#160; </div>
-<div class="line"><a name="l01472"></a><span class="lineno"> 1472</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_IO_BLE_H__ */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l01473"></a><span class="lineno"> 1473</span>&#160; </div>
+<div class="line"><a name="l01375"></a><span class="lineno"> 1375</span>&#160;<span class="comment"> * Write with response will generate a write event when the data is written.</span></div>
+<div class="line"><a name="l01376"></a><span class="lineno"> 1376</span>&#160;<span class="comment"> * This allows getting the last service and characteristic uuid that generated</span></div>
+<div class="line"><a name="l01377"></a><span class="lineno"> 1377</span>&#160;<span class="comment"> * a write event in order to differentiate writes to multiple characteristics.</span></div>
+<div class="line"><a name="l01378"></a><span class="lineno"> 1378</span>&#160;<span class="comment"> * Due to write events all being on the same event loop, calling this function</span></div>
+<div class="line"><a name="l01379"></a><span class="lineno"> 1379</span>&#160;<span class="comment"> * in a write event will always correspond to the service and characteristic</span></div>
+<div class="line"><a name="l01380"></a><span class="lineno"> 1380</span>&#160;<span class="comment"> * that generated the event.</span></div>
+<div class="line"><a name="l01381"></a><span class="lineno"> 1381</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01382"></a><span class="lineno"> 1382</span>&#160;<span class="comment"> * Once called the information will be removed so the next call will be</span></div>
+<div class="line"><a name="l01383"></a><span class="lineno"> 1383</span>&#160;<span class="comment"> * information for the next write event. Calling multiple times or not calling</span></div>
+<div class="line"><a name="l01384"></a><span class="lineno"> 1384</span>&#160;<span class="comment"> * in a write event can cause the event vs data from this function to become</span></div>
+<div class="line"><a name="l01385"></a><span class="lineno"> 1385</span>&#160;<span class="comment"> * out of sync.</span></div>
+<div class="line"><a name="l01386"></a><span class="lineno"> 1386</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01387"></a><span class="lineno"> 1387</span>&#160;<span class="comment"> * Use of this function is optional and is not be necessary if only writing</span></div>
+<div class="line"><a name="l01388"></a><span class="lineno"> 1388</span>&#160;<span class="comment"> * once service and one characteristic.</span></div>
+<div class="line"><a name="l01389"></a><span class="lineno"> 1389</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01390"></a><span class="lineno"> 1390</span>&#160;<span class="comment"> * \param[in]  io                  io object.</span></div>
+<div class="line"><a name="l01391"></a><span class="lineno"> 1391</span>&#160;<span class="comment"> * \param[out] service_uuid        UUID of service.</span></div>
+<div class="line"><a name="l01392"></a><span class="lineno"> 1392</span>&#160;<span class="comment"> * \param[out] characteristic_uuid UUID of characteristic.</span></div>
+<div class="line"><a name="l01393"></a><span class="lineno"> 1393</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01394"></a><span class="lineno"> 1394</span>&#160;<span class="comment"> * \return M_TRUE if service_uuid and characteristic_uuid was filled. M_FALSE if not filled due to error</span></div>
+<div class="line"><a name="l01395"></a><span class="lineno"> 1395</span>&#160;<span class="comment"> *         or because there are no entries. Use M_TRUE to determine if service_uuid and characteristic_uuid</span></div>
+<div class="line"><a name="l01396"></a><span class="lineno"> 1396</span>&#160;<span class="comment"> *         response parameters should be freed.</span></div>
+<div class="line"><a name="l01397"></a><span class="lineno"> 1397</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01398"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gaa623f7f4fdd6f74a572f0e544fce9888"> 1398</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__ble.html#gaa623f7f4fdd6f74a572f0e544fce9888">M_io_ble_get_last_write_characteristic</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">char</span> **service_uuid, <span class="keywordtype">char</span> **characteristic_uuid);</div>
+<div class="line"><a name="l01399"></a><span class="lineno"> 1399</span>&#160; </div>
+<div class="line"><a name="l01400"></a><span class="lineno"> 1400</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01401"></a><span class="lineno"> 1401</span>&#160;<span class="comment">/*! Get the service associated with a meta object.</span></div>
+<div class="line"><a name="l01402"></a><span class="lineno"> 1402</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01403"></a><span class="lineno"> 1403</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
+<div class="line"><a name="l01404"></a><span class="lineno"> 1404</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
+<div class="line"><a name="l01405"></a><span class="lineno"> 1405</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01406"></a><span class="lineno"> 1406</span>&#160;<span class="comment"> * \return UUID</span></div>
+<div class="line"><a name="l01407"></a><span class="lineno"> 1407</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01408"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga769f8bf59271b5812a24dd817b260676"> 1408</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__ble.html#ga769f8bf59271b5812a24dd817b260676">M_io_ble_meta_get_service</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
+<div class="line"><a name="l01409"></a><span class="lineno"> 1409</span>&#160; </div>
+<div class="line"><a name="l01410"></a><span class="lineno"> 1410</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01411"></a><span class="lineno"> 1411</span>&#160;<span class="comment">/*! Get the characteristic associated with a meta object.</span></div>
+<div class="line"><a name="l01412"></a><span class="lineno"> 1412</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01413"></a><span class="lineno"> 1413</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
+<div class="line"><a name="l01414"></a><span class="lineno"> 1414</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
+<div class="line"><a name="l01415"></a><span class="lineno"> 1415</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01416"></a><span class="lineno"> 1416</span>&#160;<span class="comment"> * \return UUID</span></div>
+<div class="line"><a name="l01417"></a><span class="lineno"> 1417</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01418"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gaec9b32c88aace557ad6de0c5ffef1a57"> 1418</a></span>&#160;M_API <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="group__m__io__ble.html#gaec9b32c88aace557ad6de0c5ffef1a57">M_io_ble_meta_get_characteristic</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
+<div class="line"><a name="l01419"></a><span class="lineno"> 1419</span>&#160; </div>
+<div class="line"><a name="l01420"></a><span class="lineno"> 1420</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01421"></a><span class="lineno"> 1421</span>&#160;<span class="comment">/*! Get the write type.</span></div>
+<div class="line"><a name="l01422"></a><span class="lineno"> 1422</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01423"></a><span class="lineno"> 1423</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
+<div class="line"><a name="l01424"></a><span class="lineno"> 1424</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
+<div class="line"><a name="l01425"></a><span class="lineno"> 1425</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01426"></a><span class="lineno"> 1426</span>&#160;<span class="comment"> * \return type.</span></div>
+<div class="line"><a name="l01427"></a><span class="lineno"> 1427</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01428"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gad46ca968f3d322898fea90eac3818e54"> 1428</a></span>&#160;M_API <a class="code" href="group__m__io__ble.html#ga4b55a7fbad9e0c4eaf609d7b0aeb93f7">M_io_ble_wtype_t</a> <a class="code" href="group__m__io__ble.html#gad46ca968f3d322898fea90eac3818e54">M_io_ble_meta_get_write_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
+<div class="line"><a name="l01429"></a><span class="lineno"> 1429</span>&#160; </div>
+<div class="line"><a name="l01430"></a><span class="lineno"> 1430</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01431"></a><span class="lineno"> 1431</span>&#160;<span class="comment">/*! Get the read type.</span></div>
+<div class="line"><a name="l01432"></a><span class="lineno"> 1432</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01433"></a><span class="lineno"> 1433</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
+<div class="line"><a name="l01434"></a><span class="lineno"> 1434</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
+<div class="line"><a name="l01435"></a><span class="lineno"> 1435</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01436"></a><span class="lineno"> 1436</span>&#160;<span class="comment"> * \return type.</span></div>
+<div class="line"><a name="l01437"></a><span class="lineno"> 1437</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01438"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga420beb176106ca6905a3156689d8b5d2"> 1438</a></span>&#160;M_API <a class="code" href="group__m__io__ble.html#gafca547d077ba95755aca3592db88a6d9">M_io_ble_rtype_t</a> <a class="code" href="group__m__io__ble.html#ga420beb176106ca6905a3156689d8b5d2">M_io_ble_meta_get_read_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta);</div>
+<div class="line"><a name="l01439"></a><span class="lineno"> 1439</span>&#160; </div>
+<div class="line"><a name="l01440"></a><span class="lineno"> 1440</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01441"></a><span class="lineno"> 1441</span>&#160;<span class="comment">/*! Get the RSSI value from an RSSI read.</span></div>
+<div class="line"><a name="l01442"></a><span class="lineno"> 1442</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01443"></a><span class="lineno"> 1443</span>&#160;<span class="comment"> * RSSI value is in decibels.</span></div>
+<div class="line"><a name="l01444"></a><span class="lineno"> 1444</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01445"></a><span class="lineno"> 1445</span>&#160;<span class="comment"> * \param[in]  io   io object.</span></div>
+<div class="line"><a name="l01446"></a><span class="lineno"> 1446</span>&#160;<span class="comment"> * \param[in]  meta Meta.</span></div>
+<div class="line"><a name="l01447"></a><span class="lineno"> 1447</span>&#160;<span class="comment"> * \param[out] rssi RSSI value.</span></div>
+<div class="line"><a name="l01448"></a><span class="lineno"> 1448</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01449"></a><span class="lineno"> 1449</span>&#160;<span class="comment"> * \return M_TRUE if RSSI read. Otherwise, M_FALSE.</span></div>
+<div class="line"><a name="l01450"></a><span class="lineno"> 1450</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01451"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga8c5405dc33555875cf9782e23652eb7f"> 1451</a></span>&#160;M_API M_bool <a class="code" href="group__m__io__ble.html#ga8c5405dc33555875cf9782e23652eb7f">M_io_ble_meta_get_rssi</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, M_int64 *rssi);</div>
+<div class="line"><a name="l01452"></a><span class="lineno"> 1452</span>&#160; </div>
+<div class="line"><a name="l01453"></a><span class="lineno"> 1453</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01454"></a><span class="lineno"> 1454</span>&#160;<span class="comment">/*! Set the service associated with a meta object.</span></div>
+<div class="line"><a name="l01455"></a><span class="lineno"> 1455</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01456"></a><span class="lineno"> 1456</span>&#160;<span class="comment"> * \param[in] io           io object.</span></div>
+<div class="line"><a name="l01457"></a><span class="lineno"> 1457</span>&#160;<span class="comment"> * \param[in] meta         Meta.</span></div>
+<div class="line"><a name="l01458"></a><span class="lineno"> 1458</span>&#160;<span class="comment"> * \param[in] service_uuid UUID of service.</span></div>
+<div class="line"><a name="l01459"></a><span class="lineno"> 1459</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01460"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d"> 1460</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d">M_io_ble_meta_set_service</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, <span class="keyword">const</span> <span class="keywordtype">char</span> *service_uuid);</div>
+<div class="line"><a name="l01461"></a><span class="lineno"> 1461</span>&#160; </div>
+<div class="line"><a name="l01462"></a><span class="lineno"> 1462</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01463"></a><span class="lineno"> 1463</span>&#160;<span class="comment">/*! Set the characteristic associated with a meta object.</span></div>
+<div class="line"><a name="l01464"></a><span class="lineno"> 1464</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01465"></a><span class="lineno"> 1465</span>&#160;<span class="comment"> * \param[in] io                  io object.</span></div>
+<div class="line"><a name="l01466"></a><span class="lineno"> 1466</span>&#160;<span class="comment"> * \param[in] meta                Meta.</span></div>
+<div class="line"><a name="l01467"></a><span class="lineno"> 1467</span>&#160;<span class="comment"> * \param[in] characteristic_uuid UUID of characteristic.</span></div>
+<div class="line"><a name="l01468"></a><span class="lineno"> 1468</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01469"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gaf9fa5c479c7409045d6f1c3122e95056"> 1469</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#gaf9fa5c479c7409045d6f1c3122e95056">M_io_ble_meta_set_characteristic</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, <span class="keyword">const</span> <span class="keywordtype">char</span> *characteristic_uuid);</div>
+<div class="line"><a name="l01470"></a><span class="lineno"> 1470</span>&#160; </div>
+<div class="line"><a name="l01471"></a><span class="lineno"> 1471</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01472"></a><span class="lineno"> 1472</span>&#160;<span class="comment">/*! Set whether to receive notifications for characteristic data changes</span></div>
+<div class="line"><a name="l01473"></a><span class="lineno"> 1473</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01474"></a><span class="lineno"> 1474</span>&#160;<span class="comment"> * If not called the default is to enable notifications.</span></div>
+<div class="line"><a name="l01475"></a><span class="lineno"> 1475</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01476"></a><span class="lineno"> 1476</span>&#160;<span class="comment"> * Not all characteristic&#39;s support notifications. If not supported polling with M_io_write_meta</span></div>
+<div class="line"><a name="l01477"></a><span class="lineno"> 1477</span>&#160;<span class="comment"> * using M_IO_BLE_WTYPE_REQVAL is the only way to retrieve the current value.</span></div>
+<div class="line"><a name="l01478"></a><span class="lineno"> 1478</span>&#160;<span class="comment"> * \param[in] io     io object.</span></div>
+<div class="line"><a name="l01479"></a><span class="lineno"> 1479</span>&#160;<span class="comment"> * \param[in] meta   Meta.</span></div>
+<div class="line"><a name="l01480"></a><span class="lineno"> 1480</span>&#160;<span class="comment"> * \param[in] enable Enable or disable receiving notifications.</span></div>
+<div class="line"><a name="l01481"></a><span class="lineno"> 1481</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01482"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#gae8a0454f1435a66dd00d06f4daf9a7b6"> 1482</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#gae8a0454f1435a66dd00d06f4daf9a7b6">M_io_ble_meta_set_notify</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, M_bool enable);</div>
+<div class="line"><a name="l01483"></a><span class="lineno"> 1483</span>&#160; </div>
+<div class="line"><a name="l01484"></a><span class="lineno"> 1484</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01485"></a><span class="lineno"> 1485</span>&#160;<span class="comment">/*! Set whether a write should be blind.</span></div>
+<div class="line"><a name="l01486"></a><span class="lineno"> 1486</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01487"></a><span class="lineno"> 1487</span>&#160;<span class="comment"> * If the type is not set, the default is to have writes</span></div>
+<div class="line"><a name="l01488"></a><span class="lineno"> 1488</span>&#160;<span class="comment"> * wait for confirmation response before subsequent writes will be allowed.</span></div>
+<div class="line"><a name="l01489"></a><span class="lineno"> 1489</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l01490"></a><span class="lineno"> 1490</span>&#160;<span class="comment"> * \param[in] io   io object.</span></div>
+<div class="line"><a name="l01491"></a><span class="lineno"> 1491</span>&#160;<span class="comment"> * \param[in] meta Meta.</span></div>
+<div class="line"><a name="l01492"></a><span class="lineno"> 1492</span>&#160;<span class="comment"> * \param[in] type Property controlling</span></div>
+<div class="line"><a name="l01493"></a><span class="lineno"> 1493</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l01494"></a><span class="lineno"><a class="line" href="group__m__io__ble.html#ga1884f2b80b9eb2c0df3b9ab44fbf6b00"> 1494</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io__ble.html#ga1884f2b80b9eb2c0df3b9ab44fbf6b00">M_io_ble_meta_set_write_type</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta, <a class="code" href="group__m__io__ble.html#ga4b55a7fbad9e0c4eaf609d7b0aeb93f7">M_io_ble_wtype_t</a> type);</div>
+<div class="line"><a name="l01495"></a><span class="lineno"> 1495</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l01496"></a><span class="lineno"> 1496</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l01497"></a><span class="lineno"> 1497</span>&#160; </div>
+<div class="line"><a name="l01498"></a><span class="lineno"> 1498</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l01499"></a><span class="lineno"> 1499</span>&#160; </div>
+<div class="line"><a name="l01500"></a><span class="lineno"> 1500</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_IO_BLE_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l01501"></a><span class="lineno"> 1501</span>&#160; </div>
 <div class="ttc" id="agroup__m__event_html_ga454e48a58bf322de6666c6d9e65c3b51"><div class="ttname"><a href="group__m__event.html#ga454e48a58bf322de6666c6d9e65c3b51">M_event_callback_t</a></div><div class="ttdeci">void(* M_event_callback_t)(M_event_t *event, M_event_type_t type, M_io_t *io, void *cb_arg)</div><div class="ttdef"><b>Definition:</b> m_event.h:227</div></div>
 <div class="ttc" id="agroup__m__event_html_ga747f0301bfcc6db3b51eaf07e2582350"><div class="ttname"><a href="group__m__event.html#ga747f0301bfcc6db3b51eaf07e2582350">M_event_t</a></div><div class="ttdeci">struct M_event M_event_t</div><div class="ttdef"><b>Definition:</b> m_event.h:210</div></div>
 <div class="ttc" id="agroup__m__io__ble_html_ga160a92372e31a502282a7a81e01b766f"><div class="ttname"><a href="group__m__io__ble.html#ga160a92372e31a502282a7a81e01b766f">M_io_ble_enum_t</a></div><div class="ttdeci">struct M_io_ble_enum M_io_ble_enum_t</div><div class="ttdef"><b>Definition:</b> m_io_ble.h:1175</div></div>
@@ -1575,6 +1603,7 @@ $(document).ready(function(){initNavTree('m__io__ble_8h_source.html',''); initRe
 <div class="ttc" id="agroup__m__io__ble_html_ga769f8bf59271b5812a24dd817b260676"><div class="ttname"><a href="group__m__io__ble.html#ga769f8bf59271b5812a24dd817b260676">M_io_ble_meta_get_service</a></div><div class="ttdeci">const char * M_io_ble_meta_get_service(M_io_t *io, M_io_meta_t *meta)</div></div>
 <div class="ttc" id="agroup__m__io__ble_html_ga8c5405dc33555875cf9782e23652eb7f"><div class="ttname"><a href="group__m__io__ble.html#ga8c5405dc33555875cf9782e23652eb7f">M_io_ble_meta_get_rssi</a></div><div class="ttdeci">M_bool M_io_ble_meta_get_rssi(M_io_t *io, M_io_meta_t *meta, M_int64 *rssi)</div></div>
 <div class="ttc" id="agroup__m__io__ble_html_ga9255e0c3e6b03f8e6d4fd9c876f902da"><div class="ttname"><a href="group__m__io__ble.html#ga9255e0c3e6b03f8e6d4fd9c876f902da">M_io_ble_create</a></div><div class="ttdeci">M_io_error_t M_io_ble_create(M_io_t **io_out, const char *identifier, M_uint64 timeout_ms)</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_gaa623f7f4fdd6f74a572f0e544fce9888"><div class="ttname"><a href="group__m__io__ble.html#gaa623f7f4fdd6f74a572f0e544fce9888">M_io_ble_get_last_write_characteristic</a></div><div class="ttdeci">M_bool M_io_ble_get_last_write_characteristic(M_io_t *io, char **service_uuid, char **characteristic_uuid)</div></div>
 <div class="ttc" id="agroup__m__io__ble_html_gaa81513e26c53d16d75ef998a8572dc01"><div class="ttname"><a href="group__m__io__ble.html#gaa81513e26c53d16d75ef998a8572dc01">M_io_ble_enum_count</a></div><div class="ttdeci">size_t M_io_ble_enum_count(const M_io_ble_enum_t *btenum)</div></div>
 <div class="ttc" id="agroup__m__io__ble_html_gab02e3ad2ccd243ce6e994ef4ab6fc50d"><div class="ttname"><a href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d">M_io_ble_meta_set_service</a></div><div class="ttdeci">void M_io_ble_meta_set_service(M_io_t *io, M_io_meta_t *meta, const char *service_uuid)</div></div>
 <div class="ttc" id="agroup__m__io__ble_html_gab7dd34a47aeee7ce422998f4eeb21b69"><div class="ttname"><a href="group__m__io__ble.html#gab7dd34a47aeee7ce422998f4eeb21b69">M_io_ble_enum_service_uuids</a></div><div class="ttdeci">M_list_str_t * M_io_ble_enum_service_uuids(const M_io_ble_enum_t *btenum, size_t idx)</div></div>
@@ -1613,7 +1642,7 @@ $(document).ready(function(){initNavTree('m__io__ble_8h_source.html',''); initRe
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_f600ff02be773a4843cbb67ff47f4261.html">io</a></li><li class="navelem"><b>m_io_ble.h</b></li>
-    <li class="footer">Generated on Tue Dec 13 2022 15:15:14 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Dec 16 2022 16:39:18 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

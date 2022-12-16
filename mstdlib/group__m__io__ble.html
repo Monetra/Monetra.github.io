@@ -167,6 +167,8 @@ Functions</h2></td></tr>
 <tr class="separator:gaca8d2470bb034a3416c0fbe234e74247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaddc03ff26e59f3cb74c86c31580d5078"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__io__ble.html#gaddc03ff26e59f3cb74c86c31580d5078">M_io_ble_get_max_write_sizes</a> (<a class="el" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, size_t *with_response, size_t *without_response)</td></tr>
 <tr class="separator:gaddc03ff26e59f3cb74c86c31580d5078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa623f7f4fdd6f74a572f0e544fce9888"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__io__ble.html#gaa623f7f4fdd6f74a572f0e544fce9888">M_io_ble_get_last_write_characteristic</a> (<a class="el" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, char **service_uuid, char **characteristic_uuid)</td></tr>
+<tr class="separator:gaa623f7f4fdd6f74a572f0e544fce9888"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga769f8bf59271b5812a24dd817b260676"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__io__ble.html#ga769f8bf59271b5812a24dd817b260676">M_io_ble_meta_get_service</a> (<a class="el" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="el" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</td></tr>
 <tr class="separator:ga769f8bf59271b5812a24dd817b260676"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaec9b32c88aace557ad6de0c5ffef1a57"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__io__ble.html#gaec9b32c88aace557ad6de0c5ffef1a57">M_io_ble_meta_get_characteristic</a> (<a class="el" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="el" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</td></tr>
@@ -1904,6 +1906,53 @@ Application that writes</h4>
 
 </div>
 </div>
+<a id="gaa623f7f4fdd6f74a572f0e544fce9888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa623f7f4fdd6f74a572f0e544fce9888">&#9670;&nbsp;</a></span>M_io_ble_get_last_write_characteristic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_io_ble_get_last_write_characteristic </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *&#160;</td>
+          <td class="paramname"><em>io</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>service_uuid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>characteristic_uuid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the last service and characteristic uuids that generated a write event.</p>
+<p>Write with response will generate a write event when the data is written. This allows getting the last service and characteristic uuid that generated a write event in order to differentiate writes to multiple characteristics. Due to write events all being on the same event loop, calling this function in a write event will always correspond to the service and characteristic that generated the event.</p>
+<p>Once called the information will be removed so the next call will be information for the next write event. Calling multiple times or not calling in a write event can cause the event vs data from this function to become out of sync.</p>
+<p>Use of this function is optional and is not be necessary if only writing once service and one characteristic.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">io</td><td>io object. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">service_uuid</td><td>UUID of service. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">characteristic_uuid</td><td>UUID of characteristic.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE if service_uuid and characteristic_uuid was filled. M_FALSE if not filled due to error or because there are no entries. Use M_TRUE to determine if service_uuid and characteristic_uuid response parameters should be freed. </dd></dl>
+
+</div>
+</div>
 <a id="ga769f8bf59271b5812a24dd817b260676"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga769f8bf59271b5812a24dd817b260676">&#9670;&nbsp;</a></span>M_io_ble_meta_get_service()</h2>
 
@@ -2276,7 +2325,7 @@ Application that writes</h4>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Dec 13 2022 15:15:26 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Dec 16 2022 16:39:27 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

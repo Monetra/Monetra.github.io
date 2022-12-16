@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"group__m__llist__bin.html#ga0cbbf9a1db0cacba485eb6d03afedb26":[1,0,2,3,1,4],
 "group__m__llist__bin.html#ga1272493733f5e64f6638d60e381a18ed":[1,0,2,3,1,24],
 "group__m__llist__bin.html#ga13798d5ffd8ecdf9004ed15a3de66220":[1,0,2,3,1,18],
 "group__m__llist__bin.html#ga1b7e118abeef3c6b57e3855b5185750f":[1,0,2,3,1,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX9 =
 "group__m__log__nslog.html#ga68dc33ab1debbfe8f5d6730c275fb39c":[1,4,4,0],
 "group__m__log__stream.html":[1,4,3],
 "group__m__log__stream.html#gaf7362a0692ef03a115c4e3dbe9bbd4d1":[1,4,3,0],
-"group__m__log__syslog.html":[1,4,7],
-"group__m__log__syslog.html#ga37f3d919de260aab35fbe30b3b05067f":[1,4,7,1]
+"group__m__log__syslog.html":[1,4,7]
 };
