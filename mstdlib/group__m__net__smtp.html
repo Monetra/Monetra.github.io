@@ -166,6 +166,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga0893f10456472ed2a705a779fbbbb94b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gabedecc74d92a20776cf28be13fc72673"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#gabedecc74d92a20776cf28be13fc72673">M_net_smtp_set_num_attempts</a> (<a class="el" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, size_t num)</td></tr>
 <tr class="separator:gabedecc74d92a20776cf28be13fc72673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7aba4070b4dc250020b2cbc94329084a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga7aba4070b4dc250020b2cbc94329084a">M_net_smtp_set_stall_retries</a> (<a class="el" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, size_t num)</td></tr>
+<tr class="separator:ga7aba4070b4dc250020b2cbc94329084a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga00d143eb79b8ab1d1403d4a7c4965333"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga00d143eb79b8ab1d1403d4a7c4965333">M_net_smtp_dump_queue</a> (<a class="el" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp)</td></tr>
 <tr class="separator:ga00d143eb79b8ab1d1403d4a7c4965333"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga3aef6609e11d3c0d3da245018f0c6efb"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__net__smtp.html#ga3aef6609e11d3c0d3da245018f0c6efb">M_net_smtp_queue_smtp</a> (<a class="el" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, const <a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *e)</td></tr>
@@ -995,6 +997,42 @@ iocreate_cb</td>
 
 </div>
 </div>
+<a id="ga7aba4070b4dc250020b2cbc94329084a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7aba4070b4dc250020b2cbc94329084a">&#9670;&nbsp;</a></span>M_net_smtp_set_stall_retries()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void M_net_smtp_set_stall_retries </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *&#160;</td>
+          <td class="paramname"><em>sp</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Number of consecutive stall timeouts allowed per endpoint.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">sp</td><td>SMTP pool. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">num</td><td>Number of stall retries per endpoint. Can be 0 to fail endpoint on first stall. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ga00d143eb79b8ab1d1403d4a7c4965333"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga00d143eb79b8ab1d1403d4a7c4965333">&#9670;&nbsp;</a></span>M_net_smtp_dump_queue()</h2>
 
@@ -1165,7 +1203,7 @@ iocreate_cb</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Jan 20 2023 20:04:18 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Jan 24 2023 14:51:29 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

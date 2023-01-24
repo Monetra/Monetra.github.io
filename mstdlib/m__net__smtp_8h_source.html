@@ -443,75 +443,82 @@ $(document).ready(function(){initNavTree('m__net__smtp_8h_source.html',''); init
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="comment"> * \param[in] num Number of send attempts per message.</span></div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#gabedecc74d92a20776cf28be13fc72673">  358</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__net__smtp.html#gabedecc74d92a20776cf28be13fc72673">M_net_smtp_set_num_attempts</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keywordtype">size_t</span> num);</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160; </div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment">/*! Remove all queued messages from the queue.</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;<span class="comment"> * \param[in] sp  SMTP pool.</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment"> * It is recommended to call M_net_smtp_pause</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment"> * and wait until the status is stopped before calling</span></div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment"> * this function.</span></div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment"> * \return List of messages that were queued. Will not</span></div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment"> *         include messages that are currently processing.</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00374"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#ga00d143eb79b8ab1d1403d4a7c4965333">  374</a></span>&#160;M_API <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *<a class="code" href="group__m__net__smtp.html#ga00d143eb79b8ab1d1403d4a7c4965333">M_net_smtp_dump_queue</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment">/*! Add an email object to the queue.</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment"> * \param[in] sp SMTP pool.</span></div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment"> * \param[in] e  Email message.</span></div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment"> * \return M_TRUE if the message was added. Otherwise, M_FALSE.</span></div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00384"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#ga3aef6609e11d3c0d3da245018f0c6efb">  384</a></span>&#160;M_API M_bool <a class="code" href="group__m__net__smtp.html#ga3aef6609e11d3c0d3da245018f0c6efb">M_net_smtp_queue_smtp</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keyword">const</span> <a class="code" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *e);</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment">/*! Add an email message as a string to the queue.</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment">/*! Number of consecutive stall timeouts allowed per endpoint.</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment"> * \param[in] sp  SMTP pool.</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment"> * \param[in] num Number of stall retries per endpoint.  Can be 0 to fail endpoint on first stall.</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00365"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#ga7aba4070b4dc250020b2cbc94329084a">  365</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__net__smtp.html#ga7aba4070b4dc250020b2cbc94329084a">M_net_smtp_set_stall_retries</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keywordtype">size_t</span> num);</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment">/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment">/*! Remove all queued messages from the queue.</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;<span class="comment"> * \param[in] sp  SMTP pool.</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment"> * It is recommended to call M_net_smtp_pause</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment"> * and wait until the status is stopped before calling</span></div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment"> * this function.</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="comment"> * \return List of messages that were queued. Will not</span></div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment"> *         include messages that are currently processing.</span></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#ga00d143eb79b8ab1d1403d4a7c4965333">  381</a></span>&#160;M_API <a class="code" href="group__m__list__str.html#ga6de38b5604cb0dee336dccb52b5ae077">M_list_str_t</a> *<a class="code" href="group__m__net__smtp.html#ga00d143eb79b8ab1d1403d4a7c4965333">M_net_smtp_dump_queue</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160; </div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment">/*! Add an email object to the queue.</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment"> * \param[in] sp SMTP pool.</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment"> * \param[in] e  Email message.</span></div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment"> * \param[in] sp SMTP pool.</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment"> * \param[in] e  Message.</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;<span class="comment"> * \return M_TRUE if the message was added. Otherwise, M_FALSE.</span></div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00394"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#gafc9515e729a68480e85fd4ca5eaf32b7">  394</a></span>&#160;M_API M_bool <a class="code" href="group__m__net__smtp.html#gafc9515e729a68480e85fd4ca5eaf32b7">M_net_smtp_queue_message</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keyword">const</span> <span class="keywordtype">char</span> *e);</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment">/*! Tell the pool to use an external queue.</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment"> * \return M_TRUE if the message was added. Otherwise, M_FALSE.</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#ga3aef6609e11d3c0d3da245018f0c6efb">  391</a></span>&#160;M_API M_bool <a class="code" href="group__m__net__smtp.html#ga3aef6609e11d3c0d3da245018f0c6efb">M_net_smtp_queue_smtp</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keyword">const</span> <a class="code" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *e);</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="comment">/*! Add an email message as a string to the queue.</span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment"> * \param[in] sp SMTP pool.</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment"> * \param[in] e  Message.</span></div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment"> * Can only be called when the queue is empty.</span></div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment"> * Once an external queue is setup, the internal queue cannot be used.</span></div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment"> * \param[in] sp     SMTP pool.</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment"> * \param[in] get_cb Callback used by the pool to get messages from the queue.</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment"> *                   Callback should return NULL if no messages are available.</span></div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment"> * \return M_TRUE if the message was added. Otherwise, M_FALSE.</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#gafc9515e729a68480e85fd4ca5eaf32b7">  401</a></span>&#160;M_API M_bool <a class="code" href="group__m__net__smtp.html#gafc9515e729a68480e85fd4ca5eaf32b7">M_net_smtp_queue_message</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keyword">const</span> <span class="keywordtype">char</span> *e);</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160; </div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment">/*! Tell the pool to use an external queue.</span></div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment"> * \return M_TRUE if the external queue was set.</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#gabaf0f8abb78e6129cf2de1bb77cecc7b">  408</a></span>&#160;M_API M_bool <a class="code" href="group__m__net__smtp.html#gabaf0f8abb78e6129cf2de1bb77cecc7b">M_net_smtp_use_external_queue</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keywordtype">char</span> *(*get_cb)(<span class="keywordtype">void</span>));</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment">/*! Tell the pool messages are available in the external queue.</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment"> * Can only be called when the queue is empty.</span></div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment"> * Once an external queue is setup, the internal queue cannot be used.</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment"> * \param[in] sp     SMTP pool.</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment"> * \param[in] get_cb Callback used by the pool to get messages from the queue.</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment"> *                   Callback should return NULL if no messages are available.</span></div>
 <div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment"> * The pool will run though messages in the queue until no more messages are available</span></div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment"> * However, the pool does not know when messages have been added to the external</span></div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment"> * queue. It is up to the queue manager to inform the pool messages are available</span></div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment"> * to process. It is recommended this be called after one or more messages are</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment"> * added.</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment"> * \param[in] sp SMTP pool.</span></div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#ga41979aff13eeb2541457796aa3ff7ab4">  421</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__net__smtp.html#ga41979aff13eeb2541457796aa3ff7ab4">M_net_smtp_external_queue_have_messages</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp);</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment">/*! @} */</span></div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160; </div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_NET_SMTP_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment"> * \return M_TRUE if the external queue was set.</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00415"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#gabaf0f8abb78e6129cf2de1bb77cecc7b">  415</a></span>&#160;M_API M_bool <a class="code" href="group__m__net__smtp.html#gabaf0f8abb78e6129cf2de1bb77cecc7b">M_net_smtp_use_external_queue</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp, <span class="keywordtype">char</span> *(*get_cb)(<span class="keywordtype">void</span>));</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">/*! Tell the pool messages are available in the external queue.</span></div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment"> * The pool will run though messages in the queue until no more messages are available</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment"> * However, the pool does not know when messages have been added to the external</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment"> * queue. It is up to the queue manager to inform the pool messages are available</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment"> * to process. It is recommended this be called after one or more messages are</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment"> * added.</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment"> * \param[in] sp SMTP pool.</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno"><a class="line" href="group__m__net__smtp.html#ga41979aff13eeb2541457796aa3ff7ab4">  428</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__net__smtp.html#ga41979aff13eeb2541457796aa3ff7ab4">M_net_smtp_external_queue_have_messages</a>(<a class="code" href="group__m__net__smtp.html#gae57d7bc037d1875558918f1bd58cf382">M_net_smtp_t</a> *sp);</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;__END_DECLS</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_NET_SMTP_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="agroup__m__dns_html_ga6d7651186321b1cc222aa53bd0fa3d22"><div class="ttname"><a href="group__m__dns.html#ga6d7651186321b1cc222aa53bd0fa3d22">M_dns_t</a></div><div class="ttdeci">struct M_dns M_dns_t</div><div class="ttdef"><b>Definition:</b> m_dns.h:43</div></div>
 <div class="ttc" id="agroup__m__email__msssage_html_ga98989ba32e6ae23118ad7e128917720a"><div class="ttname"><a href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a></div><div class="ttdeci">struct M_email M_email_t</div><div class="ttdef"><b>Definition:</b> m_email.h:109</div></div>
 <div class="ttc" id="agroup__m__event_html_ga747f0301bfcc6db3b51eaf07e2582350"><div class="ttname"><a href="group__m__event.html#ga747f0301bfcc6db3b51eaf07e2582350">M_event_t</a></div><div class="ttdeci">struct M_event M_event_t</div><div class="ttdef"><b>Definition:</b> m_event.h:210</div></div>
@@ -538,6 +545,7 @@ $(document).ready(function(){initNavTree('m__net__smtp_8h_source.html',''); init
 <div class="ttc" id="agroup__m__net__smtp_html_ga41979aff13eeb2541457796aa3ff7ab4"><div class="ttname"><a href="group__m__net__smtp.html#ga41979aff13eeb2541457796aa3ff7ab4">M_net_smtp_external_queue_have_messages</a></div><div class="ttdeci">void M_net_smtp_external_queue_have_messages(M_net_smtp_t *sp)</div></div>
 <div class="ttc" id="agroup__m__net__smtp_html_ga5391bff84ac0215d5ec7a5c0be38bc6f"><div class="ttname"><a href="group__m__net__smtp.html#ga5391bff84ac0215d5ec7a5c0be38bc6f">M_net_smtp_load_balance_t</a></div><div class="ttdeci">M_net_smtp_load_balance_t</div><div class="ttdef"><b>Definition:</b> m_net_smtp.h:70</div></div>
 <div class="ttc" id="agroup__m__net__smtp_html_ga786329d845b7035e01dbad534bec5bd4"><div class="ttname"><a href="group__m__net__smtp.html#ga786329d845b7035e01dbad534bec5bd4">M_net_smtp_iocreate_cb</a></div><div class="ttdeci">M_bool(* M_net_smtp_iocreate_cb)(M_io_t *io, char *error, size_t errlen, void *thunk)</div><div class="ttdef"><b>Definition:</b> m_net_smtp.h:209</div></div>
+<div class="ttc" id="agroup__m__net__smtp_html_ga7aba4070b4dc250020b2cbc94329084a"><div class="ttname"><a href="group__m__net__smtp.html#ga7aba4070b4dc250020b2cbc94329084a">M_net_smtp_set_stall_retries</a></div><div class="ttdeci">void M_net_smtp_set_stall_retries(M_net_smtp_t *sp, size_t num)</div></div>
 <div class="ttc" id="agroup__m__net__smtp_html_ga7dc5aa452bd6ec6e2ad8a0e5cd578257"><div class="ttname"><a href="group__m__net__smtp.html#ga7dc5aa452bd6ec6e2ad8a0e5cd578257">M_net_smtp_add_endpoint_tcp</a></div><div class="ttdeci">M_bool M_net_smtp_add_endpoint_tcp(M_net_smtp_t *sp, const char *address, M_uint16 port, M_bool connect_tls, const char *username, const char *password, size_t max_conns)</div></div>
 <div class="ttc" id="agroup__m__net__smtp_html_ga83f00e296a3d5066af4731ad756901af"><div class="ttname"><a href="group__m__net__smtp.html#ga83f00e296a3d5066af4731ad756901af">M_net_smtp_processing_halted_cb</a></div><div class="ttdeci">M_uint64(* M_net_smtp_processing_halted_cb)(M_bool no_endpoints, void *thunk)</div><div class="ttdef"><b>Definition:</b> m_net_smtp.h:152</div></div>
 <div class="ttc" id="agroup__m__net__smtp_html_ga8721090df2763580ca17d9aa4a83c5eb"><div class="ttname"><a href="group__m__net__smtp.html#ga8721090df2763580ca17d9aa4a83c5eb">M_net_smtp_connect_fail_cb</a></div><div class="ttdeci">M_uint64(* M_net_smtp_connect_fail_cb)(const char *address, M_uint16 port, M_net_error_t net_err, const char *error, void *thunk)</div><div class="ttdef"><b>Definition:</b> m_net_smtp.h:108</div></div>
@@ -571,7 +579,7 @@ $(document).ready(function(){initNavTree('m__net__smtp_8h_source.html',''); init
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_773d512f0982a2b4971deb2688782761.html">net</a></li><li class="navelem"><b>m_net_smtp.h</b></li>
-    <li class="footer">Generated on Fri Jan 20 2023 20:04:04 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Jan 24 2023 14:51:17 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

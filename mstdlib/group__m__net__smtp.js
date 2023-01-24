@@ -43,6 +43,7 @@ var group__m__net__smtp =
     [ "M_net_smtp_add_endpoint_process", "group__m__net__smtp.html#gacf57b048005c2dcb47204a7486a473c6", null ],
     [ "M_net_smtp_load_balance", "group__m__net__smtp.html#ga0893f10456472ed2a705a779fbbbb94b", null ],
     [ "M_net_smtp_set_num_attempts", "group__m__net__smtp.html#gabedecc74d92a20776cf28be13fc72673", null ],
+    [ "M_net_smtp_set_stall_retries", "group__m__net__smtp.html#ga7aba4070b4dc250020b2cbc94329084a", null ],
     [ "M_net_smtp_dump_queue", "group__m__net__smtp.html#ga00d143eb79b8ab1d1403d4a7c4965333", null ],
     [ "M_net_smtp_queue_smtp", "group__m__net__smtp.html#ga3aef6609e11d3c0d3da245018f0c6efb", null ],
     [ "M_net_smtp_queue_message", "group__m__net__smtp.html#gafc9515e729a68480e85fd4ca5eaf32b7", null ],
