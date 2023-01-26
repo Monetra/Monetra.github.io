@@ -164,9 +164,18 @@ Typedefs</h2></td></tr>
 <tr class="separator:ga2626e8bd72d2f4a3743ab6e695bebda7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac784363f39ae3d5fd55f41555506ad49"><td class="memItemLeft" align="right" valign="top">typedef char *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__driver.html#gac784363f39ae3d5fd55f41555506ad49">M_sql_driver_cb_rewrite_indexname_t</a>) (<a class="el" href="group__m__sql__conn.html#ga36847634817b89efb01054d49e3c6352">M_sql_connpool_t</a> *pool, const char *index_name)</td></tr>
 <tr class="separator:gac784363f39ae3d5fd55f41555506ad49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab3566f3810a02d6fe919bb3957a51cf9"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="group__m__sql__driver.html#ga23127b78c94ad2f4a3b6915a85652e46">M_sql_driver_flags_t</a>(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__driver.html#gab3566f3810a02d6fe919bb3957a51cf9">M_sql_driver_cb_flags_t</a>) (<a class="el" href="group__m__sql__driver.html#gacee7eea240b3a53d0f09704c0f0ff8df">M_sql_conn_t</a> *conn)</td></tr>
+<tr class="separator:gab3566f3810a02d6fe919bb3957a51cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:ga23127b78c94ad2f4a3b6915a85652e46"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__driver.html#ga23127b78c94ad2f4a3b6915a85652e46">M_sql_driver_flags_t</a> { <br />
+&#160;&#160;<a class="el" href="group__m__sql__driver.html#gga23127b78c94ad2f4a3b6915a85652e46a1b8b41dd61632bdd64041adb48365bdb">M_SQL_DRIVER_FLAG_NONE</a> = 0
+, <br />
+&#160;&#160;<a class="el" href="group__m__sql__driver.html#gga23127b78c94ad2f4a3b6915a85652e46ab16251d80912af8b4db109db37cca9ad">M_SQL_DRIVER_FLAG_UNIQUEINDEX_NOTNULL_WHERE</a> = 1 &lt;&lt; 0
+<br />
+ }</td></tr>
+<tr class="separator:ga23127b78c94ad2f4a3b6915a85652e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf46c619c3bb9dfc5b9517537667ea911"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__driver.html#gaf46c619c3bb9dfc5b9517537667ea911">M_sql_driver_queryformat_flags_t</a> { <br />
 &#160;&#160;<a class="el" href="group__m__sql__driver.html#ggaf46c619c3bb9dfc5b9517537667ea911a9787aaed6362833f727542034a203e7f">M_SQL_DRIVER_QUERYFORMAT_NORMAL</a> = 0
 , <br />
@@ -374,6 +383,13 @@ display_name</td>
 version</td>
 <td class="fielddoc">
 <p>Internal module version </p>
+</td></tr>
+<tr><td class="fieldtype">
+<a id="ade897ca01904e47d483aed37941bc91e"></a><a class="el" href="group__m__sql__driver.html#gab3566f3810a02d6fe919bb3957a51cf9">M_sql_driver_cb_flags_t</a></td>
+<td class="fieldname">
+cb_flags</td>
+<td class="fielddoc">
+<p>Optional. Callback used to get db flags </p>
 </td></tr>
 <tr><td class="fieldtype">
 <a id="acb5afd36fcb1b1ee1e58a22a8bd9a405"></a><a class="el" href="group__m__sql__driver.html#ga8d66332f4a6bd0e443042d348966a65a">M_sql_driver_cb_init_t</a></td>
@@ -674,8 +690,8 @@ port</td>
 <div class="line">    {                                                    \</div>
 <div class="line">        return &amp;M_sql_##name;                            \</div>
 <div class="line">    }</div>
-<div class="ttc" id="agroup__m__sql__driver_html_ga27f8804f3b9a2b250a1c6b048a7568fc"><div class="ttname"><a href="group__m__sql__driver.html#ga27f8804f3b9a2b250a1c6b048a7568fc">M_SQL_API</a></div><div class="ttdeci">#define M_SQL_API</div><div class="ttdef"><b>Definition:</b> m_sql_driver.h:727</div></div>
-<div class="ttc" id="agroup__m__sql__driver_html_structM__sql__driver__t"><div class="ttname"><a href="group__m__sql__driver.html#structM__sql__driver__t">M_sql_driver_t</a></div><div class="ttdef"><b>Definition:</b> m_sql_driver.h:347</div></div>
+<div class="ttc" id="agroup__m__sql__driver_html_ga27f8804f3b9a2b250a1c6b048a7568fc"><div class="ttname"><a href="group__m__sql__driver.html#ga27f8804f3b9a2b250a1c6b048a7568fc">M_SQL_API</a></div><div class="ttdeci">#define M_SQL_API</div><div class="ttdef"><b>Definition:</b> m_sql_driver.h:741</div></div>
+<div class="ttc" id="agroup__m__sql__driver_html_structM__sql__driver__t"><div class="ttname"><a href="group__m__sql__driver.html#structM__sql__driver__t">M_sql_driver_t</a></div><div class="ttdef"><b>Definition:</b> m_sql_driver.h:360</div></div>
 </div><!-- fragment --><p>Use in sql driver source file to create entry point </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">name</td><td>is the name of the module, a <a class="el" href="group__m__sql__driver.html#structM__sql__driver__t">M_sql_driver_t</a> structure must be defined named M_sql_[name] <br  />
@@ -1280,7 +1296,50 @@ port</td>
 
 </div>
 </div>
+<a id="gab3566f3810a02d6fe919bb3957a51cf9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gab3566f3810a02d6fe919bb3957a51cf9">&#9670;&nbsp;</a></span>M_sql_driver_cb_flags_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef <a class="el" href="group__m__sql__driver.html#ga23127b78c94ad2f4a3b6915a85652e46">M_sql_driver_flags_t</a>(* M_sql_driver_cb_flags_t) (<a class="el" href="group__m__sql__driver.html#gacee7eea240b3a53d0f09704c0f0ff8df">M_sql_conn_t</a> *conn)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fetch current flags from driver for connection based</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">conn</td><td>Initialized connection object. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>NULL if no change necessary, otherwise rewritten index name. </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga23127b78c94ad2f4a3b6915a85652e46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga23127b78c94ad2f4a3b6915a85652e46">&#9670;&nbsp;</a></span>M_sql_driver_flags_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="group__m__sql__driver.html#ga23127b78c94ad2f4a3b6915a85652e46">M_sql_driver_flags_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Flags advertised by SQL database (could be based on db version etc) </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga23127b78c94ad2f4a3b6915a85652e46a1b8b41dd61632bdd64041adb48365bdb"></a>M_SQL_DRIVER_FLAG_NONE&#160;</td><td class="fielddoc"><p>No flags </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga23127b78c94ad2f4a3b6915a85652e46ab16251d80912af8b4db109db37cca9ad"></a>M_SQL_DRIVER_FLAG_UNIQUEINDEX_NOTNULL_WHERE&#160;</td><td class="fielddoc"><p>A unique index needs a WHERE clause to allow multiple NULL values </p>
+</td></tr>
+</table>
+
+</div>
+</div>
 <a id="gaf46c619c3bb9dfc5b9517537667ea911"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaf46c619c3bb9dfc5b9517537667ea911">&#9670;&nbsp;</a></span>M_sql_driver_queryformat_flags_t</h2>
 
@@ -3012,7 +3071,7 @@ port</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Jan 24 2023 14:51:29 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Thu Jan 26 2023 14:04:14 for Mstdlib-1.22.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

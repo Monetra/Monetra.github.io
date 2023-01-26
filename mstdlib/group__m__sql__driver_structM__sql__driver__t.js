@@ -4,6 +4,7 @@ var group__m__sql__driver_structM__sql__driver__t =
     [ "name", "group__m__sql__driver.html#a9f5be4ed9412d9b9c32a1a21ee5efbf2", null ],
     [ "display_name", "group__m__sql__driver.html#a51638a03ffbfd6ce077378a2191afd91", null ],
     [ "version", "group__m__sql__driver.html#a865c1980e369dc6338856ad0d947a206", null ],
+    [ "cb_flags", "group__m__sql__driver.html#ade897ca01904e47d483aed37941bc91e", null ],
     [ "cb_init", "group__m__sql__driver.html#acb5afd36fcb1b1ee1e58a22a8bd9a405", null ],
     [ "cb_destroy", "group__m__sql__driver.html#abbb410b37abd5c739a9ab6ed9460f842", null ],
     [ "cb_createpool", "group__m__sql__driver.html#a4f0652851c239de1d582e29374bd1329", null ],
