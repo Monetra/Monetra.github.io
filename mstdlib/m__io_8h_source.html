@@ -480,74 +480,72 @@ $(document).ready(function(){initNavTree('m__io_8h_source.html',''); initResizab
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;<span class="comment"> *  \param[in]  io      io object.</span></div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="comment"> *  \param[out] error   Error buffer.</span></div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment"> *  \param[in]  err_len Size of error buffer.</span></div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment"> *  \return Textual description of error.</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00399"></a><span class="lineno"><a class="line" href="group__m__io.html#ga3e1f56ec1e586649c1b26eb7c72238de">  399</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io.html#ga3e1f56ec1e586649c1b26eb7c72238de">M_io_get_error_string</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> err_len);</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">/*! Request system to tear down existing connection and reconnect using the same</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment"> *  configuration and layers as are currently in use.  Will preserve existing</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment"> *  event handle and callbacks.</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment"> *  \param[in]  io      io object.</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment"> *  \return M_TRUE if object can be reconnected, M_FALSE if cannot be.  This</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment"> *     returning M_TRUE does NOT mean the reconnect itself was successful, must</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment"> *     still wait for CONNECT or ERROR event.</span></div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00411"></a><span class="lineno"><a class="line" href="group__m__io.html#ga70fb95d358ecd3ddf932879754ee4201">  411</a></span>&#160;M_API M_bool <a class="code" href="group__m__io.html#ga70fb95d358ecd3ddf932879754ee4201">M_io_reconnect</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment">/*! Gracefully issue a disconnect to the communications object, a DISCONNECTED (or ERROR)</span></div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment"> * event will be triggered when complete.</span></div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment"> * \param[in] comm io object.</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno"><a class="line" href="group__m__io.html#ga02a1aa7eee8d2fb2e7fdc189f33e649e">  419</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io.html#ga02a1aa7eee8d2fb2e7fdc189f33e649e">M_io_disconnect</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *comm);</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">/*! Forcibly close the io object without destroying the entire object.  If the connection</span></div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment"> *  is still active, this will perform a dirty disconnect (not recommended).</span></div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment"> *  This is primarily used after receiving a disconnect or error event with the anticipation</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment"> *  of performing a reconnect at some point in the future, but not immediately.</span></div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="group__m__io.html#ga3e1f56ec1e586649c1b26eb7c72238de">  397</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io.html#ga3e1f56ec1e586649c1b26eb7c72238de">M_io_get_error_string</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> err_len);</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment">/*! Request system to tear down existing connection and reconnect using the same</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment"> *  configuration and layers as are currently in use.  Will preserve existing</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment"> *  event handle and callbacks.</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment"> *  \param[in]  io      io object.</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment"> *  \return M_TRUE if object can be reconnected, M_FALSE if cannot be.  This</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment"> *     returning M_TRUE does NOT mean the reconnect itself was successful, must</span></div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment"> *     still wait for CONNECT or ERROR event.</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno"><a class="line" href="group__m__io.html#ga70fb95d358ecd3ddf932879754ee4201">  409</a></span>&#160;M_API M_bool <a class="code" href="group__m__io.html#ga70fb95d358ecd3ddf932879754ee4201">M_io_reconnect</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment">/*! Gracefully issue a disconnect to the communications object, a DISCONNECTED (or ERROR)</span></div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment"> * event will be triggered when complete.</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="comment"> * \param[in] comm io object.</span></div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno"><a class="line" href="group__m__io.html#ga02a1aa7eee8d2fb2e7fdc189f33e649e">  417</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io.html#ga02a1aa7eee8d2fb2e7fdc189f33e649e">M_io_disconnect</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *comm);</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160; </div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">/*! Forcibly close the io object without destroying the entire object.  If the connection</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment"> *  is still active, this will perform a dirty disconnect (not recommended).</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment"> *  This is primarily used after receiving a disconnect or error event with the anticipation</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;<span class="comment"> *  of performing a reconnect at some point in the future, but not immediately.</span></div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment"> *  This will detach from the event subsystem and clean up the OS handles.</span></div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment"> *  This will detach from the event subsystem and clean up the OS handles.</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment"> * \param[in] comm io object.</span></div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment"> * \param[in] comm io object.</span></div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="comment"> * \return M_FALSE on error, M_TRUE on success.</span></div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00434"></a><span class="lineno"><a class="line" href="group__m__io.html#gaabb238e4291f47a4fa31c1483ebcad64">  434</a></span>&#160;M_API M_bool <a class="code" href="group__m__io.html#gaabb238e4291f47a4fa31c1483ebcad64">M_io_close</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *comm);</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="comment">/*! Query if disconnect/error might have been generated by a call to M_io_disconnect()</span></div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="comment"> *  rather than triggered by a system-level event.</span></div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment"> *  This might be useful for things like HTTP connections where we can M_io_reconnect()</span></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="comment"> *  after a remote disconnect.</span></div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="comment"> *  \param[in] io io object.</span></div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="comment"> *  \return M_TRUE if disconnect/error was triggered by M_io_disconnecT(), M_FALSE otherwise.</span></div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00446"></a><span class="lineno"><a class="line" href="group__m__io.html#ga84dff4be1205eb666da1904940bdbbe2">  446</a></span>&#160;M_API M_bool <a class="code" href="group__m__io.html#ga84dff4be1205eb666da1904940bdbbe2">M_io_is_user_initiated_disconnect</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment">/*! Destroy any communications object.</span></div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="comment"> * This can be called from a different thread than the thread the event loop the io object</span></div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="comment"> * is running on. When this happens the destroy is queued and will happen once the event loop</span></div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="comment"> * the io object is associated with has finished processing all queued events.</span></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="comment"> * \param[in] comm io object.</span></div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00457"></a><span class="lineno"><a class="line" href="group__m__io.html#ga1532f13c1f01fc1521b68a0f1d61c864">  457</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io.html#ga1532f13c1f01fc1521b68a0f1d61c864">M_io_destroy</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *comm);</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment"> * \return M_FALSE on error, M_TRUE on success.</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00432"></a><span class="lineno"><a class="line" href="group__m__io.html#gaabb238e4291f47a4fa31c1483ebcad64">  432</a></span>&#160;M_API M_bool <a class="code" href="group__m__io.html#gaabb238e4291f47a4fa31c1483ebcad64">M_io_close</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *comm);</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160; </div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="comment">/*! Query if disconnect/error might have been generated by a call to M_io_disconnect()</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment"> *  rather than triggered by a system-level event.</span></div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="comment"> *  This might be useful for things like HTTP connections where we can M_io_reconnect()</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="comment"> *  after a remote disconnect.</span></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="comment"> *  \param[in] io io object.</span></div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="comment"> *  \return M_TRUE if disconnect/error was triggered by M_io_disconnecT(), M_FALSE otherwise.</span></div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00444"></a><span class="lineno"><a class="line" href="group__m__io.html#ga84dff4be1205eb666da1904940bdbbe2">  444</a></span>&#160;M_API M_bool <a class="code" href="group__m__io.html#ga84dff4be1205eb666da1904940bdbbe2">M_io_is_user_initiated_disconnect</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io);</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160; </div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;<span class="comment">/*! Destroy any communications object.</span></div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment"> * This can be called from a different thread than the thread the event loop the io object</span></div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment"> * is running on. When this happens the destroy is queued and will happen once the event loop</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="comment"> * the io object is associated with has finished processing all queued events.</span></div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="comment"> * \param[in] comm io object.</span></div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00455"></a><span class="lineno"><a class="line" href="group__m__io.html#ga1532f13c1f01fc1521b68a0f1d61c864">  455</a></span>&#160;M_API <span class="keywordtype">void</span> <a class="code" href="group__m__io.html#ga1532f13c1f01fc1521b68a0f1d61c864">M_io_destroy</a>(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *comm);</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="comment"></span> </div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment">/*! @} */</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;__END_DECLS</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;__END_DECLS</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_IO_H__ */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __M_IO_H__ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="agroup__m__buf_html_ga6c543ecf0004fc310faa23c6ed8b267f"><div class="ttname"><a href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a></div><div class="ttdeci">struct M_buf M_buf_t</div><div class="ttdef"><b>Definition:</b> m_buf.h:77</div></div>
 <div class="ttc" id="agroup__m__io_html_ga02a1aa7eee8d2fb2e7fdc189f33e649e"><div class="ttname"><a href="group__m__io.html#ga02a1aa7eee8d2fb2e7fdc189f33e649e">M_io_disconnect</a></div><div class="ttdeci">void M_io_disconnect(M_io_t *comm)</div></div>
 <div class="ttc" id="agroup__m__io_html_ga05541266cd9a2c8bf4e634a092cb6bac"><div class="ttname"><a href="group__m__io.html#ga05541266cd9a2c8bf4e634a092cb6bac">M_io_write_from_buf_meta</a></div><div class="ttdeci">M_io_error_t M_io_write_from_buf_meta(M_io_t *comm, M_buf_t *buf, M_io_meta_t *meta)</div></div>
@@ -621,7 +619,7 @@ $(document).ready(function(){initNavTree('m__io_8h_source.html',''); initResizab
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_74d9e2e400e9e331880f7e32aa9c915c.html">mstdlib</a></li><li class="navelem"><a class="el" href="dir_f600ff02be773a4843cbb67ff47f4261.html">io</a></li><li class="navelem"><b>m_io.h</b></li>
-    <li class="footer">Generated on Wed Feb 8 2023 16:16:45 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Tue Feb 28 2023 18:28:05 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
