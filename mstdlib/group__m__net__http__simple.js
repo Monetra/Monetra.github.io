@@ -5,6 +5,8 @@ var group__m__net__http__simple =
     [ "M_net_http_simple_iocreate_cb", "group__m__net__http__simple.html#gafacca588ac547fbab357302d1292e895", null ],
     [ "M_net_http_simple_create", "group__m__net__http__simple.html#gafa1b5004ed002c39ea4369688778aef4", null ],
     [ "M_net_http_simple_cancel", "group__m__net__http__simple.html#ga1caac0fac3c8147d03ebcf83af812561", null ],
+    [ "M_net_http_simple_set_proxy_authentication", "group__m__net__http__simple.html#ga64cebb0bf4352f502284df9dcba309a4", null ],
+    [ "M_net_http_simple_set_proxy", "group__m__net__http__simple.html#ga1edf15c0db9c0ba1464f82a0c01afcd3", null ],
     [ "M_net_http_simple_set_timeouts", "group__m__net__http__simple.html#ga4576ad793a8de7eeb98312fd3100f5a1", null ],
     [ "M_net_http_simple_set_max_redirects", "group__m__net__http__simple.html#gac9f786d2e4199f1de959bc3551d4ee3e", null ],
     [ "M_net_http_simple_set_max_receive_size", "group__m__net__http__simple.html#gaa821e52cb6c48fbf19cf333ce91360f7", null ],
