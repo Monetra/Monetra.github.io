@@ -40,6 +40,8 @@ var group__m__email__msssage =
     [ "M_email_set_preamble", "group__m__email__msssage.html#ga864a5bbce6be1f236f760d9cd99055d7", null ],
     [ "M_email_epilouge", "group__m__email__msssage.html#ga1fbe356bf0a9185538a064631f0e36cf", null ],
     [ "M_email_set_epilouge", "group__m__email__msssage.html#ga8b909dfa2edd725612d878af089ad8a3", null ],
+    [ "M_email_set_mixed_multipart", "group__m__email__msssage.html#gaddc1c9b21e9fe57f2235c71bc60a52df", null ],
+    [ "M_email_is_mixed_multipart", "group__m__email__msssage.html#ga8a1c84bd21a05e30bb355d678360fd8f", null ],
     [ "M_email_part_append", "group__m__email__msssage.html#gad2b446dc3b019581b2a7255559225adb", null ],
     [ "M_email_part_append_attachment", "group__m__email__msssage.html#gaf2277098891ad856c523c9365e6c61f6", null ],
     [ "M_email_part_append_data", "group__m__email__msssage.html#gae86904277373968061fcfc0609d18f7b", null ],

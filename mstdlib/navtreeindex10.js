@@ -1,5 +1,7 @@
 var NAVTREEINDEX10 =
 {
+"group__m__log__nslog.html#ga68dc33ab1debbfe8f5d6730c275fb39c":[1,4,4,0],
+"group__m__log__stream.html":[1,4,3],
 "group__m__log__stream.html#gaf7362a0692ef03a115c4e3dbe9bbd4d1":[1,4,3,0],
 "group__m__log__syslog.html":[1,4,7],
 "group__m__log__syslog.html#ga37f3d919de260aab35fbe30b3b05067f":[1,4,7,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX10 =
 "group__m__parser.html#gab16f381ae01e5a47d36cb3b36c7ab3cc":[1,0,15,117],
 "group__m__parser.html#gab56a859c33b45f16a1af4134a502fc6c":[1,0,15,23],
 "group__m__parser.html#gab7f2a3af4348fd0ad0b16f48bdf35ae8":[1,0,15,74],
-"group__m__parser.html#gaba5b5ccc50da131855aaf9c335a779c7":[1,0,15,95],
-"group__m__parser.html#gaba7a40c4c5eb8e069f02d4692183560b":[1,0,15,58],
-"group__m__parser.html#gabaf618c6d365e141cbe49e2d6f79cf8a":[1,0,15,30]
+"group__m__parser.html#gaba5b5ccc50da131855aaf9c335a779c7":[1,0,15,95]
 };

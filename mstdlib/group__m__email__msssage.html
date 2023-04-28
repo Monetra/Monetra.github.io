@@ -174,6 +174,10 @@ Functions</h2></td></tr>
 <tr class="separator:ga1fbe356bf0a9185538a064631f0e36cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8b909dfa2edd725612d878af089ad8a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#ga8b909dfa2edd725612d878af089ad8a3">M_email_set_epilouge</a> (<a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email, const char *data, size_t len)</td></tr>
 <tr class="separator:ga8b909dfa2edd725612d878af089ad8a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaddc1c9b21e9fe57f2235c71bc60a52df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#gaddc1c9b21e9fe57f2235c71bc60a52df">M_email_set_mixed_multipart</a> (<a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email, M_bool is_mixed_multipart)</td></tr>
+<tr class="separator:gaddc1c9b21e9fe57f2235c71bc60a52df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a1c84bd21a05e30bb355d678360fd8f"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#ga8a1c84bd21a05e30bb355d678360fd8f">M_email_is_mixed_multipart</a> (const <a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email)</td></tr>
+<tr class="separator:ga8a1c84bd21a05e30bb355d678360fd8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gad2b446dc3b019581b2a7255559225adb"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#gad2b446dc3b019581b2a7255559225adb">M_email_part_append</a> (<a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email, const char *data, size_t len, const <a class="el" href="group__m__hash__dict.html#ga01ab9873e5c24644b27b099a032bea00">M_hash_dict_t</a> *headers, size_t *idx)</td></tr>
 <tr class="separator:gad2b446dc3b019581b2a7255559225adb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf2277098891ad856c523c9365e6c61f6"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__email__msssage.html#gaf2277098891ad856c523c9365e6c61f6">M_email_part_append_attachment</a> (<a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *email, const char *data, size_t len, const <a class="el" href="group__m__hash__dict.html#ga01ab9873e5c24644b27b099a032bea00">M_hash_dict_t</a> *headers, const char *content_type, const char *transfer_encoding, const char *filename, size_t *idx)</td></tr>
@@ -1308,6 +1312,52 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="gaddc1c9b21e9fe57f2235c71bc60a52df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaddc1c9b21e9fe57f2235c71bc60a52df">&#9670;&nbsp;</a></span>M_email_set_mixed_multipart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void M_email_set_mixed_multipart </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *&#160;</td>
+          <td class="paramname"><em>email</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">M_bool&#160;</td>
+          <td class="paramname"><em>is_mixed_multipart</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ga8a1c84bd21a05e30bb355d678360fd8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8a1c84bd21a05e30bb355d678360fd8f">&#9670;&nbsp;</a></span>M_email_is_mixed_multipart()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_email_is_mixed_multipart </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="group__m__email__msssage.html#ga98989ba32e6ae23118ad7e128917720a">M_email_t</a> *&#160;</td>
+          <td class="paramname"><em>email</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="gad2b446dc3b019581b2a7255559225adb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad2b446dc3b019581b2a7255559225adb">&#9670;&nbsp;</a></span>M_email_part_append()</h2>
 
@@ -1697,7 +1747,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Apr 27 2023 18:37:23 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri Apr 28 2023 13:42:47 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
