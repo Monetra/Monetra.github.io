@@ -142,9 +142,9 @@ Functions</h2></td></tr>
 <p>The engine targets Perl/Python/PCRE expression syntax. However, this is not a full implementation of the syntax.</p>
 <p>The re engine is uses DFA processing to ensure evaluation happens in a reasonable amount of time. It does not use back tracking to avoid pathological expressions causing very slow run time. Due to this back references in patterns are not supported.</p>
 <p>Patterns are thread safe and re-entrant.</p>
-<h2><a class="anchor" id="autotoc_md76"></a>
+<h2><a class="anchor" id="autotoc_md83"></a>
 Supported:</h2>
-<h3><a class="anchor" id="autotoc_md77"></a>
+<h3><a class="anchor" id="autotoc_md84"></a>
 Syntax</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -183,7 +183,7 @@ Syntax</h3>
 <td class="markdownTableBodyNone"><code>(?imsU-imsU)</code>   </td><td class="markdownTableBodyNone">Allows specifying compile flags in the expression. Supports <code>i</code> (ignore case), <code>m</code> (multiline), <code>s</code> (dot all), <code>U</code> (ungreedy). - can be used to disable a flag. E.g. (?im-s). Only allowed to be used once at the start of the pattern.   </td></tr>
 </table>
 <dl class="section note"><dt>Note</dt><dd>\ as part of | (pipe) shown in table is for escaping and not part of syntax.</dd></dl>
-<h3><a class="anchor" id="autotoc_md78"></a>
+<h3><a class="anchor" id="autotoc_md85"></a>
 Escapes</h3>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -197,7 +197,7 @@ Escapes</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>\&gt;</code>   </td><td class="markdownTableBodyNone">End of word   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md79"></a>
+<h3><a class="anchor" id="autotoc_md86"></a>
 Short hand character classes</h3>
 <p>Cannot be used within brackets.</p>
 <p>ASCII only.</p>
@@ -217,7 +217,7 @@ Short hand character classes</h3>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone"><code>\W</code>   </td><td class="markdownTableBodyNone">Not word. Equivalent to <code>[^a-zA-Z0-9_]</code>   </td></tr>
 </table>
-<h3><a class="anchor" id="autotoc_md80"></a>
+<h3><a class="anchor" id="autotoc_md87"></a>
 POSIX character classes for bracket expressions</h3>
 <p>Character ranges <em>must</em> be used in <code>[]</code> expressions. <code>^</code> negation is supported with ranges.</p>
 <p>ASCII only.</p>
@@ -252,12 +252,12 @@ POSIX character classes for bracket expressions</h3>
 <td class="markdownTableBodyNone"><code>[:punct:]</code>   </td><td class="markdownTableBodyNone">Punctuation character range. Contains &lsquo;[!"#$%&amp;&rsquo;()*+,-./:;&lt;=&gt;?@[\]^_`{|}~]`   </td></tr>
 </table>
 <dl class="section note"><dt>Note</dt><dd>\ as part of | (pipe) and ` shown in <code>[:punct:]</code> is for escaping and not part of character set.</dd></dl>
-<h3><a class="anchor" id="autotoc_md81"></a>
+<h3><a class="anchor" id="autotoc_md88"></a>
 Features</h3>
 <ul>
 <li>Numbered captures (up to 99) are supported in M_re_sub's replacement string.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md82"></a>
+<h2><a class="anchor" id="autotoc_md89"></a>
 Not supported:</h2>
 <ul>
 <li>Back references in patterns</li>
@@ -267,13 +267,13 @@ Not supported:</h2>
 <li>BRE (Basic Regular Expression) syntax</li>
 <li>\ escape short hands (\d, \w, ...) inside of a bracket ([]) expression.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md83"></a>
+<h2><a class="anchor" id="autotoc_md90"></a>
 Match object</h2>
 <p>Patterns can have capture groups which can be filled in a match object during string evaluation. Only numbered capture indexes are supported. Up to 99 captures can be recorded.</p>
 <p>Index 0 is the full match for the regular expression. If the pattern matches the string, this will always be populated. Groups (when present) are number 1-99.</p>
 <p>If a capture is present the index will be available. Composite (|) patterns can cause gaps in captures. Meaning capture 1, and 5 could be present but capture 3 and 4 not. Also, captures can be present but have zero length.</p>
 <p>Finally, captures are reported with offset from the start of the string and the length of the captured data. This is different than some other libraries which return start and end offsets. Utilizing length instead of end offsets was decided based on captures being passed to other functions, the majority of which take a start and length; not an end offset.</p>
-<h2><a class="anchor" id="autotoc_md84"></a>
+<h2><a class="anchor" id="autotoc_md91"></a>
 Unicode</h2>
 <p>Patterns and strings are expected to be UTF-8 encoded and will be interpreted as such.</p>
 <p>While Unicode is supported normalization is not. Every Unicode character is treated as a unique character. Many characters match multiple Unicode code points. Equivalence is not applied and each code point is treated as its own character. </p>
@@ -749,7 +749,7 @@ Unicode</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Apr 28 2023 13:42:53 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 3 2023 13:50:27 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

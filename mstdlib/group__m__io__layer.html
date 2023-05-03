@@ -175,8 +175,1071 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Included using the semi-public header of &lt;<a class="el" href="m__io__layer_8h_source.html">mstdlib/io/m_io_layer.h</a>&gt;</p>
-<p>This is a semi-public header meant for those writing their own io layers. Unlike the normal public-facing API, these may change at any time. </p>
-<h2 class="groupheader">Macro Definition Documentation</h2>
+<p>This is a semi-public header meant for those writing their own io layers. This could be a low level layer that's not current supported for comms. More commonly it would be intermediate layers to accommodate specific data handling.</p>
+<h1><a class="anchor" id="autotoc_md68"></a>
+Layer Design</h1>
+<p>Layers are stacked with the application being on top and the comms layer on the bottom (typically comms later is the bottom layer). Layers in between are typically data processing layers. For example, Application, TLS, and network. Where the TLS layer is an intermediate data processing layer.</p>
+<p>Intermediate layers are bidirectional with data flowing down and up.</p>
+<h2><a class="anchor" id="autotoc_md69"></a>
+Processing Events Callback</h2>
+<p>The <code>processevent_cb</code> set by <code><a class="el" href="group__m__io__layer.html#ga0c3837dbffed3aac4ab6ffa5d3bd4590">M_io_callbacks_reg_processevent()</a></code> flows upward. From the bottom comms layer through the intermediate layer and then to the application layer. This is where data manipulation coming in can be handled. The callback can either allow the even that trigged it to continue up the layer stack or it can suppress the event so no further processing takes place.</p>
+<p>For example, if the intermediate layer doesn't need to do any processing of the data or has completed all processing it will allow the event to propagate up. If the layer needs more data before it can be used by the next layer it will suppress the event so processing the event stops.</p>
+<p>A read event from <code>processevent_cb</code> needs to read the data from the layer under in order to get the data flowing up to process. A write event needs to write any pending data to the layer under in order for it to be sent out. Read flows up and write flows down.</p>
+<p>Events always come from the bottom up. Either the lower layer(s) are stating there is data to read, or it is stating data can be written. If there is no processing of read data or no data to write the events would be allowed to propagate upwards so other layers (or the application) can handle the event.</p>
+<p>For processing read events, from the <code>processevent_cb</code> it is necessary to use <code><a class="el" href="group__m__io__layer.html#ga5458358c5cd46f140520b27d0a17db1c">M_io_layer_read()</a></code> like so <code>M_io_layer_read(io, M_io_layer_get_index(layer) - 1, buf, &amp;buf_len, meta);</code>. Since data is flowing up, the layer under a given layer has the pending read data that needs to be processed.</p>
+<p>For processing write events, from the <code>processevent_cb</code> it is necessary to use <code><a class="el" href="group__m__io__layer.html#ga2bd63bc8d12ca0735492aebcfc9cb759">M_io_layer_write()</a></code> like so <code>M_io_layer_write(io, M_io_layer_get_index(layer) - 1, NULL, NULL, meta);</code>. Since data is flowing down, the layer under a given layer has needs to write the pending data.</p>
+<p>An application would use <code><a class="el" href="group__m__io.html#gaaf3884f99346e5b40d40bc4bb08dcf5b">M_io_read()</a></code> and <code><a class="el" href="group__m__io.html#gaed538234d26bfea6b0feef33a967860c">M_io_write()</a></code>. These always flow from the top layer down. Since this layer is in the middle we need to always work with the layer beneath.</p>
+<h2><a class="anchor" id="autotoc_md70"></a>
+Read / Write Callbacks</h2>
+<p>The <code>read_cb</code> and <code>write_cb</code> set by <code><a class="el" href="group__m__io__layer.html#ga0de59d7872b9a47d2230ff7c6ec0c27c">M_io_callbacks_reg_read()</a></code> and <code><a class="el" href="group__m__io__layer.html#gade360ffe79e68306fe3c8911a9ed3358">M_io_callbacks_reg_write()</a></code> flow down.</p>
+<p>A layer above will call <code>M_io_layer_read</code> or if the top most layer the application would have called <code>M_io_read</code>. These call the layers <code>read_cb</code> If there is no read callback registered the layer is skipped and the next layer in the sequence if called. This happens internally. The <code>read_cb</code> will return any buffered data that has been read and passes it upward. The data is typically buffered via the read event form <code>processevent_cb</code>.</p>
+<p>A layer above will call <code>M_io_layer_write</code> or if the top most layer the application would have called <code>M_io_write</code>. These call the layers <code>write_cb</code> If there is no write callback registered the layer is skipped and the next layer in the sequence if called. This happens internally. The <code>write_cb</code> will receive and data that needs to be passed down for writing. Typically, the <code>write_cb</code> will attempt to write the data immediately (after handling any processing) but may need to buffer the data and write more later when the <code>processevent_cb</code> receives a write event stating layers below can accept data to write.</p>
+<h2><a class="anchor" id="autotoc_md71"></a>
+Examples</h2>
+<p>Example layers:</p><ul>
+<li>Basic layer that marshals data. Useful for starting a new layer.</li>
+<li>Processing STX+ETX+LRC with ACK/NAK and resending message</li>
+<li>BLE helper layer that handles secure pairing (if necessary) and setting read/write characteristic endpoints.</li>
+</ul>
+<h3><a class="anchor" id="autotoc_md72"></a>
+Basic</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;mstdlib/io/m_io_layer.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">struct </span>M_io_handle {</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a>     *read_buf;</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a>     *write_buf;</div>
+<div class="line">    <span class="keywordtype">char</span>         err[256];</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Writes as much data as possible from the given buffer to the layer below this one.</span></div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_to_next_layer(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *buf)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>       *io;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>  err;</div>
+<div class="line">    <span class="keywordtype">size_t</span>        layer_idx;</div>
+<div class="line">    <span class="keywordtype">size_t</span>        write_len;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (layer == NULL || <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(buf) == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    io        = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    layer_idx = <a class="code" href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (io == NULL || layer_idx == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    err = <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line">    <span class="keywordflow">do</span> {</div>
+<div class="line">        write_len = <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(buf);</div>
+<div class="line">        err       = <a class="code" href="group__m__io__layer.html#ga2bd63bc8d12ca0735492aebcfc9cb759">M_io_layer_write</a>(io, layer_idx - 1, (<span class="keyword">const</span> M_uint8 *)<a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(buf), &amp;write_len, NULL);</div>
+<div class="line">        <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>) {</div>
+<div class="line">            <a class="code" href="group__m__buf.html#ga4fc41c9b5746d69a40e8f9aaef53a105">M_buf_drop</a>(buf, write_len);</div>
+<div class="line">        }</div>
+<div class="line">    } <span class="keywordflow">while</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a> &amp;&amp; <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(buf) &gt; 0);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> err;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool processevent_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__event.html#ga66b039653a61c8702310d03e6ba69802">M_event_type_t</a> *type)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle  = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>        *io      = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    M_bool         consume = M_FALSE; <span class="comment">// Default to passing onto the next layer.</span></div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>   err;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || io == NULL)</div>
+<div class="line">        <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">switch</span> (*type) {</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7ab0fc60e031020cb3f36b70c4932d67f2">M_EVENT_TYPE_CONNECTED</a>:</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a1713e94c1e0750f168d255f580fd4ad9">M_EVENT_TYPE_WRITE</a>:</div>
+<div class="line">            <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;write_buf) != 0) {</div>
+<div class="line">                err = write_to_next_layer(layer, handle-&gt;write_buf);</div>
+<div class="line">                <span class="keywordflow">if</span> (<a class="code" href="group__m__io__layer.html#ga15da485fce90d4ec273554a35ec50bfa">M_io_error_is_critical</a>(err)) {</div>
+<div class="line">                    <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Error writing data: %s&quot;</span>, <a class="code" href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a>(err));</div>
+<div class="line">                    *type = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>;</div>
+<div class="line">                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;write_buf) != 0) {</div>
+<div class="line">                    <span class="comment">// Don&#39;t inform higher levels we can write if we have more data pending.</span></div>
+<div class="line">                    consume = M_TRUE;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426">M_EVENT_TYPE_READ</a>:</div>
+<div class="line">            <span class="comment">// We&#39;re getting data from the device. Let&#39;s pull out the data and check if we want it or not.</span></div>
+<div class="line">            <span class="keywordflow">do</span> {</div>
+<div class="line">                M_uint8 buf[256] = { 0 };</div>
+<div class="line">                <span class="keywordtype">size_t</span>  buf_len  = <span class="keyword">sizeof</span>(buf);</div>
+<div class="line"> </div>
+<div class="line">                err = <a class="code" href="group__m__io__layer.html#ga5458358c5cd46f140520b27d0a17db1c">M_io_layer_read</a>(io, <a class="code" href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a>(layer) - 1, buf, &amp;buf_len, NULL);</div>
+<div class="line">                <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>) {</div>
+<div class="line">                    <span class="comment">// Save the data into the handler&#39;s buffer so we</span></div>
+<div class="line">                    <span class="comment">// can pass it up to the layer above in the read callback.</span></div>
+<div class="line">                    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;read_buf, buf, buf_len);</div>
+<div class="line">                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="group__m__io__layer.html#ga15da485fce90d4ec273554a35ec50bfa">M_io_error_is_critical</a>(err)) {</div>
+<div class="line">                    <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Error reading data: %s&quot;</span>, <a class="code" href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a>(err));</div>
+<div class="line">                    *type = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>;</div>
+<div class="line">                    <span class="keywordflow">break</span>;</div>
+<div class="line">                }</div>
+<div class="line">            } <span class="keywordflow">while</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>);</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>:</div>
+<div class="line">            <a class="code" href="group__m__io.html#ga3e1f56ec1e586649c1b26eb7c72238de">M_io_get_error_string</a>(io, handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err));</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a571c000a93b3c198364a32e5e145f2d0">M_EVENT_TYPE_ACCEPT</a>:</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a6cead05362ca89b2cc7353bf6b4c2c6e">M_EVENT_TYPE_DISCONNECTED</a>:</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a89a67d4e5f2bdcadc1ffa3ba0473a6cf">M_EVENT_TYPE_OTHER</a>:</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// M_TRUE to discard this event, or M_FALSE to pass it on to the next layer.</span></div>
+<div class="line">    <span class="keywordflow">return</span> consume;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> read_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buf, <span class="keywordtype">size_t</span> *buf_len, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    (void)meta;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || buf == NULL || buf_len == NULL || *buf_len == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Check if we have any more data to pass on or not.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;read_buf) == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Pass on as much data as possible.</span></div>
+<div class="line">    *buf_len = <a class="code" href="group__m__math.html#ga6237309498df9996986cce08c6550824">M_MIN</a>(*buf_len, <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;read_buf));</div>
+<div class="line">    <a class="code" href="group__m__mem.html#ga81b9bd497064d6d9b75239014669d231">M_mem_copy</a>(buf, <a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(handle-&gt;read_buf), *buf_len);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga4fc41c9b5746d69a40e8f9aaef53a105">M_buf_drop</a>(handle-&gt;read_buf, *buf_len);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buf, <span class="keywordtype">size_t</span> *buf_len, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>   err;</div>
+<div class="line"> </div>
+<div class="line">    (void)meta;</div>
+<div class="line"> </div>
+<div class="line">    handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || buf == NULL || buf_len == NULL || *buf_len == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Don&#39;t allow buffering data if we have data waiting to write.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;write_buf) &gt; 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;write_buf, buf, *buf_len);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Try to write as much of the message as we can right now.</span></div>
+<div class="line">    err = write_to_next_layer(layer, handle-&gt;write_buf);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Treat would block as success because we&#39;ve buffered the data and it will</span></div>
+<div class="line">     <span class="comment">// be written when possible.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>)</div>
+<div class="line">        err = <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line">    <span class="keywordflow">return</span> err;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Dummy callback - only here because the docs for M_io_callbacks_t requires it to be present.</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> unregister_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    (void)layer;</div>
+<div class="line">    <span class="comment">// No-op</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Dummy callback - only here because the docs for M_io_callbacks_t requires it to be present.</span></div>
+<div class="line"><span class="keyword">static</span> M_bool reset_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    (void)layer;</div>
+<div class="line">    <span class="comment">// No-op</span></div>
+<div class="line">    <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> destroy_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;read_buf);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;write_buf);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a>(handle);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool error_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> err_len)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__str__check.html#ga530dc6e198ebf9e5c30bc7a28ea4567d">M_str_isempty</a>(handle-&gt;err))</div>
+<div class="line">        <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__str__mutate.html#ga050277b36c7f2ea5ff7aa68a0933c6c0">M_str_cpy</a>(error, err_len, handle-&gt;err);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"><span class="comment">// --- MAIN ENTRY ---</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> basic_example_layer(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a>    *handle;</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gaa3531457bf1cd87643022318658f60c3">M_io_callbacks_t</a> *callbacks;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (io == NULL)</div>
+<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line"> </div>
+<div class="line">    handle             = <a class="code" href="group__m__mem.html#ga9473a8ef59f5c85d37b3d35f461a82f1">M_malloc_zero</a>(<span class="keyword">sizeof</span>(*handle));</div>
+<div class="line">    handle-&gt;read_buf   = <a class="code" href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a>();</div>
+<div class="line">    handle-&gt;write_buf  = <a class="code" href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a>();</div>
+<div class="line"> </div>
+<div class="line">    callbacks = <a class="code" href="group__m__io__layer.html#ga3f380ff15a9dae6358abdd041777d300">M_io_callbacks_create</a>();</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0c3837dbffed3aac4ab6ffa5d3bd4590">M_io_callbacks_reg_processevent</a>(callbacks, processevent_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0de59d7872b9a47d2230ff7c6ec0c27c">M_io_callbacks_reg_read</a>(callbacks, read_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gade360ffe79e68306fe3c8911a9ed3358">M_io_callbacks_reg_write</a>(callbacks, write_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gabd2d14eb725d528ef98bb8b967ae1e40">M_io_callbacks_reg_unregister</a>(callbacks, unregister_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga9d663c831069a59ca067bf99f6a4bced">M_io_callbacks_reg_reset</a>(callbacks, reset_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga89d597baaffaf2102983258b8c73fe52">M_io_callbacks_reg_destroy</a>(callbacks, destroy_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga05ac9b73c65d904407734f6b70da7d43">M_io_callbacks_reg_errormsg</a>(callbacks, error_cb);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0e687e422b6ba933efecee9b5e2e8d5d">M_io_layer_add</a>(io, <span class="stringliteral">&quot;BASIC_LAYER&quot;</span>, handle, callbacks);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga6458e6066300fa9f3cb4dd62e40d200d">M_io_callbacks_destroy</a>(callbacks);</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup__m__buf_html_ga2031dcfdfa76f5feb5a59c8e7ac155d0"><div class="ttname"><a href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a></div><div class="ttdeci">M_buf_t * M_buf_create(void) M_WARN_UNUSED_RESULT M_MALLOC</div></div>
+<div class="ttc" id="agroup__m__buf_html_ga288de250b37d2811d57b8ffe20e89bbc"><div class="ttname"><a href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a></div><div class="ttdeci">void M_buf_add_bytes(M_buf_t *buf, const void *bytes, size_t bytes_length)</div></div>
+<div class="ttc" id="agroup__m__buf_html_ga4fc41c9b5746d69a40e8f9aaef53a105"><div class="ttname"><a href="group__m__buf.html#ga4fc41c9b5746d69a40e8f9aaef53a105">M_buf_drop</a></div><div class="ttdeci">void M_buf_drop(M_buf_t *buf, size_t num)</div></div>
+<div class="ttc" id="agroup__m__buf_html_ga6c543ecf0004fc310faa23c6ed8b267f"><div class="ttname"><a href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a></div><div class="ttdeci">struct M_buf M_buf_t</div><div class="ttdef"><b>Definition:</b> m_buf.h:77</div></div>
+<div class="ttc" id="agroup__m__buf_html_gaa971e69f90069433ea14d20bf83cc2a4"><div class="ttname"><a href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a></div><div class="ttdeci">const char * M_buf_peek(const M_buf_t *buf)</div></div>
+<div class="ttc" id="agroup__m__buf_html_gaaff39362df33795d6c188ca3482a12cd"><div class="ttname"><a href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a></div><div class="ttdeci">size_t M_buf_len(const M_buf_t *buf)</div></div>
+<div class="ttc" id="agroup__m__buf_html_gad51baebd5e46ee8231e78b926ccb198e"><div class="ttname"><a href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a></div><div class="ttdeci">void M_buf_cancel(M_buf_t *buf) M_FREE(1)</div></div>
+<div class="ttc" id="agroup__m__event_html_ga66b039653a61c8702310d03e6ba69802"><div class="ttname"><a href="group__m__event.html#ga66b039653a61c8702310d03e6ba69802">M_event_type_t</a></div><div class="ttdeci">enum M_event_type M_event_type_t</div><div class="ttdef"><b>Definition:</b> m_event.h:189</div></div>
+<div class="ttc" id="agroup__m__event_html_gga5d54358d8088f050bcdb141c6c0b21e7a1713e94c1e0750f168d255f580fd4ad9"><div class="ttname"><a href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a1713e94c1e0750f168d255f580fd4ad9">M_EVENT_TYPE_WRITE</a></div><div class="ttdeci">@ M_EVENT_TYPE_WRITE</div><div class="ttdef"><b>Definition:</b> m_event.h:184</div></div>
+<div class="ttc" id="agroup__m__event_html_gga5d54358d8088f050bcdb141c6c0b21e7a571c000a93b3c198364a32e5e145f2d0"><div class="ttname"><a href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a571c000a93b3c198364a32e5e145f2d0">M_EVENT_TYPE_ACCEPT</a></div><div class="ttdeci">@ M_EVENT_TYPE_ACCEPT</div><div class="ttdef"><b>Definition:</b> m_event.h:174</div></div>
+<div class="ttc" id="agroup__m__event_html_gga5d54358d8088f050bcdb141c6c0b21e7a6cead05362ca89b2cc7353bf6b4c2c6e"><div class="ttname"><a href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a6cead05362ca89b2cc7353bf6b4c2c6e">M_EVENT_TYPE_DISCONNECTED</a></div><div class="ttdeci">@ M_EVENT_TYPE_DISCONNECTED</div><div class="ttdef"><b>Definition:</b> m_event.h:176</div></div>
+<div class="ttc" id="agroup__m__event_html_gga5d54358d8088f050bcdb141c6c0b21e7a89a67d4e5f2bdcadc1ffa3ba0473a6cf"><div class="ttname"><a href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a89a67d4e5f2bdcadc1ffa3ba0473a6cf">M_EVENT_TYPE_OTHER</a></div><div class="ttdeci">@ M_EVENT_TYPE_OTHER</div><div class="ttdef"><b>Definition:</b> m_event.h:185</div></div>
+<div class="ttc" id="agroup__m__event_html_gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426"><div class="ttname"><a href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426">M_EVENT_TYPE_READ</a></div><div class="ttdeci">@ M_EVENT_TYPE_READ</div><div class="ttdef"><b>Definition:</b> m_event.h:175</div></div>
+<div class="ttc" id="agroup__m__event_html_gga5d54358d8088f050bcdb141c6c0b21e7ab0fc60e031020cb3f36b70c4932d67f2"><div class="ttname"><a href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7ab0fc60e031020cb3f36b70c4932d67f2">M_EVENT_TYPE_CONNECTED</a></div><div class="ttdeci">@ M_EVENT_TYPE_CONNECTED</div><div class="ttdef"><b>Definition:</b> m_event.h:173</div></div>
+<div class="ttc" id="agroup__m__event_html_gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac"><div class="ttname"><a href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a></div><div class="ttdeci">@ M_EVENT_TYPE_ERROR</div><div class="ttdef"><b>Definition:</b> m_event.h:181</div></div>
+<div class="ttc" id="agroup__m__fmt_html_ga148cb889ab2737a09ebf313e7a3d454b"><div class="ttname"><a href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a></div><div class="ttdeci">size_t M_snprintf(char *buf, size_t size, const char *fmt,...)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga05ac9b73c65d904407734f6b70da7d43"><div class="ttname"><a href="group__m__io__layer.html#ga05ac9b73c65d904407734f6b70da7d43">M_io_callbacks_reg_errormsg</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_errormsg(M_io_callbacks_t *callbacks, M_bool(*cb_errormsg)(M_io_layer_t *layer, char *error, size_t err_len))</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga0c3837dbffed3aac4ab6ffa5d3bd4590"><div class="ttname"><a href="group__m__io__layer.html#ga0c3837dbffed3aac4ab6ffa5d3bd4590">M_io_callbacks_reg_processevent</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_processevent(M_io_callbacks_t *callbacks, M_bool(*cb_process_event)(M_io_layer_t *layer, M_event_type_t *type))</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga0de59d7872b9a47d2230ff7c6ec0c27c"><div class="ttname"><a href="group__m__io__layer.html#ga0de59d7872b9a47d2230ff7c6ec0c27c">M_io_callbacks_reg_read</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_read(M_io_callbacks_t *callbacks, M_io_error_t(*cb_read)(M_io_layer_t *layer, unsigned char *buf, size_t *read_len, M_io_meta_t *meta))</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga0e687e422b6ba933efecee9b5e2e8d5d"><div class="ttname"><a href="group__m__io__layer.html#ga0e687e422b6ba933efecee9b5e2e8d5d">M_io_layer_add</a></div><div class="ttdeci">M_io_layer_t * M_io_layer_add(M_io_t *io, const char *layer_name, M_io_handle_t *handle, const M_io_callbacks_t *callbacks)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga15da485fce90d4ec273554a35ec50bfa"><div class="ttname"><a href="group__m__io__layer.html#ga15da485fce90d4ec273554a35ec50bfa">M_io_error_is_critical</a></div><div class="ttdeci">M_bool M_io_error_is_critical(M_io_error_t err)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga2bd63bc8d12ca0735492aebcfc9cb759"><div class="ttname"><a href="group__m__io__layer.html#ga2bd63bc8d12ca0735492aebcfc9cb759">M_io_layer_write</a></div><div class="ttdeci">M_io_error_t M_io_layer_write(M_io_t *io, size_t layer_id, const unsigned char *buf, size_t *write_len, M_io_meta_t *meta)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga2c76e456b8335433f53eadfac91e4533"><div class="ttname"><a href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a></div><div class="ttdeci">struct M_io_layer M_io_layer_t</div><div class="ttdef"><b>Definition:</b> m_io_layer.h:1086</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga3f380ff15a9dae6358abdd041777d300"><div class="ttname"><a href="group__m__io__layer.html#ga3f380ff15a9dae6358abdd041777d300">M_io_callbacks_create</a></div><div class="ttdeci">M_io_callbacks_t * M_io_callbacks_create(void)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga4e34a19e8722fc40cf6074c0fd9131f3"><div class="ttname"><a href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a></div><div class="ttdeci">struct M_io_handle M_io_handle_t</div><div class="ttdef"><b>Definition:</b> m_io_layer.h:1089</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga4ed8f7126e4355ebc378bc2aefe710a5"><div class="ttname"><a href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a></div><div class="ttdeci">size_t M_io_layer_get_index(M_io_layer_t *layer)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga5458358c5cd46f140520b27d0a17db1c"><div class="ttname"><a href="group__m__io__layer.html#ga5458358c5cd46f140520b27d0a17db1c">M_io_layer_read</a></div><div class="ttdeci">M_io_error_t M_io_layer_read(M_io_t *io, size_t layer_id, unsigned char *buf, size_t *read_len, M_io_meta_t *meta)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga6458e6066300fa9f3cb4dd62e40d200d"><div class="ttname"><a href="group__m__io__layer.html#ga6458e6066300fa9f3cb4dd62e40d200d">M_io_callbacks_destroy</a></div><div class="ttdeci">void M_io_callbacks_destroy(M_io_callbacks_t *callbacks)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga677da94ecf0be2b646df0dbf64f1bf59"><div class="ttname"><a href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a></div><div class="ttdeci">M_io_handle_t * M_io_layer_get_handle(M_io_layer_t *layer)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga6975909f4899a148f7601cd4b2a7726e"><div class="ttname"><a href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a></div><div class="ttdeci">M_io_t * M_io_layer_get_io(M_io_layer_t *layer)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga89d597baaffaf2102983258b8c73fe52"><div class="ttname"><a href="group__m__io__layer.html#ga89d597baaffaf2102983258b8c73fe52">M_io_callbacks_reg_destroy</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_destroy(M_io_callbacks_t *callbacks, void(*cb_destroy)(M_io_layer_t *layer))</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga9d663c831069a59ca067bf99f6a4bced"><div class="ttname"><a href="group__m__io__layer.html#ga9d663c831069a59ca067bf99f6a4bced">M_io_callbacks_reg_reset</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_reset(M_io_callbacks_t *callbacks, M_bool(*cb_reset)(M_io_layer_t *layer))</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_gaa3531457bf1cd87643022318658f60c3"><div class="ttname"><a href="group__m__io__layer.html#gaa3531457bf1cd87643022318658f60c3">M_io_callbacks_t</a></div><div class="ttdeci">struct M_io_callbacks M_io_callbacks_t</div><div class="ttdef"><b>Definition:</b> m_io_layer.h:1092</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_gabd2d14eb725d528ef98bb8b967ae1e40"><div class="ttname"><a href="group__m__io__layer.html#gabd2d14eb725d528ef98bb8b967ae1e40">M_io_callbacks_reg_unregister</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_unregister(M_io_callbacks_t *callbacks, void(*cb_unregister)(M_io_layer_t *layer))</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_gade360ffe79e68306fe3c8911a9ed3358"><div class="ttname"><a href="group__m__io__layer.html#gade360ffe79e68306fe3c8911a9ed3358">M_io_callbacks_reg_write</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_write(M_io_callbacks_t *callbacks, M_io_error_t(*cb_write)(M_io_layer_t *layer, const unsigned char *buf, size_t *write_len, M_io_meta_t *meta))</div></div>
+<div class="ttc" id="agroup__m__io_html_ga2d3bea9aaa4491c3c8dad94cf24498a2"><div class="ttname"><a href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a></div><div class="ttdeci">enum M_io_error M_io_error_t</div><div class="ttdef"><b>Definition:</b> m_io.h:93</div></div>
+<div class="ttc" id="agroup__m__io_html_ga3e1f56ec1e586649c1b26eb7c72238de"><div class="ttname"><a href="group__m__io.html#ga3e1f56ec1e586649c1b26eb7c72238de">M_io_get_error_string</a></div><div class="ttdeci">void M_io_get_error_string(M_io_t *io, char *error, size_t err_len)</div></div>
+<div class="ttc" id="agroup__m__io_html_ga845c131d8520206a2a7a9219d1bd1932"><div class="ttname"><a href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a></div><div class="ttdeci">struct M_io M_io_t</div><div class="ttdef"><b>Definition:</b> m_io.h:59</div></div>
+<div class="ttc" id="agroup__m__io_html_ga89a45c257b8b62345c2bc035da6cc4d0"><div class="ttname"><a href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a></div><div class="ttdeci">const char * M_io_error_string(M_io_error_t error)</div></div>
+<div class="ttc" id="agroup__m__io_html_ga9b9493ef60e89fbb37537ec239ab2724"><div class="ttname"><a href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a></div><div class="ttdeci">struct M_io_meta M_io_meta_t</div><div class="ttdef"><b>Definition:</b> m_io.h:64</div></div>
+<div class="ttc" id="agroup__m__io_html_gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30"><div class="ttname"><a href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a></div><div class="ttdeci">@ M_IO_ERROR_SUCCESS</div><div class="ttdef"><b>Definition:</b> m_io.h:69</div></div>
+<div class="ttc" id="agroup__m__io_html_gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c"><div class="ttname"><a href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a></div><div class="ttdeci">@ M_IO_ERROR_WOULDBLOCK</div><div class="ttdef"><b>Definition:</b> m_io.h:70</div></div>
+<div class="ttc" id="agroup__m__io_html_gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3"><div class="ttname"><a href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a></div><div class="ttdeci">@ M_IO_ERROR_INVALID</div><div class="ttdef"><b>Definition:</b> m_io.h:83</div></div>
+<div class="ttc" id="agroup__m__math_html_ga6237309498df9996986cce08c6550824"><div class="ttname"><a href="group__m__math.html#ga6237309498df9996986cce08c6550824">M_MIN</a></div><div class="ttdeci">#define M_MIN(a, b)</div><div class="ttdef"><b>Definition:</b> m_math.h:44</div></div>
+<div class="ttc" id="agroup__m__mem_html_ga81b9bd497064d6d9b75239014669d231"><div class="ttname"><a href="group__m__mem.html#ga81b9bd497064d6d9b75239014669d231">M_mem_copy</a></div><div class="ttdeci">void * M_mem_copy(void *dst, const void *src, size_t size)</div></div>
+<div class="ttc" id="agroup__m__mem_html_ga9473a8ef59f5c85d37b3d35f461a82f1"><div class="ttname"><a href="group__m__mem.html#ga9473a8ef59f5c85d37b3d35f461a82f1">M_malloc_zero</a></div><div class="ttdeci">void * M_malloc_zero(size_t size) M_ALLOC_SIZE(1) M_WARN_UNUSED_RESULT M_MALLOC</div></div>
+<div class="ttc" id="agroup__m__mem_html_gac4b3c1d73d6efe2542f5e729b58a271d"><div class="ttname"><a href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a></div><div class="ttdeci">void M_free(void *ptr) M_FREE(1)</div></div>
+<div class="ttc" id="agroup__m__str__check_html_ga530dc6e198ebf9e5c30bc7a28ea4567d"><div class="ttname"><a href="group__m__str__check.html#ga530dc6e198ebf9e5c30bc7a28ea4567d">M_str_isempty</a></div><div class="ttdeci">M_bool M_str_isempty(const char *s) M_WARN_UNUSED_RESULT</div></div>
+<div class="ttc" id="agroup__m__str__mutate_html_ga050277b36c7f2ea5ff7aa68a0933c6c0"><div class="ttname"><a href="group__m__str__mutate.html#ga050277b36c7f2ea5ff7aa68a0933c6c0">M_str_cpy</a></div><div class="ttdeci">M_bool M_str_cpy(char *dest, size_t dest_len, const char *src)</div></div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md73"></a>
+STX + ETX + LRC with ACK / NAK and resending</h3>
+<div class="fragment"><div class="line"><span class="comment">// IO Layer for generating and unwrapping STX+ETX+LRC with ACK/NAK messaging.</span></div>
+<div class="line"><span class="comment">// Supports resending message if no response is received within a specified time.</span></div>
+<div class="line"><span class="comment">// Will only resent X times before giving up and erring.</span></div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &lt;mstdlib/mstdlib.h&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mstdlib/io/m_io_layer.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">struct </span>M_io_handle {</div>
+<div class="line">    <span class="comment">// Read.</span></div>
+<div class="line">    <a class="code" href="group__m__parser.html#ga60164be64f8c962c795e5927642fc473">M_parser_t</a>      *readparser;   <span class="comment">// Buffer containing message that&#39;s currently being stitched together from packets.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a>         *readbuf;      <span class="comment">// Buffer containing message that&#39;s currently being consumed by the caller.</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Write.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a>         *last_msg;     <span class="comment">// Last buffered message, used for resend if ACK not received.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a>         *writebuf;     <span class="comment">// Buffer containing message that&#39;s currently being consumed by the caller.</span></div>
+<div class="line">    M_bool           can_write;    <span class="comment">// Whether we can write more data. We only allow 1 outstanding message at a time.</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordtype">size_t</span>           resend_cnt;   <span class="comment">// Number of times we&#39;ve tried resending the message.</span></div>
+<div class="line">    <a class="code" href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a> *resend_timer; <span class="comment">// Timer to track when a response hasn&#39;t been received and the message should be resent.</span></div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Error</span></div>
+<div class="line">    <span class="keywordtype">char</span>             err[256];     <span class="comment">// Error message buffer.</span></div>
+<div class="line">}; <span class="comment">// Typedef&#39;d to M_io_handle_t in m_io_layer.h</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>          *LAYER_NAME      = <span class="stringliteral">&quot;STXETXLRCACKNAK&quot;</span>;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span>         RESEND_MAX      = 5;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">size_t</span>         RESEND_INTERVAL = 3*1000; <span class="comment">// 3 seconds</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>          *STX_STR         = <span class="stringliteral">&quot;\x02&quot;</span>;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>          *ACK_STR         = <span class="stringliteral">&quot;\x06&quot;</span>;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span>          *NAK_STR         = <span class="stringliteral">&quot;\x15&quot;</span>;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  STX             = 0x02;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  ETX             = 0x03;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  ACK             = 0x06;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  NAK             = 0x15;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_int(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>       *io;</div>
+<div class="line">    <span class="keywordtype">size_t</span>        layer_idx;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>  err       = <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;;</div>
+<div class="line">    <span class="keywordtype">size_t</span>        write_len = 0;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (layer == NULL || handle == NULL)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf) == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line"> </div>
+<div class="line">    io        = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    layer_idx = <a class="code" href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (io == NULL || layer_idx == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">while</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a> &amp;&amp; <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf) &gt; 0) {</div>
+<div class="line">        write_len = <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf);</div>
+<div class="line">        err = <a class="code" href="group__m__io__layer.html#ga2bd63bc8d12ca0735492aebcfc9cb759">M_io_layer_write</a>(io, layer_idx-1, (<span class="keyword">const</span> M_uint8 *)<a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(handle-&gt;writebuf), &amp;write_len, meta);</div>
+<div class="line">        <span class="keywordflow">if</span> (err != <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>) {</div>
+<div class="line">            write_len = 0;</div>
+<div class="line">        }</div>
+<div class="line">        <a class="code" href="group__m__buf.html#ga4fc41c9b5746d69a40e8f9aaef53a105">M_buf_drop</a>(handle-&gt;writebuf, write_len);</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a> &amp;&amp; <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf) == 0 &amp;&amp; handle-&gt;can_write)</div>
+<div class="line">        <a class="code" href="group__m__io__layer.html#ga0c6d9cf0f642515db16a6e85d9285bbe">M_io_layer_softevent_add</a>(layer, M_TRUE, <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a1713e94c1e0750f168d255f580fd4ad9">M_EVENT_TYPE_WRITE</a>, <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf) == 0)</div>
+<div class="line">        <a class="code" href="group__m__event.html#ga2809669810c4005a6750c4dfe21bf8a5">M_event_timer_start</a>(handle-&gt;resend_timer, RESEND_INTERVAL);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> err;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> resend_message(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__event.html#ga7cc2ffa4f595f828e84a0a42eb3bbabb">M_event_timer_stop</a>(handle-&gt;resend_timer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle-&gt;resend_cnt &gt;= RESEND_MAX) {</div>
+<div class="line">        <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Timeout: Exceeded resent attempts&quot;</span>);</div>
+<div class="line">        <a class="code" href="group__m__io__layer.html#ga0c6d9cf0f642515db16a6e85d9285bbe">M_io_layer_softevent_add</a>(layer, M_TRUE, <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>, <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba95386ec441cd9e0e5ca62a61881531ea">M_IO_ERROR_TIMEDOUT</a>);</div>
+<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s: RESEND!&quot;</span>, LAYER_NAME);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Write the last message again.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga2eea65131f3d534ac2eca625808007e1">M_buf_truncate</a>(handle-&gt;writebuf, 0);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;writebuf, <a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(handle-&gt;last_msg), <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;last_msg));</div>
+<div class="line">    write_int(layer, handle, NULL);</div>
+<div class="line"> </div>
+<div class="line">    handle-&gt;resend_cnt++;</div>
+<div class="line">    <span class="comment">// Restart the resend timer and try again.</span></div>
+<div class="line">    <a class="code" href="group__m__event.html#ga2809669810c4005a6750c4dfe21bf8a5">M_event_timer_start</a>(handle-&gt;resend_timer, RESEND_INTERVAL);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> resend_cb(<a class="code" href="group__m__event.html#ga747f0301bfcc6db3b51eaf07e2582350">M_event_t</a> *el, <a class="code" href="group__m__event.html#ga66b039653a61c8702310d03e6ba69802">M_event_type_t</a> etype, <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <span class="keywordtype">void</span> *thunk)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a>  *layer  = thunk;</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    (void)el;</div>
+<div class="line">    (void)io;</div>
+<div class="line">    (void)etype;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s: NO RESPONSE!&quot;</span>, LAYER_NAME);</div>
+<div class="line">    resend_message(layer, handle);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *create_handle(<span class="keywordtype">void</span>)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle;</div>
+<div class="line"> </div>
+<div class="line">    handle                  = <a class="code" href="group__m__mem.html#ga9473a8ef59f5c85d37b3d35f461a82f1">M_malloc_zero</a>(<span class="keyword">sizeof</span>(*handle));</div>
+<div class="line">    handle-&gt;readparser      = <a class="code" href="group__m__parser.html#gaf8100f8e139f41315478133992cc8ad1">M_parser_create</a>(<a class="code" href="group__m__parser.html#gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933">M_PARSER_FLAG_NONE</a>);</div>
+<div class="line">    handle-&gt;readbuf         = <a class="code" href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a>();</div>
+<div class="line">    handle-&gt;writebuf        = <a class="code" href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a>();</div>
+<div class="line">    handle-&gt;last_msg        = <a class="code" href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a>();</div>
+<div class="line">    handle-&gt;can_write       = M_TRUE;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> handle;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> destroy_handle(<a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL)</div>
+<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__parser.html#ga3cd7b444d6f5058b149bc4c7262d5cb7">M_parser_destroy</a>(handle-&gt;readparser);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;readbuf);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;writebuf);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;last_msg);</div>
+<div class="line">    <a class="code" href="group__m__event.html#ga45d217b7fc4c1310975855ccc2b894e9">M_event_timer_remove</a>(handle-&gt;resend_timer);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a>(handle);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool process_message(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__parser.html#ga60164be64f8c962c795e5927642fc473">M_parser_t</a>           *msg_parser  = NULL;</div>
+<div class="line">    <a class="code" href="group__m__parser.html#ga6993008e1f0881f84431d5813f33d127">M_PARSER_FRAME_ERROR</a>  frame_error;</div>
+<div class="line">    <span class="keywordtype">size_t</span>                len;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(handle-&gt;readparser) == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// NAK means we need to send the last message again.</span></div>
+<div class="line">    len = <a class="code" href="group__m__parser.html#ga94d17dbc917bc704c9fea3030e1f8b45">M_parser_consume_charset</a>(handle-&gt;readparser, (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *)NAK_STR, 1);</div>
+<div class="line">    <span class="keywordflow">if</span> (len != 0) {</div>
+<div class="line">        <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s: NAK!&quot;</span>, LAYER_NAME);</div>
+<div class="line">        resend_message(layer, handle);</div>
+<div class="line">        <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Got something that&#39;s not a NAK.</span></div>
+<div class="line">     <span class="comment">// Even if it&#39;s not an ACK we&#39;ll consider</span></div>
+<div class="line">    <span class="comment">// the last message we sent processed.</span></div>
+<div class="line">    handle-&gt;resend_cnt = 0;</div>
+<div class="line">    <a class="code" href="group__m__event.html#ga7cc2ffa4f595f828e84a0a42eb3bbabb">M_event_timer_stop</a>(handle-&gt;resend_timer);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga2eea65131f3d534ac2eca625808007e1">M_buf_truncate</a>(handle-&gt;last_msg, 0);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// ACK tells us we can write more data.</span></div>
+<div class="line">    len = <a class="code" href="group__m__parser.html#ga94d17dbc917bc704c9fea3030e1f8b45">M_parser_consume_charset</a>(handle-&gt;readparser, (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *)ACK_STR, 1);</div>
+<div class="line">    <span class="keywordflow">if</span> (len &gt; 1)</div>
+<div class="line">        handle-&gt;can_write = M_TRUE;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// We could have garbage that will be ignored.</span></div>
+<div class="line">    len = <a class="code" href="group__m__parser.html#ga64dd85cefe6dc965fde7532de8710957">M_parser_consume_not_charset</a>(handle-&gt;readparser, (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *)STX_STR, 1);</div>
+<div class="line">    <span class="keywordflow">if</span> (len &gt; 0)</div>
+<div class="line">        <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s: Unexpected data was dropped (%zu bytes)&quot;</span>, LAYER_NAME, len);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// We either have an STX at the start or no data. We also need at least 4 bytes of data to have a framed message.</span></div>
+<div class="line">     <span class="comment">// We could have only received an ACK earlier and not need to process any data.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(handle-&gt;readparser) &lt; 4)</div>
+<div class="line">        <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Pull the data out of the wrapper.</span></div>
+<div class="line">    frame_error = <a class="code" href="group__m__parser.html#ga92fee6f3045a04e33a5c075f09e72ba3">M_parser_read_stxetxlrc_message</a>(handle-&gt;readparser, &amp;msg_parser, <a class="code" href="group__m__parser.html#gga3fbdc774c77f61b74f797598209b682caf93ba74fbec931a58ad1f78964572720">M_PARSER_FRAME_ETX</a>);</div>
+<div class="line">    <span class="keywordflow">if</span> (frame_error != <a class="code" href="group__m__parser.html#gga6993008e1f0881f84431d5813f33d127a1163baeeb38554303ed45fed0edb15fc">M_PARSER_FRAME_ERROR_SUCCESS</a>) {</div>
+<div class="line">        <span class="comment">// M_PARSER_FRAME_ERROR_INVALID, M_PARSER_FRAME_ERROR_NO_ETX, and M_PARSER_FRAME_ERROR_NO_LRC indicating needing more data</span></div>
+<div class="line">         <span class="comment">// will result in waiting for more data to come in. M_PARSER_FRAME_ERROR_NO_STX shouldn&#39;t happen because</span></div>
+<div class="line">        <span class="comment">// we&#39;ve already validated the first character is an STX. M_PARSER_FRAME_ERROR_LRC_CALC_FAILED is a real faulre.</span></div>
+<div class="line">        <span class="keywordflow">if</span> (frame_error == <a class="code" href="group__m__parser.html#gga6993008e1f0881f84431d5813f33d127a701af53f85eb9dfd398ba8200b4d4059">M_PARSER_FRAME_ERROR_LRC_CALC_FAILED</a>) {</div>
+<div class="line">            <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s: Message LRC verification failed: dropped (%zu bytes)&quot;</span>, LAYER_NAME, <a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(msg_parser));</div>
+<div class="line"> </div>
+<div class="line">            <a class="code" href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a>(handle-&gt;writebuf, NAK);</div>
+<div class="line">            write_int(layer, handle, NULL);</div>
+<div class="line">        }</div>
+<div class="line">        <a class="code" href="group__m__parser.html#ga3cd7b444d6f5058b149bc4c7262d5cb7">M_parser_destroy</a>(msg_parser);</div>
+<div class="line">        <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Store the data.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;readbuf, <a class="code" href="group__m__parser.html#gadaa08bacb6e55081f7444849b57ec47f">M_parser_peek</a>(msg_parser), <a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(msg_parser));</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Write an ACK.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a>(handle-&gt;writebuf, ACK);</div>
+<div class="line">    write_int(layer, handle, NULL);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__parser.html#ga3cd7b444d6f5058b149bc4c7262d5cb7">M_parser_destroy</a>(msg_parser);</div>
+<div class="line">    <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool handle_read(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle, <a class="code" href="group__m__event.html#ga66b039653a61c8702310d03e6ba69802">M_event_type_t</a> *type)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>        *io        = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    M_bool         discard   = M_TRUE; <span class="comment">// Default to processing and then discarding all events</span></div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>   err;</div>
+<div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  buf[8192] = { 0 };</div>
+<div class="line">    <span class="keywordtype">size_t</span>         len;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">do</span> {</div>
+<div class="line">        len = <span class="keyword">sizeof</span>(buf);</div>
+<div class="line">        err = <a class="code" href="group__m__io__layer.html#ga5458358c5cd46f140520b27d0a17db1c">M_io_layer_read</a>(io, <a class="code" href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a>(layer)-1, buf, &amp;len, NULL); </div>
+<div class="line"> </div>
+<div class="line">        <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>) {</div>
+<div class="line">            <a class="code" href="group__m__parser.html#ga391a35eb1787b282c73eb1021dc33c2b">M_parser_append</a>(handle-&gt;readparser, buf, len);</div>
+<div class="line">            discard = process_message(layer, handle);</div>
+<div class="line">        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="group__m__io__layer.html#ga15da485fce90d4ec273554a35ec50bfa">M_io_error_is_critical</a>(err)) {</div>
+<div class="line">            <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Error reading message: %s&quot;</span>, <a class="code" href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a>(err));</div>
+<div class="line">            *type = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>;</div>
+<div class="line">        }</div>
+<div class="line">    } <span class="keywordflow">while</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> discard;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool handle_write(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle, <a class="code" href="group__m__event.html#ga66b039653a61c8702310d03e6ba69802">M_event_type_t</a> *type)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> err;</div>
+<div class="line"> </div>
+<div class="line">    err = write_int(layer, handle, NULL);</div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__io__layer.html#ga15da485fce90d4ec273554a35ec50bfa">M_io_error_is_critical</a>(err)) {</div>
+<div class="line">        <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Error writing message: %s&quot;</span>, <a class="code" href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a>(err));</div>
+<div class="line">        *type = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>;</div>
+<div class="line">        <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> read_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buf, <span class="keywordtype">size_t</span> *read_len, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle;</div>
+<div class="line">    <span class="keywordtype">size_t</span>         bytes_left;</div>
+<div class="line"> </div>
+<div class="line">    (void)meta;</div>
+<div class="line"> </div>
+<div class="line">    handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Zero-length reads are not allowed.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || buf == NULL || read_len == NULL || *read_len == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Process any outstanding messages and fill our read out buffer.</span></div>
+<div class="line">    process_message(layer, handle);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Check if we have a full message.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;readbuf) == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Read everything we can.</span></div>
+<div class="line">    bytes_left = <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;readbuf);</div>
+<div class="line">    *read_len  = <a class="code" href="group__m__math.html#ga6237309498df9996986cce08c6550824">M_MIN</a>(*read_len, bytes_left);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__mem.html#ga81b9bd497064d6d9b75239014669d231">M_mem_copy</a>(buf, <a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(handle-&gt;readbuf), *read_len);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga4fc41c9b5746d69a40e8f9aaef53a105">M_buf_drop</a>(handle-&gt;readbuf, *read_len);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// If we still have data available to read (needs to be processed)</span></div>
+<div class="line">     <span class="comment">// send another read event.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(handle-&gt;readparser) &gt; 0)</div>
+<div class="line">        <a class="code" href="group__m__io__layer.html#ga0c6d9cf0f642515db16a6e85d9285bbe">M_io_layer_softevent_add</a>(layer, M_TRUE, <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426">M_EVENT_TYPE_READ</a>, <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buf, <span class="keywordtype">size_t</span> *buf_len, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a>  *handle      = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>         *io          = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    <span class="keywordtype">size_t</span>          mywrite_len = 0;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || buf == NULL || buf_len == NULL || *buf_len == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf) &gt; 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Wrap the message in &quot;&lt;stx&gt; + &lt;data&gt; + &lt;etx&gt; + &lt;lrc&gt;&quot;</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a>(handle-&gt;writebuf, STX);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;writebuf, buf, *buf_len);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a>(handle-&gt;writebuf, ETX);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a>(handle-&gt;writebuf, <a class="code" href="group__m__mem.html#ga8a11dc1aa0bc31f10a1289043464f966">M_mem_calc_lrc</a>(<a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(handle-&gt;writebuf)+1, <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf)-1));</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Store this message in case we need to resend because writebuf will be truncated as data gets sent.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga2eea65131f3d534ac2eca625808007e1">M_buf_truncate</a>(handle-&gt;last_msg, 0);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;last_msg, <a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(handle-&gt;writebuf), <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;writebuf));</div>
+<div class="line"> </div>
+<div class="line">    handle-&gt;can_write = M_FALSE;</div>
+<div class="line">    <span class="keywordflow">return</span> write_int(layer, handle, meta);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool processevent_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__event.html#ga66b039653a61c8702310d03e6ba69802">M_event_type_t</a> *type)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>        *io     = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">char</span>    *estr;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">switch</span> (*type) {</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7ab0fc60e031020cb3f36b70c4932d67f2">M_EVENT_TYPE_CONNECTED</a>:</div>
+<div class="line">            handle-&gt;can_write = M_TRUE;</div>
+<div class="line">            <span class="comment">// Fall thru</span></div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a1713e94c1e0750f168d255f580fd4ad9">M_EVENT_TYPE_WRITE</a>:</div>
+<div class="line">            <span class="keywordflow">return</span> handle_write(layer, handle, type);</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426">M_EVENT_TYPE_READ</a>:</div>
+<div class="line">            <span class="keywordflow">return</span> handle_read(layer, handle, type);</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a6cead05362ca89b2cc7353bf6b4c2c6e">M_EVENT_TYPE_DISCONNECTED</a>:</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>:</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a571c000a93b3c198364a32e5e145f2d0">M_EVENT_TYPE_ACCEPT</a>:</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a89a67d4e5f2bdcadc1ffa3ba0473a6cf">M_EVENT_TYPE_OTHER</a>:</div>
+<div class="line">            <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool error_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> err_len)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__str__check.html#ga530dc6e198ebf9e5c30bc7a28ea4567d">M_str_isempty</a>(handle-&gt;err))</div>
+<div class="line">        <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__str__mutate.html#ga050277b36c7f2ea5ff7aa68a0933c6c0">M_str_cpy</a>(error, err_len, handle-&gt;err);</div>
+<div class="line">    <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool init_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>        *io     = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle-&gt;resend_timer != NULL)</div>
+<div class="line">        <a class="code" href="group__m__event.html#ga45d217b7fc4c1310975855ccc2b894e9">M_event_timer_remove</a>(handle-&gt;resend_timer);</div>
+<div class="line">    handle-&gt;resend_timer = <a class="code" href="group__m__event.html#ga3fb88400e7101b24886e55e0e24d495b">M_event_timer_add</a>(<a class="code" href="group__m__event.html#ga3290ebedcb7c54ba34c9e626808adad8">M_io_get_event</a>(io), resend_cb, layer);</div>
+<div class="line">    <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Dummy callback - only here because the docs for M_io_callbacks_t requires it to be present.</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> unregister_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    (void)layer;</div>
+<div class="line">    <span class="comment">// No-op</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Dummy callback - only here because the docs for M_io_callbacks_t requires it to be present.</span></div>
+<div class="line"><span class="keyword">static</span> M_bool reset_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    (void)layer;</div>
+<div class="line">    <span class="comment">// No-op</span></div>
+<div class="line">    <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> destroy_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">if</span> (layer == NULL)</div>
+<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line">    destroy_handle(<a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer));</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"><span class="comment">// --- MAIN ENTRY ---</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> stxetxlrcacknak_io_layer(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, M_bool reconnect)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a>    *handle    = create_handle();</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gaa3531457bf1cd87643022318658f60c3">M_io_callbacks_t</a> *callbacks = <a class="code" href="group__m__io__layer.html#ga3f380ff15a9dae6358abdd041777d300">M_io_callbacks_create</a>();</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga8f5d7c26cf5f6d098cfc20c726dbdd04">M_io_callbacks_reg_init</a>(callbacks, init_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0de59d7872b9a47d2230ff7c6ec0c27c">M_io_callbacks_reg_read</a>(callbacks, read_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gade360ffe79e68306fe3c8911a9ed3358">M_io_callbacks_reg_write</a>(callbacks, write_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0c3837dbffed3aac4ab6ffa5d3bd4590">M_io_callbacks_reg_processevent</a>(callbacks, processevent_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gabd2d14eb725d528ef98bb8b967ae1e40">M_io_callbacks_reg_unregister</a>(callbacks, unregister_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga9d663c831069a59ca067bf99f6a4bced">M_io_callbacks_reg_reset</a>(callbacks, reset_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga89d597baaffaf2102983258b8c73fe52">M_io_callbacks_reg_destroy</a>(callbacks, destroy_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga05ac9b73c65d904407734f6b70da7d43">M_io_callbacks_reg_errormsg</a>(callbacks, error_cb);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0e687e422b6ba933efecee9b5e2e8d5d">M_io_layer_add</a>(io, LAYER_NAME, handle, callbacks);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga6458e6066300fa9f3cb4dd62e40d200d">M_io_callbacks_destroy</a>(callbacks);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">M_bool stxetxlrcacknak_layer_waiting_for_response(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordtype">size_t</span> layer_count;</div>
+<div class="line">    <span class="keywordtype">size_t</span> layer_idx;</div>
+<div class="line">    M_bool ret = M_FALSE;</div>
+<div class="line"> </div>
+<div class="line">    layer_count = <a class="code" href="group__m__io.html#gab85f18fea241a1a9eb2f6ba966e5c892">M_io_layer_count</a>(io);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">for</span> (layer_idx=0; layer_idx&lt;layer_count; layer_idx++) {</div>
+<div class="line">        <a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer = <a class="code" href="group__m__io__layer.html#ga6d32b2d0b8329036b3e6a9e9f1fd356a">M_io_layer_acquire</a>(io, layer_idx, LAYER_NAME);</div>
+<div class="line">        <span class="keywordflow">if</span> (layer == NULL) {</div>
+<div class="line">            <span class="keywordflow">continue</span>;</div>
+<div class="line">        }</div>
+<div class="line">        <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line">        ret = !handle-&gt;can_write;</div>
+<div class="line">        <a class="code" href="group__m__io__layer.html#ga4a296392e2a2a26c505575085e4ce177">M_io_layer_release</a>(layer);</div>
+<div class="line">        <span class="keywordflow">break</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> ret;</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup__m__buf_html_ga10fa5a66cbcb57830f0711050c363d70"><div class="ttname"><a href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a></div><div class="ttdeci">void M_buf_add_byte(M_buf_t *buf, unsigned char byte)</div></div>
+<div class="ttc" id="agroup__m__buf_html_ga2eea65131f3d534ac2eca625808007e1"><div class="ttname"><a href="group__m__buf.html#ga2eea65131f3d534ac2eca625808007e1">M_buf_truncate</a></div><div class="ttdeci">void M_buf_truncate(M_buf_t *buf, size_t length)</div></div>
+<div class="ttc" id="agroup__m__event_html_ga2809669810c4005a6750c4dfe21bf8a5"><div class="ttname"><a href="group__m__event.html#ga2809669810c4005a6750c4dfe21bf8a5">M_event_timer_start</a></div><div class="ttdeci">M_bool M_event_timer_start(M_event_timer_t *timer, M_uint64 interval_ms)</div></div>
+<div class="ttc" id="agroup__m__event_html_ga3290ebedcb7c54ba34c9e626808adad8"><div class="ttname"><a href="group__m__event.html#ga3290ebedcb7c54ba34c9e626808adad8">M_io_get_event</a></div><div class="ttdeci">M_event_t * M_io_get_event(M_io_t *io)</div></div>
+<div class="ttc" id="agroup__m__event_html_ga3fb88400e7101b24886e55e0e24d495b"><div class="ttname"><a href="group__m__event.html#ga3fb88400e7101b24886e55e0e24d495b">M_event_timer_add</a></div><div class="ttdeci">M_event_timer_t * M_event_timer_add(M_event_t *event, M_event_callback_t callback, void *cb_data)</div></div>
+<div class="ttc" id="agroup__m__event_html_ga45d217b7fc4c1310975855ccc2b894e9"><div class="ttname"><a href="group__m__event.html#ga45d217b7fc4c1310975855ccc2b894e9">M_event_timer_remove</a></div><div class="ttdeci">M_bool M_event_timer_remove(M_event_timer_t *timer)</div></div>
+<div class="ttc" id="agroup__m__event_html_ga747f0301bfcc6db3b51eaf07e2582350"><div class="ttname"><a href="group__m__event.html#ga747f0301bfcc6db3b51eaf07e2582350">M_event_t</a></div><div class="ttdeci">struct M_event M_event_t</div><div class="ttdef"><b>Definition:</b> m_event.h:210</div></div>
+<div class="ttc" id="agroup__m__event_html_ga7cc2ffa4f595f828e84a0a42eb3bbabb"><div class="ttname"><a href="group__m__event.html#ga7cc2ffa4f595f828e84a0a42eb3bbabb">M_event_timer_stop</a></div><div class="ttdeci">M_bool M_event_timer_stop(M_event_timer_t *timer)</div></div>
+<div class="ttc" id="agroup__m__event_html_gaf7cc7058deaf2fd06e4a4733d16c9b52"><div class="ttname"><a href="group__m__event.html#gaf7cc7058deaf2fd06e4a4733d16c9b52">M_event_timer_t</a></div><div class="ttdeci">struct M_event_timer M_event_timer_t</div><div class="ttdef"><b>Definition:</b> m_event.h:203</div></div>
+<div class="ttc" id="agroup__m__fmt_html_gae54b252ea2bcf34b09ef1fa0f134ffa8"><div class="ttname"><a href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a></div><div class="ttdeci">ssize_t M_printf(const char *fmt,...)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga0c6d9cf0f642515db16a6e85d9285bbe"><div class="ttname"><a href="group__m__io__layer.html#ga0c6d9cf0f642515db16a6e85d9285bbe">M_io_layer_softevent_add</a></div><div class="ttdeci">void M_io_layer_softevent_add(M_io_layer_t *layer, M_bool sibling_only, M_event_type_t type, M_io_error_t err)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga4a296392e2a2a26c505575085e4ce177"><div class="ttname"><a href="group__m__io__layer.html#ga4a296392e2a2a26c505575085e4ce177">M_io_layer_release</a></div><div class="ttdeci">void M_io_layer_release(M_io_layer_t *layer)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga6d32b2d0b8329036b3e6a9e9f1fd356a"><div class="ttname"><a href="group__m__io__layer.html#ga6d32b2d0b8329036b3e6a9e9f1fd356a">M_io_layer_acquire</a></div><div class="ttdeci">M_io_layer_t * M_io_layer_acquire(M_io_t *io, size_t layer_id, const char *name)</div></div>
+<div class="ttc" id="agroup__m__io__layer_html_ga8f5d7c26cf5f6d098cfc20c726dbdd04"><div class="ttname"><a href="group__m__io__layer.html#ga8f5d7c26cf5f6d098cfc20c726dbdd04">M_io_callbacks_reg_init</a></div><div class="ttdeci">M_bool M_io_callbacks_reg_init(M_io_callbacks_t *callbacks, M_bool(*cb_init)(M_io_layer_t *layer))</div></div>
+<div class="ttc" id="agroup__m__io_html_gab85f18fea241a1a9eb2f6ba966e5c892"><div class="ttname"><a href="group__m__io.html#gab85f18fea241a1a9eb2f6ba966e5c892">M_io_layer_count</a></div><div class="ttdeci">size_t M_io_layer_count(M_io_t *io)</div></div>
+<div class="ttc" id="agroup__m__io_html_gga1ea9e3c1babf09b22f2b98899db790dba95386ec441cd9e0e5ca62a61881531ea"><div class="ttname"><a href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba95386ec441cd9e0e5ca62a61881531ea">M_IO_ERROR_TIMEDOUT</a></div><div class="ttdeci">@ M_IO_ERROR_TIMEDOUT</div><div class="ttdef"><b>Definition:</b> m_io.h:81</div></div>
+<div class="ttc" id="agroup__m__mem_html_ga8a11dc1aa0bc31f10a1289043464f966"><div class="ttname"><a href="group__m__mem.html#ga8a11dc1aa0bc31f10a1289043464f966">M_mem_calc_lrc</a></div><div class="ttdeci">unsigned char M_mem_calc_lrc(const void *s, size_t s_len)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga391a35eb1787b282c73eb1021dc33c2b"><div class="ttname"><a href="group__m__parser.html#ga391a35eb1787b282c73eb1021dc33c2b">M_parser_append</a></div><div class="ttdeci">M_bool M_parser_append(M_parser_t *parser, const unsigned char *data, size_t len)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga3cd7b444d6f5058b149bc4c7262d5cb7"><div class="ttname"><a href="group__m__parser.html#ga3cd7b444d6f5058b149bc4c7262d5cb7">M_parser_destroy</a></div><div class="ttdeci">void M_parser_destroy(M_parser_t *parser)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga60164be64f8c962c795e5927642fc473"><div class="ttname"><a href="group__m__parser.html#ga60164be64f8c962c795e5927642fc473">M_parser_t</a></div><div class="ttdeci">struct M_parser M_parser_t</div><div class="ttdef"><b>Definition:</b> m_parser.h:52</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga64dd85cefe6dc965fde7532de8710957"><div class="ttname"><a href="group__m__parser.html#ga64dd85cefe6dc965fde7532de8710957">M_parser_consume_not_charset</a></div><div class="ttdeci">size_t M_parser_consume_not_charset(M_parser_t *parser, const unsigned char *charset, size_t charset_len)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga6993008e1f0881f84431d5813f33d127"><div class="ttname"><a href="group__m__parser.html#ga6993008e1f0881f84431d5813f33d127">M_PARSER_FRAME_ERROR</a></div><div class="ttdeci">M_PARSER_FRAME_ERROR</div><div class="ttdef"><b>Definition:</b> m_parser.h:95</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga92fee6f3045a04e33a5c075f09e72ba3"><div class="ttname"><a href="group__m__parser.html#ga92fee6f3045a04e33a5c075f09e72ba3">M_parser_read_stxetxlrc_message</a></div><div class="ttdeci">M_PARSER_FRAME_ERROR M_parser_read_stxetxlrc_message(M_parser_t *parser, M_parser_t **out, M_uint32 lrc_frame_chars)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga94d17dbc917bc704c9fea3030e1f8b45"><div class="ttname"><a href="group__m__parser.html#ga94d17dbc917bc704c9fea3030e1f8b45">M_parser_consume_charset</a></div><div class="ttdeci">size_t M_parser_consume_charset(M_parser_t *parser, const unsigned char *charset, size_t charset_len)</div></div>
+<div class="ttc" id="agroup__m__parser_html_gadaa08bacb6e55081f7444849b57ec47f"><div class="ttname"><a href="group__m__parser.html#gadaa08bacb6e55081f7444849b57ec47f">M_parser_peek</a></div><div class="ttdeci">const unsigned char * M_parser_peek(M_parser_t *parser)</div></div>
+<div class="ttc" id="agroup__m__parser_html_gaf8100f8e139f41315478133992cc8ad1"><div class="ttname"><a href="group__m__parser.html#gaf8100f8e139f41315478133992cc8ad1">M_parser_create</a></div><div class="ttdeci">M_parser_t * M_parser_create(M_uint32 flags)</div></div>
+<div class="ttc" id="agroup__m__parser_html_gafeb4f3232d2d842889823bdf70338ac6"><div class="ttname"><a href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a></div><div class="ttdeci">size_t M_parser_len(M_parser_t *parser)</div></div>
+<div class="ttc" id="agroup__m__parser_html_gga3fbdc774c77f61b74f797598209b682caf93ba74fbec931a58ad1f78964572720"><div class="ttname"><a href="group__m__parser.html#gga3fbdc774c77f61b74f797598209b682caf93ba74fbec931a58ad1f78964572720">M_PARSER_FRAME_ETX</a></div><div class="ttdeci">@ M_PARSER_FRAME_ETX</div><div class="ttdef"><b>Definition:</b> m_parser.h:91</div></div>
+<div class="ttc" id="agroup__m__parser_html_gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933"><div class="ttname"><a href="group__m__parser.html#gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933">M_PARSER_FLAG_NONE</a></div><div class="ttdeci">@ M_PARSER_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_parser.h:60</div></div>
+<div class="ttc" id="agroup__m__parser_html_gga6993008e1f0881f84431d5813f33d127a1163baeeb38554303ed45fed0edb15fc"><div class="ttname"><a href="group__m__parser.html#gga6993008e1f0881f84431d5813f33d127a1163baeeb38554303ed45fed0edb15fc">M_PARSER_FRAME_ERROR_SUCCESS</a></div><div class="ttdeci">@ M_PARSER_FRAME_ERROR_SUCCESS</div><div class="ttdef"><b>Definition:</b> m_parser.h:96</div></div>
+<div class="ttc" id="agroup__m__parser_html_gga6993008e1f0881f84431d5813f33d127a701af53f85eb9dfd398ba8200b4d4059"><div class="ttname"><a href="group__m__parser.html#gga6993008e1f0881f84431d5813f33d127a701af53f85eb9dfd398ba8200b4d4059">M_PARSER_FRAME_ERROR_LRC_CALC_FAILED</a></div><div class="ttdeci">@ M_PARSER_FRAME_ERROR_LRC_CALC_FAILED</div><div class="ttdef"><b>Definition:</b> m_parser.h:101</div></div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md74"></a>
+BLE Helper</h3>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;mstdlib/io/m_io_layer.h&gt;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *LAYER_NAME         = <span class="stringliteral">&quot;BLE_SERVICE_HELPER&quot;</span>;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *BLE_SERVICE        = <span class="stringliteral">&quot;68950001-FBA1-BB3D-A043-647EF78ACD44&quot;</span>;</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *BLE_CHARACTERISTIC = <span class="stringliteral">&quot;68951001-FBA1-BB3D-A043-647EF78ACD44&quot;</span>;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">struct </span>M_io_handle {</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *write_meta;</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a>     *read_buf;</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a>     *write_buf;</div>
+<div class="line">    <span class="keywordtype">char</span>         err[256];</div>
+<div class="line">    M_bool       connected;</div>
+<div class="line">};</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Writes as much data as possible from the given buffer to the layer below this one.</span></div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_to_next_layer(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *buf, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>       *io;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>  err;</div>
+<div class="line">    <span class="keywordtype">size_t</span>        layer_idx;</div>
+<div class="line">    <span class="keywordtype">size_t</span>        write_len;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (layer == NULL || <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(buf) == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    io        = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    layer_idx = <a class="code" href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (io == NULL || layer_idx == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    err = <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line">    <span class="keywordflow">do</span> {</div>
+<div class="line">        write_len = <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(buf);</div>
+<div class="line">        err       = <a class="code" href="group__m__io__layer.html#ga2bd63bc8d12ca0735492aebcfc9cb759">M_io_layer_write</a>(io, layer_idx - 1, (<span class="keyword">const</span> M_uint8 *)<a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(buf), &amp;write_len, meta);</div>
+<div class="line">        <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>) {</div>
+<div class="line">            <a class="code" href="group__m__buf.html#ga4fc41c9b5746d69a40e8f9aaef53a105">M_buf_drop</a>(buf, write_len);</div>
+<div class="line">        }</div>
+<div class="line">    } <span class="keywordflow">while</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a> &amp;&amp; <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(buf) &gt; 0);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> err;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_pair_check_data(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__buf.html#ga6c543ecf0004fc310faa23c6ed8b267f">M_buf_t</a> *write_buf, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *write_meta)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// Simple command used as a dummy write to initiate pairing if needed. We just want to send something.</span></div>
+<div class="line">    <span class="comment">// But this should be a real, simple, command for the device.</span></div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad226a7199f864ff6a630dc7f16508c30">M_buf_add_str</a>(write_buf, <span class="stringliteral">&quot;123\r\n&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">return</span> write_to_next_layer(layer, write_buf, write_meta);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> register_notifications(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io, <a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keyword">const</span> <span class="keywordtype">char</span> *service_uuid, <span class="keyword">const</span> <span class="keywordtype">char</span> *char_uuid)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a>  *meta;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>  err;</div>
+<div class="line"> </div>
+<div class="line">    meta = <a class="code" href="group__m__io.html#ga82fb1edb0e33765b6bface193d91f304">M_io_meta_create</a>();</div>
+<div class="line">    <a class="code" href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d">M_io_ble_meta_set_service</a>(io, meta, service_uuid);</div>
+<div class="line">    <a class="code" href="group__m__io__ble.html#gaf9fa5c479c7409045d6f1c3122e95056">M_io_ble_meta_set_characteristic</a>(io, meta, char_uuid);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__ble.html#gae8a0454f1435a66dd00d06f4daf9a7b6">M_io_ble_meta_set_notify</a>(io, meta, M_TRUE);</div>
+<div class="line">    <a class="code" href="group__m__io__ble.html#ga1884f2b80b9eb2c0df3b9ab44fbf6b00">M_io_ble_meta_set_write_type</a>(io, meta, <a class="code" href="group__m__io__ble.html#gga4b55a7fbad9e0c4eaf609d7b0aeb93f7a19f3e75c0718ad48d801e6eb16059d5f">M_IO_BLE_WTYPE_REQNOTIFY</a>);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Write the metadata to the device to register we want to receive notification read events.</span></div>
+<div class="line">    err = <a class="code" href="group__m__io__layer.html#ga2bd63bc8d12ca0735492aebcfc9cb759">M_io_layer_write</a>(io, <a class="code" href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a>(layer) - 1, NULL, NULL, meta);</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga7586ea2e66889f608975ce17f96e6298">M_io_meta_destroy</a>(meta);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> err;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool processevent_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <a class="code" href="group__m__event.html#ga66b039653a61c8702310d03e6ba69802">M_event_type_t</a> *type)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle  = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>        *io      = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a>   *meta;</div>
+<div class="line">    M_bool         consume = M_FALSE; <span class="comment">// Default to passing onto the next layer.</span></div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>   err;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || io == NULL)</div>
+<div class="line">        <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">switch</span> (*type) {</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7ab0fc60e031020cb3f36b70c4932d67f2">M_EVENT_TYPE_CONNECTED</a>:</div>
+<div class="line">            <span class="comment">// If the device uses secure bonded/paired connections and a device is not paired, pairing takes place</span></div>
+<div class="line">             <span class="comment">// when a secure characteristic is first written. At which point the device will show a PIN</span></div>
+<div class="line">            <span class="comment">// and system (iOS, macOS...) will show a prompt to enter the PIN. We&#39;ll delay sending the </span></div>
+<div class="line">            <span class="comment">// connected event until we get a response to a basic message that we use internally</span></div>
+<div class="line">            <span class="comment">// to verify or initiate the pairing.</span></div>
+<div class="line">            <span class="comment">//</span></div>
+<div class="line">            <span class="comment">// We need to do this before trying to register for notifications. If</span></div>
+<div class="line">            <span class="comment">// we&#39;re already paired then there is no problem. However, if we aren&#39;t</span></div>
+<div class="line">            <span class="comment">// paired and need to go through pairing, attempting to register a notification</span></div>
+<div class="line">            <span class="comment">// before writing a message will cause the device to disconnect.</span></div>
+<div class="line">            err = write_pair_check_data(layer, handle-&gt;write_buf, handle-&gt;write_meta);</div>
+<div class="line">            <span class="keywordflow">if</span> (err != <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>) {</div>
+<div class="line">                <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Error writing initial pairing message: %s&quot;</span>, <a class="code" href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a>(err));</div>
+<div class="line">                *type = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>;</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">            }</div>
+<div class="line">            consume = M_TRUE;</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a1713e94c1e0750f168d255f580fd4ad9">M_EVENT_TYPE_WRITE</a>:</div>
+<div class="line">            <span class="comment">// Write event if we&#39;re not connected means this is a confirmation event that the data we</span></div>
+<div class="line">             <span class="comment">// wrote was processed. If we&#39;re paired we&#39;ll get this right away. If we&#39;re not paired</span></div>
+<div class="line">            <span class="comment">// we&#39;ll get this when pairing is successful. Otherwise, we&#39;d get an error event.</span></div>
+<div class="line">            <span class="keywordflow">if</span> (!handle-&gt;connected) {</div>
+<div class="line">                <span class="comment">// We&#39;re paired so we can register for our read events.</span></div>
+<div class="line">                consume = M_TRUE;</div>
+<div class="line">                register_notifications(io, layer, BLE_SERVICE, BLE_CHARACTERISTIC);</div>
+<div class="line">                <span class="keywordflow">break</span>;</div>
+<div class="line">            }</div>
+<div class="line"> </div>
+<div class="line">            <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;write_buf) != 0) {</div>
+<div class="line">                err = write_to_next_layer(layer, handle-&gt;write_buf, handle-&gt;write_meta);</div>
+<div class="line">                <span class="keywordflow">if</span> (<a class="code" href="group__m__io__layer.html#ga15da485fce90d4ec273554a35ec50bfa">M_io_error_is_critical</a>(err)) {</div>
+<div class="line">                    <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Error writing data: %s&quot;</span>, <a class="code" href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a>(err));</div>
+<div class="line">                    *type = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>;</div>
+<div class="line">                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;write_buf) != 0) {</div>
+<div class="line">                    <span class="comment">// Don&#39;t inform higher levels we can write if we have more data pending.</span></div>
+<div class="line">                    consume = M_TRUE;</div>
+<div class="line">                }</div>
+<div class="line">            }</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426">M_EVENT_TYPE_READ</a>:</div>
+<div class="line">            <span class="comment">// We&#39;re getting data from the device. Let&#39;s pull out the data and check if we want it or not.</span></div>
+<div class="line">            meta = <a class="code" href="group__m__io.html#ga82fb1edb0e33765b6bface193d91f304">M_io_meta_create</a>();</div>
+<div class="line">            <span class="keywordflow">do</span> {</div>
+<div class="line">                M_uint8 buf[256] = { 0 };</div>
+<div class="line">                <span class="keywordtype">size_t</span>  buf_len  = <span class="keyword">sizeof</span>(buf);</div>
+<div class="line"> </div>
+<div class="line">                err = <a class="code" href="group__m__io__layer.html#ga5458358c5cd46f140520b27d0a17db1c">M_io_layer_read</a>(io, <a class="code" href="group__m__io__layer.html#ga4ed8f7126e4355ebc378bc2aefe710a5">M_io_layer_get_index</a>(layer) - 1, buf, &amp;buf_len, meta);</div>
+<div class="line">                <span class="comment">// We should get one notification response to the single notification we requested.</span></div>
+<div class="line">                 <span class="comment">// If we aren&#39;t connected and we get it, then we want to tell those above us we&#39;re</span></div>
+<div class="line">                <span class="comment">// connected now that we&#39;ve finished setup. Otherwise, if we get an unexpected notification</span></div>
+<div class="line">                <span class="comment">// response, eat it because there is no data for anyone to read.</span></div>
+<div class="line">                <span class="keywordflow">if</span> (<a class="code" href="group__m__io__ble.html#ga420beb176106ca6905a3156689d8b5d2">M_io_ble_meta_get_read_type</a>(io, meta) == <a class="code" href="group__m__io__ble.html#ggafca547d077ba95755aca3592db88a6d9a3d8826ef69e30f206b864deb2d0ffaf7">M_IO_BLE_RTYPE_NOTIFY</a>) {</div>
+<div class="line">                    <span class="keywordflow">if</span> (handle-&gt;connected) {</div>
+<div class="line">                        consume = M_TRUE;</div>
+<div class="line">                    } <span class="keywordflow">else</span> {</div>
+<div class="line">                        handle-&gt;connected  = M_TRUE;</div>
+<div class="line">                        *type              = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7ab0fc60e031020cb3f36b70c4932d67f2">M_EVENT_TYPE_CONNECTED</a>;</div>
+<div class="line">                        <span class="keywordflow">break</span>;</div>
+<div class="line">                    }</div>
+<div class="line">                }</div>
+<div class="line"> </div>
+<div class="line">                <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>) {</div>
+<div class="line">                    <span class="comment">// Save the data into the handler&#39;s buffer so we</span></div>
+<div class="line">                    <span class="comment">// can pass it up to the layer above in the read callback.</span></div>
+<div class="line">                    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;read_buf, buf, buf_len);</div>
+<div class="line">                } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="group__m__io__layer.html#ga15da485fce90d4ec273554a35ec50bfa">M_io_error_is_critical</a>(err)) {</div>
+<div class="line">                    <a class="code" href="group__m__fmt.html#ga148cb889ab2737a09ebf313e7a3d454b">M_snprintf</a>(handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err), <span class="stringliteral">&quot;Error reading data: %s&quot;</span>, <a class="code" href="group__m__io.html#ga89a45c257b8b62345c2bc035da6cc4d0">M_io_error_string</a>(err));</div>
+<div class="line">                    *type = <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>;</div>
+<div class="line">                    <span class="keywordflow">break</span>;</div>
+<div class="line">                }</div>
+<div class="line">            } <span class="keywordflow">while</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>);</div>
+<div class="line">            <a class="code" href="group__m__io.html#ga7586ea2e66889f608975ce17f96e6298">M_io_meta_destroy</a>(meta);</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7adce269f93799cdca69ac20235895d0ac">M_EVENT_TYPE_ERROR</a>:</div>
+<div class="line">            <a class="code" href="group__m__io.html#ga3e1f56ec1e586649c1b26eb7c72238de">M_io_get_error_string</a>(io, handle-&gt;err, <span class="keyword">sizeof</span>(handle-&gt;err));</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a571c000a93b3c198364a32e5e145f2d0">M_EVENT_TYPE_ACCEPT</a>:</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a6cead05362ca89b2cc7353bf6b4c2c6e">M_EVENT_TYPE_DISCONNECTED</a>:</div>
+<div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a89a67d4e5f2bdcadc1ffa3ba0473a6cf">M_EVENT_TYPE_OTHER</a>:</div>
+<div class="line">            <span class="keywordflow">break</span>;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// M_TRUE to discard this event, or M_FALSE to pass it on to the next layer.</span></div>
+<div class="line">    <span class="keywordflow">return</span> consume;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> read_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buf, <span class="keywordtype">size_t</span> *buf_len, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    (void)meta;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || buf == NULL || buf_len == NULL || *buf_len == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Check if we have any more data to pass on or not.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;read_buf) == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Pass on as much data as possible.</span></div>
+<div class="line">    *buf_len = <a class="code" href="group__m__math.html#ga6237309498df9996986cce08c6550824">M_MIN</a>(*buf_len, <a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;read_buf));</div>
+<div class="line">    <a class="code" href="group__m__mem.html#ga81b9bd497064d6d9b75239014669d231">M_mem_copy</a>(buf, <a class="code" href="group__m__buf.html#gaa971e69f90069433ea14d20bf83cc2a4">M_buf_peek</a>(handle-&gt;read_buf), *buf_len);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga4fc41c9b5746d69a40e8f9aaef53a105">M_buf_drop</a>(handle-&gt;read_buf, *buf_len);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buf, <span class="keywordtype">size_t</span> *buf_len, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>   err;</div>
+<div class="line"> </div>
+<div class="line">    (void)meta;</div>
+<div class="line"> </div>
+<div class="line">    handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (handle == NULL || buf == NULL || buf_len == NULL || *buf_len == 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dbad9e65db26d85903e8f8a473adea33db3">M_IO_ERROR_INVALID</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (!handle-&gt;connected)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>;</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Don&#39;t allow buffering data if we have data waiting to write.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__buf.html#gaaff39362df33795d6c188ca3482a12cd">M_buf_len</a>(handle-&gt;write_buf) &gt; 0)</div>
+<div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;write_buf, buf, *buf_len);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Try to write as much of the message as we can right now.</span></div>
+<div class="line">    err = write_to_next_layer(layer, handle-&gt;write_buf, handle-&gt;write_meta);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Treat would block as success because we&#39;ve buffered the data and it will</span></div>
+<div class="line">     <span class="comment">// be written when possible.</span></div>
+<div class="line">    <span class="keywordflow">if</span> (err == <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a>)</div>
+<div class="line">        err = <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
+<div class="line">    <span class="keywordflow">return</span> err;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Dummy callback - only here because the docs for M_io_callbacks_t requires it to be present.</span></div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> unregister_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    (void)layer;</div>
+<div class="line">    <span class="comment">// No-op</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Dummy callback - only here because the docs for M_io_callbacks_t requires it to be present.</span></div>
+<div class="line"><span class="keyword">static</span> M_bool reset_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    (void)layer;</div>
+<div class="line">    <span class="comment">// No-op</span></div>
+<div class="line">    <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> destroy_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io.html#ga7586ea2e66889f608975ce17f96e6298">M_io_meta_destroy</a>(handle-&gt;write_meta);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;read_buf);</div>
+<div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;write_buf);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a>(handle);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">static</span> M_bool error_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keywordtype">char</span> *error, <span class="keywordtype">size_t</span> err_len)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__str__check.html#ga530dc6e198ebf9e5c30bc7a28ea4567d">M_str_isempty</a>(handle-&gt;err))</div>
+<div class="line">        <span class="keywordflow">return</span> M_FALSE;</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__str__mutate.html#ga050277b36c7f2ea5ff7aa68a0933c6c0">M_str_cpy</a>(error, err_len, handle-&gt;err);</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">return</span> M_TRUE;</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -</span></div>
+<div class="line"><span class="comment">// --- MAIN ENTRY ---</span></div>
+<div class="line"><span class="comment">//</span></div>
+<div class="line"><span class="keywordtype">void</span> ble_helper_io_layer(<a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a> *io)</div>
+<div class="line">{</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a>    *handle;</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gaa3531457bf1cd87643022318658f60c3">M_io_callbacks_t</a> *callbacks;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">if</span> (io == NULL)</div>
+<div class="line">        <span class="keywordflow">return</span>;</div>
+<div class="line"> </div>
+<div class="line">    handle             = <a class="code" href="group__m__mem.html#ga9473a8ef59f5c85d37b3d35f461a82f1">M_malloc_zero</a>(<span class="keyword">sizeof</span>(*handle));</div>
+<div class="line">    handle-&gt;write_meta = <a class="code" href="group__m__io.html#ga82fb1edb0e33765b6bface193d91f304">M_io_meta_create</a>();</div>
+<div class="line">    handle-&gt;read_buf   = <a class="code" href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a>();</div>
+<div class="line">    handle-&gt;write_buf  = <a class="code" href="group__m__buf.html#ga2031dcfdfa76f5feb5a59c8e7ac155d0">M_buf_create</a>();</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d">M_io_ble_meta_set_service</a>(io, handle-&gt;write_meta, BLE_SERVICE);</div>
+<div class="line">    <a class="code" href="group__m__io__ble.html#gaf9fa5c479c7409045d6f1c3122e95056">M_io_ble_meta_set_characteristic</a>(io, handle-&gt;write_meta, BLE_CHARACTERISTIC);</div>
+<div class="line">    <a class="code" href="group__m__io__ble.html#ga1884f2b80b9eb2c0df3b9ab44fbf6b00">M_io_ble_meta_set_write_type</a>(io, handle-&gt;write_meta, <a class="code" href="group__m__io__ble.html#gga4b55a7fbad9e0c4eaf609d7b0aeb93f7accf6129e087d546f30dfb69ff5d1b43b">M_IO_BLE_WTYPE_WRITE</a>);</div>
+<div class="line"> </div>
+<div class="line">    callbacks = <a class="code" href="group__m__io__layer.html#ga3f380ff15a9dae6358abdd041777d300">M_io_callbacks_create</a>();</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0c3837dbffed3aac4ab6ffa5d3bd4590">M_io_callbacks_reg_processevent</a>(callbacks, processevent_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0de59d7872b9a47d2230ff7c6ec0c27c">M_io_callbacks_reg_read</a>(callbacks, read_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gade360ffe79e68306fe3c8911a9ed3358">M_io_callbacks_reg_write</a>(callbacks, write_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#gabd2d14eb725d528ef98bb8b967ae1e40">M_io_callbacks_reg_unregister</a>(callbacks, unregister_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga9d663c831069a59ca067bf99f6a4bced">M_io_callbacks_reg_reset</a>(callbacks, reset_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga89d597baaffaf2102983258b8c73fe52">M_io_callbacks_reg_destroy</a>(callbacks, destroy_cb);</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga05ac9b73c65d904407734f6b70da7d43">M_io_callbacks_reg_errormsg</a>(callbacks, error_cb);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga0e687e422b6ba933efecee9b5e2e8d5d">M_io_layer_add</a>(io, LAYER_NAME, handle, callbacks);</div>
+<div class="line"> </div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga6458e6066300fa9f3cb4dd62e40d200d">M_io_callbacks_destroy</a>(callbacks);</div>
+<div class="line">}</div>
+<div class="ttc" id="agroup__m__buf_html_gad226a7199f864ff6a630dc7f16508c30"><div class="ttname"><a href="group__m__buf.html#gad226a7199f864ff6a630dc7f16508c30">M_buf_add_str</a></div><div class="ttdeci">void M_buf_add_str(M_buf_t *buf, const char *str)</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_ga1884f2b80b9eb2c0df3b9ab44fbf6b00"><div class="ttname"><a href="group__m__io__ble.html#ga1884f2b80b9eb2c0df3b9ab44fbf6b00">M_io_ble_meta_set_write_type</a></div><div class="ttdeci">void M_io_ble_meta_set_write_type(M_io_t *io, M_io_meta_t *meta, M_io_ble_wtype_t type)</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_ga420beb176106ca6905a3156689d8b5d2"><div class="ttname"><a href="group__m__io__ble.html#ga420beb176106ca6905a3156689d8b5d2">M_io_ble_meta_get_read_type</a></div><div class="ttdeci">M_io_ble_rtype_t M_io_ble_meta_get_read_type(M_io_t *io, M_io_meta_t *meta)</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_gab02e3ad2ccd243ce6e994ef4ab6fc50d"><div class="ttname"><a href="group__m__io__ble.html#gab02e3ad2ccd243ce6e994ef4ab6fc50d">M_io_ble_meta_set_service</a></div><div class="ttdeci">void M_io_ble_meta_set_service(M_io_t *io, M_io_meta_t *meta, const char *service_uuid)</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_gae8a0454f1435a66dd00d06f4daf9a7b6"><div class="ttname"><a href="group__m__io__ble.html#gae8a0454f1435a66dd00d06f4daf9a7b6">M_io_ble_meta_set_notify</a></div><div class="ttdeci">void M_io_ble_meta_set_notify(M_io_t *io, M_io_meta_t *meta, M_bool enable)</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_gaf9fa5c479c7409045d6f1c3122e95056"><div class="ttname"><a href="group__m__io__ble.html#gaf9fa5c479c7409045d6f1c3122e95056">M_io_ble_meta_set_characteristic</a></div><div class="ttdeci">void M_io_ble_meta_set_characteristic(M_io_t *io, M_io_meta_t *meta, const char *characteristic_uuid)</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_gga4b55a7fbad9e0c4eaf609d7b0aeb93f7a19f3e75c0718ad48d801e6eb16059d5f"><div class="ttname"><a href="group__m__io__ble.html#gga4b55a7fbad9e0c4eaf609d7b0aeb93f7a19f3e75c0718ad48d801e6eb16059d5f">M_IO_BLE_WTYPE_REQNOTIFY</a></div><div class="ttdeci">@ M_IO_BLE_WTYPE_REQNOTIFY</div><div class="ttdef"><b>Definition:</b> m_io_ble.h:1143</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_gga4b55a7fbad9e0c4eaf609d7b0aeb93f7accf6129e087d546f30dfb69ff5d1b43b"><div class="ttname"><a href="group__m__io__ble.html#gga4b55a7fbad9e0c4eaf609d7b0aeb93f7accf6129e087d546f30dfb69ff5d1b43b">M_IO_BLE_WTYPE_WRITE</a></div><div class="ttdeci">@ M_IO_BLE_WTYPE_WRITE</div><div class="ttdef"><b>Definition:</b> m_io_ble.h:1136</div></div>
+<div class="ttc" id="agroup__m__io__ble_html_ggafca547d077ba95755aca3592db88a6d9a3d8826ef69e30f206b864deb2d0ffaf7"><div class="ttname"><a href="group__m__io__ble.html#ggafca547d077ba95755aca3592db88a6d9a3d8826ef69e30f206b864deb2d0ffaf7">M_IO_BLE_RTYPE_NOTIFY</a></div><div class="ttdeci">@ M_IO_BLE_RTYPE_NOTIFY</div><div class="ttdef"><b>Definition:</b> m_io_ble.h:1154</div></div>
+<div class="ttc" id="agroup__m__io_html_ga7586ea2e66889f608975ce17f96e6298"><div class="ttname"><a href="group__m__io.html#ga7586ea2e66889f608975ce17f96e6298">M_io_meta_destroy</a></div><div class="ttdeci">void M_io_meta_destroy(M_io_meta_t *meta)</div></div>
+<div class="ttc" id="agroup__m__io_html_ga82fb1edb0e33765b6bface193d91f304"><div class="ttname"><a href="group__m__io.html#ga82fb1edb0e33765b6bface193d91f304">M_io_meta_create</a></div><div class="ttdeci">M_io_meta_t * M_io_meta_create(void)</div></div>
+</div><!-- fragment --> <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="gad64f30489df3afe6a46519f135f6cc9c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gad64f30489df3afe6a46519f135f6cc9c">&#9670;&nbsp;</a></span>M_EVENT_HANDLE</h2>
 
@@ -1112,7 +2175,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Apr 28 2023 13:42:50 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 3 2023 13:50:25 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

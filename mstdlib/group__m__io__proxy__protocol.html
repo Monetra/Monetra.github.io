@@ -127,7 +127,7 @@ Functions</h2></td></tr>
 <tr class="separator:ga263a6cac977efe462bb133a1a562a7c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<h1><a class="anchor" id="autotoc_md71"></a>
+<h1><a class="anchor" id="autotoc_md78"></a>
 Overview</h1>
 <p>Inbound or outbound connection layer for handling The PROXY protocol as defined by HAProxy.</p>
 <p>Supports versions:</p><ul>
@@ -135,9 +135,9 @@ Overview</h1>
 <li>2</li>
 </ul>
 <p>Source is the client connecting to the system (Client). Destination is the server accepting the connection which will then relay using proxy protocol (proxy server). There can be multiple proxies in a chain between the source and the final server that is going to process the data. A such the destination address may not be the connection address for the final server's connection.</p>
-<h1><a class="anchor" id="autotoc_md72"></a>
+<h1><a class="anchor" id="autotoc_md79"></a>
 Examples</h1>
-<h2><a class="anchor" id="autotoc_md73"></a>
+<h2><a class="anchor" id="autotoc_md80"></a>
 Proxy Server</h2>
 <p>This server accepts inbound connections, and sends the data to another system using the proxy protocol. The inbound client is not using proxy protocol. The server the proxy is relaying the data to is using proxy protocol.</p>
 <p><code>client &lt;-&gt; proxy server example (sends proxy protocol) &lt;-&gt; final server (receives proxy protocol)</code></p>
@@ -380,7 +380,7 @@ Proxy Server</h2>
 <div class="ttc" id="agroup__m__io_html_gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c"><div class="ttname"><a href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a></div><div class="ttdeci">@ M_IO_ERROR_WOULDBLOCK</div><div class="ttdef"><b>Definition:</b> m_io.h:70</div></div>
 <div class="ttc" id="agroup__m__mem_html_ga9473a8ef59f5c85d37b3d35f461a82f1"><div class="ttname"><a href="group__m__mem.html#ga9473a8ef59f5c85d37b3d35f461a82f1">M_malloc_zero</a></div><div class="ttdeci">void * M_malloc_zero(size_t size) M_ALLOC_SIZE(1) M_WARN_UNUSED_RESULT M_MALLOC</div></div>
 <div class="ttc" id="agroup__m__mem_html_gac4b3c1d73d6efe2542f5e729b58a271d"><div class="ttname"><a href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a></div><div class="ttdeci">void M_free(void *ptr) M_FREE(1)</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md74"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md81"></a>
 Echo Server (accepting proxy protocol)</h2>
 <p>This is a basic echo server where any data received is echoed back out. The server only accepts connections that use proxy protocol.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;mstdlib/mstdlib.h&gt;</span></div>
@@ -642,7 +642,7 @@ Echo Server (accepting proxy protocol)</h2>
 <div class="ttc" id="agroup__m__str__check_html_ga5470a5985b0adb95aff5fc53780be8c7"><div class="ttname"><a href="group__m__str__check.html#ga5470a5985b0adb95aff5fc53780be8c7">M_str_eq</a></div><div class="ttdeci">M_bool M_str_eq(const char *s1, const char *s2)</div></div>
 <div class="ttc" id="agroup__m__str__convert_html_ga92578e5f93242d414f9042c3d23ac7cb"><div class="ttname"><a href="group__m__str__convert.html#ga92578e5f93242d414f9042c3d23ac7cb">M_str_hexdump</a></div><div class="ttdeci">char * M_str_hexdump(int flags, size_t bytes_per_line, const char *line_prefix, const unsigned char *data, size_t data_len)</div></div>
 <div class="ttc" id="agroup__m__str__convert_html_gga91fbd8e7976f8f06d8f54048585159efa58a3973b16170409c0588113d7ba4518"><div class="ttname"><a href="group__m__str__convert.html#gga91fbd8e7976f8f06d8f54048585159efa58a3973b16170409c0588113d7ba4518">M_STR_HEXDUMP_HEADER</a></div><div class="ttdeci">@ M_STR_HEXDUMP_HEADER</div><div class="ttdef"><b>Definition:</b> m_str.h:1875</div></div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md75"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md82"></a>
 Using Proxy Server and Echo Server Examples</h2>
 <ol type="1">
 <li>Compile the proxy server</li>
@@ -1060,7 +1060,7 @@ Using Proxy Server and Echo Server Examples</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Apr 28 2023 13:42:50 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Wed May 3 2023 13:50:25 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
