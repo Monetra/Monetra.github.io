@@ -368,7 +368,7 @@ Basic</h3>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> destroy_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
 <div class="line">{</div>
-<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);;</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;read_buf);</div>
 <div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;write_buf);</div>
@@ -512,7 +512,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="line">{</div>
 <div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>       *io;</div>
 <div class="line">    <span class="keywordtype">size_t</span>        layer_idx;</div>
-<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>  err       = <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;;</div>
+<div class="line">    <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a>  err       = <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
 <div class="line">    <span class="keywordtype">size_t</span>        write_len = 0;</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">if</span> (layer == NULL || handle == NULL)</div>
@@ -755,7 +755,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <a class="code" href="group__m__io.html#ga2d3bea9aaa4491c3c8dad94cf24498a2">M_io_error_t</a> write_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buf, <span class="keywordtype">size_t</span> *buf_len, <a class="code" href="group__m__io.html#ga9b9493ef60e89fbb37537ec239ab2724">M_io_meta_t</a> *meta)</div>
 <div class="line">{</div>
-<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a>  *handle      = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);;</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a>  *handle      = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
 <div class="line">    <a class="code" href="group__m__io.html#ga845c131d8520206a2a7a9219d1bd1932">M_io_t</a>         *io          = <a class="code" href="group__m__io__layer.html#ga6975909f4899a148f7601cd4b2a7726e">M_io_layer_get_io</a>(layer);</div>
 <div class="line">    <span class="keywordtype">size_t</span>          mywrite_len = 0;</div>
 <div class="line"> </div>
@@ -1174,7 +1174,7 @@ BLE Helper</h3>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">void</span> destroy_cb(<a class="code" href="group__m__io__layer.html#ga2c76e456b8335433f53eadfac91e4533">M_io_layer_t</a> *layer)</div>
 <div class="line">{</div>
-<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);;</div>
+<div class="line">    <a class="code" href="group__m__io__layer.html#ga4e34a19e8722fc40cf6074c0fd9131f3">M_io_handle_t</a> *handle = <a class="code" href="group__m__io__layer.html#ga677da94ecf0be2b646df0dbf64f1bf59">M_io_layer_get_handle</a>(layer);</div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="group__m__io.html#ga7586ea2e66889f608975ce17f96e6298">M_io_meta_destroy</a>(handle-&gt;write_meta);</div>
 <div class="line">    <a class="code" href="group__m__buf.html#gad51baebd5e46ee8231e78b926ccb198e">M_buf_cancel</a>(handle-&gt;read_buf);</div>
@@ -2175,7 +2175,7 @@ BLE Helper</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri May 5 2023 14:34:33 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri May 5 2023 16:30:10 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
