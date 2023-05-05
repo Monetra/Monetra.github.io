@@ -322,7 +322,7 @@ Functions</h2></td></tr>
 <div class="line">            <span class="keywordflow">break</span>;</div>
 <div class="line">        <span class="keywordflow">case</span> <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426">M_EVENT_TYPE_READ</a>:</div>
 <div class="line">            <a class="code" href="group__m__io.html#ga0fb4e2775a964a263f7ec0fa50be4023">M_io_read_into_parser</a>(io, ldata-&gt;parser);</div>
-<div class="line">            out = <a class="code" href="group__m__parser.html#ga0c17e75e8d82879f94dc47209a293ca7">M_parser_read_strdup</a>(ldata-&gt;parser, <a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(ldata-&gt;parser));</div>
+<div class="line">            out = <a class="code" href="group__m__parser.html#ga0c17e75e8d82879f94dc47209a293ca7">M_parser_read_strdup</a>(ldata-&gt;parser, <a class="code" href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a>(ldata-&gt;parser));</div>
 <div class="line">            <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s&quot;</span>, out);</div>
 <div class="line">            <a class="code" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a>(out);</div>
 <div class="line">            <span class="keywordflow">break</span>;</div>
@@ -404,10 +404,10 @@ Functions</h2></td></tr>
 <div class="ttc" id="agroup__m__io_html_ga957eba52f32304ab07e06b516c04922a"><div class="ttname"><a href="group__m__io.html#ga957eba52f32304ab07e06b516c04922a">M_io_write_from_buf</a></div><div class="ttdeci">M_io_error_t M_io_write_from_buf(M_io_t *comm, M_buf_t *buf)</div></div>
 <div class="ttc" id="agroup__m__mem_html_gac4b3c1d73d6efe2542f5e729b58a271d"><div class="ttname"><a href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a></div><div class="ttdeci">void M_free(void *ptr) M_FREE(1)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga0c17e75e8d82879f94dc47209a293ca7"><div class="ttname"><a href="group__m__parser.html#ga0c17e75e8d82879f94dc47209a293ca7">M_parser_read_strdup</a></div><div class="ttdeci">char * M_parser_read_strdup(M_parser_t *parser, size_t len)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga1d3935a842a73de296cd9c1c32543609"><div class="ttname"><a href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a></div><div class="ttdeci">size_t M_parser_len(const M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga3cd7b444d6f5058b149bc4c7262d5cb7"><div class="ttname"><a href="group__m__parser.html#ga3cd7b444d6f5058b149bc4c7262d5cb7">M_parser_destroy</a></div><div class="ttdeci">void M_parser_destroy(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga60164be64f8c962c795e5927642fc473"><div class="ttname"><a href="group__m__parser.html#ga60164be64f8c962c795e5927642fc473">M_parser_t</a></div><div class="ttdeci">struct M_parser M_parser_t</div><div class="ttdef"><b>Definition:</b> m_parser.h:52</div></div>
 <div class="ttc" id="agroup__m__parser_html_gaf8100f8e139f41315478133992cc8ad1"><div class="ttname"><a href="group__m__parser.html#gaf8100f8e139f41315478133992cc8ad1">M_parser_create</a></div><div class="ttdeci">M_parser_t * M_parser_create(M_uint32 flags)</div></div>
-<div class="ttc" id="agroup__m__parser_html_gafeb4f3232d2d842889823bdf70338ac6"><div class="ttname"><a href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a></div><div class="ttdeci">size_t M_parser_len(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933"><div class="ttname"><a href="group__m__parser.html#gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933">M_PARSER_FLAG_NONE</a></div><div class="ttdeci">@ M_PARSER_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_parser.h:60</div></div>
 </div><!-- fragment --> <h2 class="groupheader">Typedef Documentation</h2>
 <a id="ga66b039653a61c8702310d03e6ba69802"></a>
@@ -2028,7 +2028,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu May 4 2023 19:29:00 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri May 5 2023 14:34:32 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

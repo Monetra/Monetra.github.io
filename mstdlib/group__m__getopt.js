@@ -21,5 +21,5 @@ var group__m__getopt =
     [ "M_getopt_adddecimal", "group__m__getopt.html#gaa8436b6fcad1d13663b7571fd53ba404", null ],
     [ "M_getopt_addstring", "group__m__getopt.html#ga829f42b3d71ac62fab4767c089abae4e", null ],
     [ "M_getopt_addboolean", "group__m__getopt.html#ga6cf2bb2b550a182cfa2c1012d9f3ddbd", null ],
-    [ "M_getopt_parse", "group__m__getopt.html#gacd80612ba495a33d442fdb25e2838186", null ]
+    [ "M_getopt_parse", "group__m__getopt.html#gaa4f6b45c270dae4e19910249fede7786", null ]
 ];

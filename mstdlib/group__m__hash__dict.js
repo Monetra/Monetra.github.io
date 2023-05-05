@@ -46,7 +46,7 @@ var group__m__hash__dict =
     [ "M_hash_dict_enumerate_free", "group__m__hash__dict.html#ga12154e881606ff70c01fa38b443602f2", null ],
     [ "M_hash_dict_merge", "group__m__hash__dict.html#gae24445a653a833953a95ebe6d5419daf", null ],
     [ "M_hash_dict_duplicate", "group__m__hash__dict.html#ga39cda49e0de0719583f1b8ebabd59338", null ],
-    [ "M_hash_dict_serialize_buf", "group__m__hash__dict.html#ga1263fa42ecb9cb266a1d9a1828ad2a25", null ],
-    [ "M_hash_dict_serialize", "group__m__hash__dict.html#gaa0fe0effa88cfe5a9b0d96002b13a1fc", null ],
+    [ "M_hash_dict_serialize_buf", "group__m__hash__dict.html#gaa67a88a19967aa4732b037c3d359f275", null ],
+    [ "M_hash_dict_serialize", "group__m__hash__dict.html#ga6f04b0ac51bfbdfe19a4189a01d0d773", null ],
     [ "M_hash_dict_deserialize", "group__m__hash__dict.html#ga48445c88957a9a40687f83a98302c208", null ]
 ];

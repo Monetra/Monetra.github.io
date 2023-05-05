@@ -121,8 +121,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga61cc1ab7350871d9844b6cb33c670477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga941313d433676c93f43a5e06c1e6a27e"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#ga941313d433676c93f43a5e06c1e6a27e">M_bitlist_tohash</a> (<a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> **hash_toint, <a class="el" href="group__m__hash__u64str.html#gae127f925ec502c61f07988bcf8d2eb6e">M_hash_u64str_t</a> **hash_tostr, <a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, const <a class="el" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, char *error, size_t error_len)</td></tr>
 <tr class="separator:ga941313d433676c93f43a5e06c1e6a27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab506bcdada42c01e676b09f461c38f2f"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#gab506bcdada42c01e676b09f461c38f2f">M_bitlist_hash_parse</a> (M_uint64 *out, <a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, <a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *hash_toint, const char *data, unsigned char delim, char *error, size_t error_len)</td></tr>
-<tr class="separator:gab506bcdada42c01e676b09f461c38f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafc588c930614aa796abfd0780c747418"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#gafc588c930614aa796abfd0780c747418">M_bitlist_hash_parse</a> (M_uint64 *out, <a class="el" href="group__m__bitlist.html#ga9eb5696e0c6fc2c97d0b123bdbaaa033">M_bitlist_flags_t</a> flags, const <a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *hash_toint, const char *data, unsigned char delim, char *error, size_t error_len)</td></tr>
+<tr class="separator:gafc588c930614aa796abfd0780c747418"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga18cb0ca1bd11fd5fa976a792e03ebacc"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#ga18cb0ca1bd11fd5fa976a792e03ebacc">M_bitlist_single_tostr</a> (const <a class="el" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, M_uint64 id)</td></tr>
 <tr class="separator:ga18cb0ca1bd11fd5fa976a792e03ebacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga1a90d28d44833b2365c803113d475e8c"><td class="memItemLeft" align="right" valign="top">M_uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__bitlist.html#ga1a90d28d44833b2365c803113d475e8c">M_bitlist_single_toint</a> (const <a class="el" href="group__m__bitlist.html#structM__bitlist__t">M_bitlist_t</a> *list, const char *name)</td></tr>
@@ -439,8 +439,8 @@ name</td>
 
 </div>
 </div>
-<a id="gab506bcdada42c01e676b09f461c38f2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gab506bcdada42c01e676b09f461c38f2f">&#9670;&nbsp;</a></span>M_bitlist_hash_parse()</h2>
+<a id="gafc588c930614aa796abfd0780c747418"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafc588c930614aa796abfd0780c747418">&#9670;&nbsp;</a></span>M_bitlist_hash_parse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -460,7 +460,7 @@ name</td>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__m__hash__stru64.html#ga864c212c70c9914c2d4db8274368a982">M_hash_stru64_t</a> *&#160;</td>
           <td class="paramname"><em>hash_toint</em>, </td>
         </tr>
         <tr>
@@ -590,7 +590,7 @@ name</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu May 4 2023 19:28:52 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri May 5 2023 14:34:21 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

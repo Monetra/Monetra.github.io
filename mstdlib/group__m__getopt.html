@@ -139,8 +139,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga829f42b3d71ac62fab4767c089abae4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga6cf2bb2b550a182cfa2c1012d9f3ddbd"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__getopt.html#ga6cf2bb2b550a182cfa2c1012d9f3ddbd">M_getopt_addboolean</a> (<a class="el" href="group__m__getopt.html#ga39f22c90cd423d2d702b79d8f3af1d82">M_getopt_t</a> *g, char short_opt, const char *long_opt, M_bool val_required, const char *description, <a class="el" href="group__m__getopt.html#gaf5e2ec051df8f19adc48e7b2911156cf">M_getopt_boolean_cb</a> cb)</td></tr>
 <tr class="separator:ga6cf2bb2b550a182cfa2c1012d9f3ddbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacd80612ba495a33d442fdb25e2838186"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__getopt.html#ga435b1ae5e5a87c3a4259621b4c4af785">M_getopt_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__getopt.html#gacd80612ba495a33d442fdb25e2838186">M_getopt_parse</a> (<a class="el" href="group__m__getopt.html#ga39f22c90cd423d2d702b79d8f3af1d82">M_getopt_t</a> *g, const char *const *argv, int argc, const char **opt_fail, void *thunk)</td></tr>
-<tr class="separator:gacd80612ba495a33d442fdb25e2838186"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaa4f6b45c270dae4e19910249fede7786"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__getopt.html#ga435b1ae5e5a87c3a4259621b4c4af785">M_getopt_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__getopt.html#gaa4f6b45c270dae4e19910249fede7786">M_getopt_parse</a> (const <a class="el" href="group__m__getopt.html#ga39f22c90cd423d2d702b79d8f3af1d82">M_getopt_t</a> *g, const char *const *argv, int argc, const char **opt_fail, void *thunk)</td></tr>
+<tr class="separator:gaa4f6b45c270dae4e19910249fede7786"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Command line argument parsing.</p>
@@ -184,7 +184,7 @@ Functions</h2></td></tr>
 <div class="line">    <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;help=\n%s\n&quot;</span>, help);</div>
 <div class="line">    <a class="code" href="group__m__mem.html#gac4b3c1d73d6efe2542f5e729b58a271d">M_free</a>(help);</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__getopt.html#gacd80612ba495a33d442fdb25e2838186">M_getopt_parse</a>(g, argv, argc, &amp;fail, NULL) == <a class="code" href="group__m__getopt.html#gga435b1ae5e5a87c3a4259621b4c4af785ae41685a50b16b7df0f3e11c18ef0c3b7">M_GETOPT_ERROR_SUCCESS</a>) {</div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__getopt.html#gaa4f6b45c270dae4e19910249fede7786">M_getopt_parse</a>(g, argv, argc, &amp;fail, NULL) == <a class="code" href="group__m__getopt.html#gga435b1ae5e5a87c3a4259621b4c4af785ae41685a50b16b7df0f3e11c18ef0c3b7">M_GETOPT_ERROR_SUCCESS</a>) {</div>
 <div class="line">        <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;Options parsed successfully\n&quot;</span>);</div>
 <div class="line">    } <span class="keywordflow">else</span> {</div>
 <div class="line">        <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;Options parse error: %s\n&quot;</span>, fail);</div>
@@ -197,7 +197,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="agroup__m__getopt_html_ga02457e8d782357f823f725df3ea47830"><div class="ttname"><a href="group__m__getopt.html#ga02457e8d782357f823f725df3ea47830">M_getopt_destroy</a></div><div class="ttdeci">void M_getopt_destroy(M_getopt_t *g)</div></div>
 <div class="ttc" id="agroup__m__getopt_html_ga39f22c90cd423d2d702b79d8f3af1d82"><div class="ttname"><a href="group__m__getopt.html#ga39f22c90cd423d2d702b79d8f3af1d82">M_getopt_t</a></div><div class="ttdeci">struct M_getopt M_getopt_t</div><div class="ttdef"><b>Definition:</b> m_getopt.h:123</div></div>
 <div class="ttc" id="agroup__m__getopt_html_ga46375e28b6d9efdfd6f2ee16baf797cf"><div class="ttname"><a href="group__m__getopt.html#ga46375e28b6d9efdfd6f2ee16baf797cf">M_getopt_help</a></div><div class="ttdeci">char * M_getopt_help(const M_getopt_t *g)</div></div>
-<div class="ttc" id="agroup__m__getopt_html_gacd80612ba495a33d442fdb25e2838186"><div class="ttname"><a href="group__m__getopt.html#gacd80612ba495a33d442fdb25e2838186">M_getopt_parse</a></div><div class="ttdeci">M_getopt_error_t M_getopt_parse(M_getopt_t *g, const char *const *argv, int argc, const char **opt_fail, void *thunk)</div></div>
+<div class="ttc" id="agroup__m__getopt_html_gaa4f6b45c270dae4e19910249fede7786"><div class="ttname"><a href="group__m__getopt.html#gaa4f6b45c270dae4e19910249fede7786">M_getopt_parse</a></div><div class="ttdeci">M_getopt_error_t M_getopt_parse(const M_getopt_t *g, const char *const *argv, int argc, const char **opt_fail, void *thunk)</div></div>
 <div class="ttc" id="agroup__m__getopt_html_gad3fef1c370294bfaaab4613ce580adb5"><div class="ttname"><a href="group__m__getopt.html#gad3fef1c370294bfaaab4613ce580adb5">M_getopt_addinteger</a></div><div class="ttdeci">M_bool M_getopt_addinteger(M_getopt_t *g, char short_opt, const char *long_opt, M_bool val_required, const char *description, M_getopt_integer_cb cb)</div></div>
 <div class="ttc" id="agroup__m__getopt_html_gadc824211c9303e70d73fd5285fa9dc8b"><div class="ttname"><a href="group__m__getopt.html#gadc824211c9303e70d73fd5285fa9dc8b">M_getopt_create</a></div><div class="ttdeci">M_getopt_t * M_getopt_create(M_getopt_nonopt_cb cb)</div></div>
 <div class="ttc" id="agroup__m__getopt_html_gga435b1ae5e5a87c3a4259621b4c4af785ae41685a50b16b7df0f3e11c18ef0c3b7"><div class="ttname"><a href="group__m__getopt.html#gga435b1ae5e5a87c3a4259621b4c4af785ae41685a50b16b7df0f3e11c18ef0c3b7">M_GETOPT_ERROR_SUCCESS</a></div><div class="ttdeci">@ M_GETOPT_ERROR_SUCCESS</div><div class="ttdef"><b>Definition:</b> m_getopt.h:130</div></div>
@@ -658,8 +658,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="gacd80612ba495a33d442fdb25e2838186"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gacd80612ba495a33d442fdb25e2838186">&#9670;&nbsp;</a></span>M_getopt_parse()</h2>
+<a id="gaa4f6b45c270dae4e19910249fede7786"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaa4f6b45c270dae4e19910249fede7786">&#9670;&nbsp;</a></span>M_getopt_parse()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -667,7 +667,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="group__m__getopt.html#ga435b1ae5e5a87c3a4259621b4c4af785">M_getopt_error_t</a> M_getopt_parse </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__m__getopt.html#ga39f22c90cd423d2d702b79d8f3af1d82">M_getopt_t</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__m__getopt.html#ga39f22c90cd423d2d702b79d8f3af1d82">M_getopt_t</a> *&#160;</td>
           <td class="paramname"><em>g</em>, </td>
         </tr>
         <tr>
@@ -721,7 +721,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu May 4 2023 19:28:53 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri May 5 2023 14:34:22 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

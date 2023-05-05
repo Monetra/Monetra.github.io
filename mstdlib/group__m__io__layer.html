@@ -620,7 +620,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="line">    <a class="code" href="group__m__parser.html#ga6993008e1f0881f84431d5813f33d127">M_PARSER_FRAME_ERROR</a>  frame_error;</div>
 <div class="line">    <span class="keywordtype">size_t</span>                len;</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(handle-&gt;readparser) == 0)</div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a>(handle-&gt;readparser) == 0)</div>
 <div class="line">        <span class="keywordflow">return</span> M_TRUE;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// NAK means we need to send the last message again.</span></div>
@@ -650,7 +650,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// We either have an STX at the start or no data. We also need at least 4 bytes of data to have a framed message.</span></div>
 <div class="line">     <span class="comment">// We could have only received an ACK earlier and not need to process any data.</span></div>
-<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(handle-&gt;readparser) &lt; 4)</div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a>(handle-&gt;readparser) &lt; 4)</div>
 <div class="line">        <span class="keywordflow">return</span> M_TRUE;</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Pull the data out of the wrapper.</span></div>
@@ -660,7 +660,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="line">         <span class="comment">// will result in waiting for more data to come in. M_PARSER_FRAME_ERROR_NO_STX shouldn&#39;t happen because</span></div>
 <div class="line">        <span class="comment">// we&#39;ve already validated the first character is an STX. M_PARSER_FRAME_ERROR_LRC_CALC_FAILED is a real faulre.</span></div>
 <div class="line">        <span class="keywordflow">if</span> (frame_error == <a class="code" href="group__m__parser.html#gga6993008e1f0881f84431d5813f33d127a701af53f85eb9dfd398ba8200b4d4059">M_PARSER_FRAME_ERROR_LRC_CALC_FAILED</a>) {</div>
-<div class="line">            <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s: Message LRC verification failed: dropped (%zu bytes)&quot;</span>, LAYER_NAME, <a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(msg_parser));</div>
+<div class="line">            <a class="code" href="group__m__fmt.html#gae54b252ea2bcf34b09ef1fa0f134ffa8">M_printf</a>(<span class="stringliteral">&quot;%s: Message LRC verification failed: dropped (%zu bytes)&quot;</span>, LAYER_NAME, <a class="code" href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a>(msg_parser));</div>
 <div class="line"> </div>
 <div class="line">            <a class="code" href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a>(handle-&gt;writebuf, NAK);</div>
 <div class="line">            write_int(layer, handle, NULL);</div>
@@ -670,7 +670,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="line">    }</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Store the data.</span></div>
-<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;readbuf, <a class="code" href="group__m__parser.html#gadaa08bacb6e55081f7444849b57ec47f">M_parser_peek</a>(msg_parser), <a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(msg_parser));</div>
+<div class="line">    <a class="code" href="group__m__buf.html#ga288de250b37d2811d57b8ffe20e89bbc">M_buf_add_bytes</a>(handle-&gt;readbuf, <a class="code" href="group__m__parser.html#gadaa95c96c84524fe6a769c7860120b0b">M_parser_peek</a>(msg_parser), <a class="code" href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a>(msg_parser));</div>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Write an ACK.</span></div>
 <div class="line">    <a class="code" href="group__m__buf.html#ga10fa5a66cbcb57830f0711050c363d70">M_buf_add_byte</a>(handle-&gt;writebuf, ACK);</div>
@@ -747,7 +747,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="line"> </div>
 <div class="line">    <span class="comment">// If we still have data available to read (needs to be processed)</span></div>
 <div class="line">     <span class="comment">// send another read event.</span></div>
-<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(handle-&gt;readparser) &gt; 0)</div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a>(handle-&gt;readparser) &gt; 0)</div>
 <div class="line">        <a class="code" href="group__m__io__layer.html#ga0c6d9cf0f642515db16a6e85d9285bbe">M_io_layer_softevent_add</a>(layer, M_TRUE, <a class="code" href="group__m__event.html#gga5d54358d8088f050bcdb141c6c0b21e7a8d2cf32ca08773c695e988635ebfd426">M_EVENT_TYPE_READ</a>, <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>);</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> <a class="code" href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2778f41c2ec2dc7c612144ea5a591c30">M_IO_ERROR_SUCCESS</a>;</div>
@@ -909,6 +909,7 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="ttc" id="agroup__m__io_html_gab85f18fea241a1a9eb2f6ba966e5c892"><div class="ttname"><a href="group__m__io.html#gab85f18fea241a1a9eb2f6ba966e5c892">M_io_layer_count</a></div><div class="ttdeci">size_t M_io_layer_count(M_io_t *io)</div></div>
 <div class="ttc" id="agroup__m__io_html_gga1ea9e3c1babf09b22f2b98899db790dba95386ec441cd9e0e5ca62a61881531ea"><div class="ttname"><a href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba95386ec441cd9e0e5ca62a61881531ea">M_IO_ERROR_TIMEDOUT</a></div><div class="ttdeci">@ M_IO_ERROR_TIMEDOUT</div><div class="ttdef"><b>Definition:</b> m_io.h:81</div></div>
 <div class="ttc" id="agroup__m__mem_html_ga8a11dc1aa0bc31f10a1289043464f966"><div class="ttname"><a href="group__m__mem.html#ga8a11dc1aa0bc31f10a1289043464f966">M_mem_calc_lrc</a></div><div class="ttdeci">unsigned char M_mem_calc_lrc(const void *s, size_t s_len)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga1d3935a842a73de296cd9c1c32543609"><div class="ttname"><a href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a></div><div class="ttdeci">size_t M_parser_len(const M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga391a35eb1787b282c73eb1021dc33c2b"><div class="ttname"><a href="group__m__parser.html#ga391a35eb1787b282c73eb1021dc33c2b">M_parser_append</a></div><div class="ttdeci">M_bool M_parser_append(M_parser_t *parser, const unsigned char *data, size_t len)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga3cd7b444d6f5058b149bc4c7262d5cb7"><div class="ttname"><a href="group__m__parser.html#ga3cd7b444d6f5058b149bc4c7262d5cb7">M_parser_destroy</a></div><div class="ttdeci">void M_parser_destroy(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga60164be64f8c962c795e5927642fc473"><div class="ttname"><a href="group__m__parser.html#ga60164be64f8c962c795e5927642fc473">M_parser_t</a></div><div class="ttdeci">struct M_parser M_parser_t</div><div class="ttdef"><b>Definition:</b> m_parser.h:52</div></div>
@@ -916,9 +917,8 @@ STX + ETX + LRC with ACK / NAK and resending</h3>
 <div class="ttc" id="agroup__m__parser_html_ga6993008e1f0881f84431d5813f33d127"><div class="ttname"><a href="group__m__parser.html#ga6993008e1f0881f84431d5813f33d127">M_PARSER_FRAME_ERROR</a></div><div class="ttdeci">M_PARSER_FRAME_ERROR</div><div class="ttdef"><b>Definition:</b> m_parser.h:95</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga92fee6f3045a04e33a5c075f09e72ba3"><div class="ttname"><a href="group__m__parser.html#ga92fee6f3045a04e33a5c075f09e72ba3">M_parser_read_stxetxlrc_message</a></div><div class="ttdeci">M_PARSER_FRAME_ERROR M_parser_read_stxetxlrc_message(M_parser_t *parser, M_parser_t **out, M_uint32 lrc_frame_chars)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga94d17dbc917bc704c9fea3030e1f8b45"><div class="ttname"><a href="group__m__parser.html#ga94d17dbc917bc704c9fea3030e1f8b45">M_parser_consume_charset</a></div><div class="ttdeci">size_t M_parser_consume_charset(M_parser_t *parser, const unsigned char *charset, size_t charset_len)</div></div>
-<div class="ttc" id="agroup__m__parser_html_gadaa08bacb6e55081f7444849b57ec47f"><div class="ttname"><a href="group__m__parser.html#gadaa08bacb6e55081f7444849b57ec47f">M_parser_peek</a></div><div class="ttdeci">const unsigned char * M_parser_peek(M_parser_t *parser)</div></div>
+<div class="ttc" id="agroup__m__parser_html_gadaa95c96c84524fe6a769c7860120b0b"><div class="ttname"><a href="group__m__parser.html#gadaa95c96c84524fe6a769c7860120b0b">M_parser_peek</a></div><div class="ttdeci">const unsigned char * M_parser_peek(const M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_gaf8100f8e139f41315478133992cc8ad1"><div class="ttname"><a href="group__m__parser.html#gaf8100f8e139f41315478133992cc8ad1">M_parser_create</a></div><div class="ttdeci">M_parser_t * M_parser_create(M_uint32 flags)</div></div>
-<div class="ttc" id="agroup__m__parser_html_gafeb4f3232d2d842889823bdf70338ac6"><div class="ttname"><a href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a></div><div class="ttdeci">size_t M_parser_len(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_gga3fbdc774c77f61b74f797598209b682caf93ba74fbec931a58ad1f78964572720"><div class="ttname"><a href="group__m__parser.html#gga3fbdc774c77f61b74f797598209b682caf93ba74fbec931a58ad1f78964572720">M_PARSER_FRAME_ETX</a></div><div class="ttdeci">@ M_PARSER_FRAME_ETX</div><div class="ttdef"><b>Definition:</b> m_parser.h:91</div></div>
 <div class="ttc" id="agroup__m__parser_html_gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933"><div class="ttname"><a href="group__m__parser.html#gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933">M_PARSER_FLAG_NONE</a></div><div class="ttdeci">@ M_PARSER_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_parser.h:60</div></div>
 <div class="ttc" id="agroup__m__parser_html_gga6993008e1f0881f84431d5813f33d127a1163baeeb38554303ed45fed0edb15fc"><div class="ttname"><a href="group__m__parser.html#gga6993008e1f0881f84431d5813f33d127a1163baeeb38554303ed45fed0edb15fc">M_PARSER_FRAME_ERROR_SUCCESS</a></div><div class="ttdeci">@ M_PARSER_FRAME_ERROR_SUCCESS</div><div class="ttdef"><b>Definition:</b> m_parser.h:96</div></div>
@@ -2175,7 +2175,7 @@ BLE Helper</h3>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu May 4 2023 19:29:02 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri May 5 2023 14:34:33 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>

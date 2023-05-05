@@ -333,7 +333,7 @@ Server</h2>
 <div class="line">    (void)next;</div>
 <div class="line"> </div>
 <div class="line">    <a class="code" href="group__m__parser.html#gad2f6bcc3999859f9bfabce4679697d30">M_parser_mark</a>(ldata-&gt;read_parser);</div>
-<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a>(ldata-&gt;read_parser) == 0 || <a class="code" href="group__m__parser.html#gae09ef7f274b45bbe005bb7f0d96ae011">M_parser_consume_until</a>(ldata-&gt;read_parser, (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *)<span class="stringliteral">&quot;\n&quot;</span>, 1, M_TRUE) == 0) {</div>
+<div class="line">    <span class="keywordflow">if</span> (<a class="code" href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a>(ldata-&gt;read_parser) == 0 || <a class="code" href="group__m__parser.html#gae09ef7f274b45bbe005bb7f0d96ae011">M_parser_consume_until</a>(ldata-&gt;read_parser, (<span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *)<span class="stringliteral">&quot;\n&quot;</span>, 1, M_TRUE) == 0) {</div>
 <div class="line">        <a class="code" href="group__m__parser.html#gab56a859c33b45f16a1af4134a502fc6c">M_parser_mark_rewind</a>(ldata-&gt;read_parser);</div>
 <div class="line">        <span class="keywordflow">return</span> <a class="code" href="group__m__state__machine.html#ggac270a27ce03a23e30d86788b2103268ba268c02ad158bd9a779c2a1226704a672">M_STATE_MACHINE_STATUS_WAIT</a>;</div>
 <div class="line">    }</div>
@@ -494,13 +494,13 @@ Server</h2>
 <div class="ttc" id="agroup__m__io_html_gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c"><div class="ttname"><a href="group__m__io.html#gga1ea9e3c1babf09b22f2b98899db790dba2ace85a86b9ab6805d5838754b4c111c">M_IO_ERROR_WOULDBLOCK</a></div><div class="ttdeci">@ M_IO_ERROR_WOULDBLOCK</div><div class="ttdef"><b>Definition:</b> m_io.h:70</div></div>
 <div class="ttc" id="agroup__m__mem_html_ga9473a8ef59f5c85d37b3d35f461a82f1"><div class="ttname"><a href="group__m__mem.html#ga9473a8ef59f5c85d37b3d35f461a82f1">M_malloc_zero</a></div><div class="ttdeci">void * M_malloc_zero(size_t size) M_ALLOC_SIZE(1) M_WARN_UNUSED_RESULT M_MALLOC</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga0d79542fe6a498f071bbcc8fcb081949"><div class="ttname"><a href="group__m__parser.html#ga0d79542fe6a498f071bbcc8fcb081949">M_parser_read_strdup_mark</a></div><div class="ttdeci">char * M_parser_read_strdup_mark(M_parser_t *parser)</div></div>
+<div class="ttc" id="agroup__m__parser_html_ga1d3935a842a73de296cd9c1c32543609"><div class="ttname"><a href="group__m__parser.html#ga1d3935a842a73de296cd9c1c32543609">M_parser_len</a></div><div class="ttdeci">size_t M_parser_len(const M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga3cd7b444d6f5058b149bc4c7262d5cb7"><div class="ttname"><a href="group__m__parser.html#ga3cd7b444d6f5058b149bc4c7262d5cb7">M_parser_destroy</a></div><div class="ttdeci">void M_parser_destroy(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_ga60164be64f8c962c795e5927642fc473"><div class="ttname"><a href="group__m__parser.html#ga60164be64f8c962c795e5927642fc473">M_parser_t</a></div><div class="ttdeci">struct M_parser M_parser_t</div><div class="ttdef"><b>Definition:</b> m_parser.h:52</div></div>
 <div class="ttc" id="agroup__m__parser_html_gab56a859c33b45f16a1af4134a502fc6c"><div class="ttname"><a href="group__m__parser.html#gab56a859c33b45f16a1af4134a502fc6c">M_parser_mark_rewind</a></div><div class="ttdeci">size_t M_parser_mark_rewind(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_gad2f6bcc3999859f9bfabce4679697d30"><div class="ttname"><a href="group__m__parser.html#gad2f6bcc3999859f9bfabce4679697d30">M_parser_mark</a></div><div class="ttdeci">void M_parser_mark(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_gae09ef7f274b45bbe005bb7f0d96ae011"><div class="ttname"><a href="group__m__parser.html#gae09ef7f274b45bbe005bb7f0d96ae011">M_parser_consume_until</a></div><div class="ttdeci">size_t M_parser_consume_until(M_parser_t *parser, const unsigned char *pat, size_t len, M_bool eat_pat)</div></div>
 <div class="ttc" id="agroup__m__parser_html_gaf8100f8e139f41315478133992cc8ad1"><div class="ttname"><a href="group__m__parser.html#gaf8100f8e139f41315478133992cc8ad1">M_parser_create</a></div><div class="ttdeci">M_parser_t * M_parser_create(M_uint32 flags)</div></div>
-<div class="ttc" id="agroup__m__parser_html_gafeb4f3232d2d842889823bdf70338ac6"><div class="ttname"><a href="group__m__parser.html#gafeb4f3232d2d842889823bdf70338ac6">M_parser_len</a></div><div class="ttdeci">size_t M_parser_len(M_parser_t *parser)</div></div>
 <div class="ttc" id="agroup__m__parser_html_gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933"><div class="ttname"><a href="group__m__parser.html#gga5f283601804b657a199f6574996ccf87a5879ad8c9fea3f4031268d7917b03933">M_PARSER_FLAG_NONE</a></div><div class="ttdeci">@ M_PARSER_FLAG_NONE</div><div class="ttdef"><b>Definition:</b> m_parser.h:60</div></div>
 <div class="ttc" id="agroup__m__state__machine_html_ga3477b2670869577b546e5033411df95c"><div class="ttname"><a href="group__m__state__machine.html#ga3477b2670869577b546e5033411df95c">M_state_machine_create</a></div><div class="ttdeci">M_state_machine_t * M_state_machine_create(M_uint64 ndescr, const char *descr, M_uint32 flags)</div></div>
 <div class="ttc" id="agroup__m__state__machine_html_ga5907f72a878c13dd0517d874af6dfd5f"><div class="ttname"><a href="group__m__state__machine.html#ga5907f72a878c13dd0517d874af6dfd5f">M_state_machine_run</a></div><div class="ttdeci">M_state_machine_status_t M_state_machine_run(M_state_machine_t *m, void *data)</div></div>
@@ -1152,7 +1152,7 @@ Server</h2>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu May 4 2023 19:29:02 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+    <li class="footer">Generated on Fri May 5 2023 14:34:33 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>
 </body>
