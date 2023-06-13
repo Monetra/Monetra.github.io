@@ -14,7 +14,7 @@ var group__m__hash__stridx =
       [ "M_HASH_STRIDX_MULTI_GETLAST", "group__m__hash__stridx.html#gga463fb5a7972297cfd5fb3cf4dce8033ca7df662c900db40dd4928b347cf4f674a", null ],
       [ "M_HASH_STRIDX_STATIC_SEED", "group__m__hash__stridx.html#gga463fb5a7972297cfd5fb3cf4dce8033ca33dc98a828428767803c59fff23bcb58", null ]
     ] ],
-    [ "M_hash_stridx_create", "group__m__hash__stridx.html#gadd1170b2f22cc6cd12c6d882d216616e", null ],
+    [ "M_hash_stridx_create", "group__m__hash__stridx.html#gab427171ee31cc13c3ba81e66fe13da2d", null ],
     [ "M_hash_stridx_destroy", "group__m__hash__stridx.html#gaa00f0f41029b730ee5384fb2251c89d5", null ],
     [ "M_hash_stridx_insert", "group__m__hash__stridx.html#ga92c30a2f9789d8841ff02db12d5f51ca", null ],
     [ "M_hash_stridx_remove", "group__m__hash__stridx.html#ga046b5bb9e48f810ec4205f330cc8211f", null ],
@@ -33,5 +33,5 @@ var group__m__hash__stridx =
     [ "M_hash_stridx_enumerate_next", "group__m__hash__stridx.html#ga90b69375839f8e4d3fbe92506a29271e", null ],
     [ "M_hash_stridx_enumerate_free", "group__m__hash__stridx.html#ga5df208ccec154fde226f6ad49b3d9429", null ],
     [ "M_hash_stridx_merge", "group__m__hash__stridx.html#ga234ec38993246d5431cbfd4963175ca0", null ],
-    [ "M_hash_stridx_duplicate", "group__m__hash__stridx.html#ga67529591c21ed9f6793743a9d47714c3", null ]
+    [ "M_hash_stridx_duplicate", "group__m__hash__stridx.html#ga9f627bfb6217886a658855444ae963d3", null ]
 ];

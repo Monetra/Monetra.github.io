@@ -58,5 +58,5 @@ var group__m__textcodec =
     [ "M_textcodec_decode_parser", "group__m__textcodec.html#ga31fab48c0ea5f7d56a3a7abe9979940e", null ],
     [ "M_textcodec_error_is_error", "group__m__textcodec.html#gaa5d0fef66ddb84b87b1a884c8866c593", null ],
     [ "M_textcodec_codec_from_str", "group__m__textcodec.html#gaebb0451cb6274d927e04ac65cf0c903a", null ],
-    [ "M_textcodec_codec_to_str", "group__m__textcodec.html#gace01600af9e4ad02a7186f58992cba0a", null ]
+    [ "M_textcodec_codec_to_str", "group__m__textcodec.html#ga1e6766c7b1eb84c1820ecec8397837fd", null ]
 ];

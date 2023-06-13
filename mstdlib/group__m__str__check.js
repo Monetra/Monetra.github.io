@@ -1,6 +1,6 @@
 var group__m__str__check =
 [
-    [ "M_str_safe", "group__m__str__check.html#ga090d36ab61b754d2595f65ebae38c101", null ],
+    [ "M_str_safe", "group__m__str__check.html#ga5095289eed402ee323f5d354eadeddb8", null ],
     [ "M_str_isempty", "group__m__str__check.html#ga530dc6e198ebf9e5c30bc7a28ea4567d", null ],
     [ "M_str_istrue", "group__m__str__check.html#gac303ef7b7a983bd7a04ba1f148d94dc7", null ],
     [ "M_str_len", "group__m__str__check.html#gabebfa875d1ada2b43f52b9344b0844d0", null ],

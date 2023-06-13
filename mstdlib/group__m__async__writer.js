@@ -9,7 +9,7 @@ var group__m__async__writer =
       [ "M_ASYNC_WRITER_LINE_END_UNIX", "group__m__async__writer.html#gga2050110d5eddd35906ea52dc2917069fa12a7de1dc54ca7043b3a1b2a0876a437", null ],
       [ "M_ASYNC_WRITER_LINE_END_WINDOWS", "group__m__async__writer.html#gga2050110d5eddd35906ea52dc2917069fab9b15771c3d0447753bf1763a789af07", null ]
     ] ],
-    [ "M_async_writer_create", "group__m__async__writer.html#ga1cce5c3505a55f832fcae8cc508d2bf4", null ],
+    [ "M_async_writer_create", "group__m__async__writer.html#ga34ab4b071803059d8b8874b961bdcfaf", null ],
     [ "M_async_writer_destroy", "group__m__async__writer.html#ga651721b54a556043c698af0f554007b5", null ],
     [ "M_async_writer_destroy_blocking", "group__m__async__writer.html#ga535ac1cc2e7f922226984bea6680113e", null ],
     [ "M_async_writer_start", "group__m__async__writer.html#ga02fac912d5bb6cd5cb58f9c6048cf157", null ],
@@ -20,6 +20,6 @@ var group__m__async__writer =
     [ "M_async_writer_set_command_block", "group__m__async__writer.html#ga03ef80dbf2d9fea2d3c534d4492d4d2b", null ],
     [ "M_async_writer_set_max_bytes", "group__m__async__writer.html#gaf5f4ad018ea2337b2379a211f5a413eb", null ],
     [ "M_async_writer_write", "group__m__async__writer.html#gaeecf314b86ab2738f05d0fd4786c3151", null ],
-    [ "M_async_writer_get_thunk", "group__m__async__writer.html#ga0cb06fa9399d47f0af75a405bf74a262", null ],
-    [ "M_async_writer_get_line_end", "group__m__async__writer.html#ga19463095dad3d3c447ffcc77bde9fdb1", null ]
+    [ "M_async_writer_get_thunk", "group__m__async__writer.html#ga46a8df9981c1f27d322a48ee7d7a1335", null ],
+    [ "M_async_writer_get_line_end", "group__m__async__writer.html#gaae910a534a476d45d75982f3e5de1b92", null ]
 ];

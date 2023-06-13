@@ -14,7 +14,7 @@ var group__m__list__u64 =
       [ "M_LIST_U64_MATCH_VAL", "group__m__list__u64.html#gga90ea2e82143920cfa443b2875007a9eaa8abf437a144f433c13089681e265abee", null ],
       [ "M_LIST_U64_MATCH_ALL", "group__m__list__u64.html#gga90ea2e82143920cfa443b2875007a9eaaa543b0a3ecea43c15696b7721fb0d178", null ]
     ] ],
-    [ "M_list_u64_create", "group__m__list__u64.html#ga42965d5c7f53b5d630d9c7fb9225c657", null ],
+    [ "M_list_u64_create", "group__m__list__u64.html#ga5bba417341c3d7a9dc362077013784bb", null ],
     [ "M_list_u64_destroy", "group__m__list__u64.html#ga4dbf8c53ca3eee3671131919da27d0d0", null ],
     [ "M_list_u64_change_sorting", "group__m__list__u64.html#gab30ddec99ee4aca7ac18f2a339e38fdd", null ],
     [ "M_list_u64_insert", "group__m__list__u64.html#ga49a33c503fe0f081e1806a823d63a025", null ],
@@ -40,6 +40,6 @@ var group__m__list__u64 =
     [ "M_list_u64_replace_val", "group__m__list__u64.html#ga92a2acce75e465c137d05d303503fcd8", null ],
     [ "M_list_u64_replace_at", "group__m__list__u64.html#ga29dbd554dc5da90386f3fa3d1249d134", null ],
     [ "M_list_u64_swap", "group__m__list__u64.html#ga963dd05be34f08860c7233941e5b53c2", null ],
-    [ "M_list_u64_duplicate", "group__m__list__u64.html#ga47c19e6ca2bcc8a27fa0278ac6951c85", null ],
+    [ "M_list_u64_duplicate", "group__m__list__u64.html#ga0b48aadacdb3804ec36ddc3657692c51", null ],
     [ "M_list_u64_merge", "group__m__list__u64.html#ga475a4e98a1f9d3a14dc831af61dacf29", null ]
 ];

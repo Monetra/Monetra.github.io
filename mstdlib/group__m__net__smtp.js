@@ -32,7 +32,7 @@ var group__m__net__smtp =
       [ "M_NET_SMTP_LOAD_BALANCE_FAILOVER", "group__m__net__smtp.html#gga5391bff84ac0215d5ec7a5c0be38bc6fa1eeb9f192862a7ef967c3992f2e3e73b", null ],
       [ "M_NET_SMTP_LOAD_BALANCE_ROUNDROBIN", "group__m__net__smtp.html#gga5391bff84ac0215d5ec7a5c0be38bc6fa83c364142b548b7c506f06c7b45ff166", null ]
     ] ],
-    [ "M_net_smtp_create", "group__m__net__smtp.html#gabd452d6503b6d13aed2d4ebe6f5c6bd3", null ],
+    [ "M_net_smtp_create", "group__m__net__smtp.html#gac399ee053172833475f7e00575efe8b4", null ],
     [ "M_net_smtp_destroy", "group__m__net__smtp.html#gaa6385969061fb7eebf669a4e1b3cb3bc", null ],
     [ "M_net_smtp_pause", "group__m__net__smtp.html#gab821af23fa6f6874abcfb5e1b4a88294", null ],
     [ "M_net_smtp_resume", "group__m__net__smtp.html#gab0531abe137caf704c1a8bdbe03791f8", null ],
@@ -44,7 +44,7 @@ var group__m__net__smtp =
     [ "M_net_smtp_load_balance", "group__m__net__smtp.html#ga0893f10456472ed2a705a779fbbbb94b", null ],
     [ "M_net_smtp_set_num_attempts", "group__m__net__smtp.html#gabedecc74d92a20776cf28be13fc72673", null ],
     [ "M_net_smtp_set_stall_retries", "group__m__net__smtp.html#ga7aba4070b4dc250020b2cbc94329084a", null ],
-    [ "M_net_smtp_dump_queue", "group__m__net__smtp.html#ga00d143eb79b8ab1d1403d4a7c4965333", null ],
+    [ "M_net_smtp_dump_queue", "group__m__net__smtp.html#ga8a6aa26b17c7bb7f2910d07fe1d1b83e", null ],
     [ "M_net_smtp_queue_smtp", "group__m__net__smtp.html#ga3aef6609e11d3c0d3da245018f0c6efb", null ],
     [ "M_net_smtp_queue_message", "group__m__net__smtp.html#gafc9515e729a68480e85fd4ca5eaf32b7", null ],
     [ "M_net_smtp_use_external_queue", "group__m__net__smtp.html#gabaf0f8abb78e6129cf2de1bb77cecc7b", null ],

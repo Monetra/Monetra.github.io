@@ -25,6 +25,6 @@ var group__m__str__convert =
     [ "M_str_to_uint32_ex", "group__m__str__convert.html#gae35cd82dd957abb080fee44e0e01c242", null ],
     [ "M_str_to_int32", "group__m__str__convert.html#gade3b2cd1fee55784fb1dc61c40d26bce", null ],
     [ "M_str_to_uint32", "group__m__str__convert.html#gaa34fa16e7a16dee6a32eb95c5244c953", null ],
-    [ "M_str_dot_money_out", "group__m__str__convert.html#ga4171295debd805591994ee8e3c7dec4f", null ],
-    [ "M_str_hexdump", "group__m__str__convert.html#ga92578e5f93242d414f9042c3d23ac7cb", null ]
+    [ "M_str_dot_money_out", "group__m__str__convert.html#ga6d22f5ac902dceda3a0fc356d9870b69", null ],
+    [ "M_str_hexdump", "group__m__str__convert.html#ga15941b241acbde0f907ea747d6ea5e38", null ]
 ];

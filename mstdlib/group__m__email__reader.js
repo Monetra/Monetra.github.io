@@ -42,7 +42,7 @@ var group__m__email__reader =
     [ "M_email_reader_flags_t", "group__m__email__reader.html#ga47c6d87c30d33a3eadf8192be2d12722", [
       [ "M_EMAIL_READER_NONE", "group__m__email__reader.html#gga47c6d87c30d33a3eadf8192be2d12722ac6ff4d16fe78b544a7b710d0c3796dda", null ]
     ] ],
-    [ "M_email_reader_create", "group__m__email__reader.html#ga4b57597f1ac83a4ff822502bd19f1677", null ],
+    [ "M_email_reader_create", "group__m__email__reader.html#ga2c6c5f3e2902247aba78939b2a05f1d8", null ],
     [ "M_email_reader_destroy", "group__m__email__reader.html#gaa11aa7599fda4afa057f70f39b762c55", null ],
     [ "M_email_reader_read", "group__m__email__reader.html#ga83c67aebe12fbd4b8f5aae4bdeceac3c", null ]
 ];

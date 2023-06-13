@@ -7,7 +7,7 @@ var group__m__list__generic =
       [ "value_free", "group__m__list__generic.html#adf9c3669bc85074ace45e395c3306ace", null ]
     ] ],
     [ "M_list_t", "group__m__list__generic.html#ga87265d0ffa4d023ae023f37acf18b56f", null ],
-    [ "M_list_duplicate_func", "group__m__list__generic.html#ga6387f73ab9271df12ea41a1e73866a6b", null ],
+    [ "M_list_duplicate_func", "group__m__list__generic.html#gab6f96de4e3915a690f2af4a93aa64afb", null ],
     [ "M_list_free_func", "group__m__list__generic.html#ga1542d1ad8e0c08b8b620f7030b32bacd", null ],
     [ "M_list_flags_t", "group__m__list__generic.html#gaba21faae49bc12de2355a6cd4af700ec", [
       [ "M_LIST_NONE", "group__m__list__generic.html#ggaba21faae49bc12de2355a6cd4af700ecaea63c1154d02a22975234af096f36f13", null ],
@@ -23,7 +23,7 @@ var group__m__list__generic =
       [ "M_LIST_MATCH_PTR", "group__m__list__generic.html#ggaee4901a24b034ad63bcdb28541008479a0a9df22b256e78437d7c0d6226949166", null ],
       [ "M_LIST_MATCH_ALL", "group__m__list__generic.html#ggaee4901a24b034ad63bcdb28541008479aa8755d0b7e03b946e0aeb0a45ad9607b", null ]
     ] ],
-    [ "M_list_create", "group__m__list__generic.html#ga9bf4bf37f664cd166757253df3a62017", null ],
+    [ "M_list_create", "group__m__list__generic.html#ga26d3d20461ff67dfaa7d7c32f6e6e0a4", null ],
     [ "M_list_destroy", "group__m__list__generic.html#gaf36924c94cdcbbab43cf7f1cb76f55de", null ],
     [ "M_list_change_sorting", "group__m__list__generic.html#ga4eee7e32e6d8ad2d654cb1d1ceb09636", null ],
     [ "M_list_insert", "group__m__list__generic.html#gaf1ffa1d0c232dd8c47d8b8416f004eff", null ],
@@ -34,12 +34,12 @@ var group__m__list__generic =
     [ "M_list_len", "group__m__list__generic.html#ga51ff48c313c8dfc344b8dfdf00a1a7db", null ],
     [ "M_list_count", "group__m__list__generic.html#ga4a4ee6423b62d6acff79dcded76ae243", null ],
     [ "M_list_index_of", "group__m__list__generic.html#gadb61b69bf1b9ea169a251c4c0579b081", null ],
-    [ "M_list_first", "group__m__list__generic.html#ga1ad02b792b2a079fcf9008f2fa2abc82", null ],
-    [ "M_list_last", "group__m__list__generic.html#ga94a7c3d80a930435740eb1e2fb1f6a61", null ],
-    [ "M_list_at", "group__m__list__generic.html#ga236c7e0bf7708a8971ada0e9b1e6f336", null ],
-    [ "M_list_take_first", "group__m__list__generic.html#ga721bfa8c06e5459bcf361b4f802db6a0", null ],
-    [ "M_list_take_last", "group__m__list__generic.html#gae9930ae532833f7f2722a476a99ad6e8", null ],
-    [ "M_list_take_at", "group__m__list__generic.html#gac61ba0e7e81f33ca6e1f13e8a29c1da3", null ],
+    [ "M_list_first", "group__m__list__generic.html#gaad79bc2e46be06461f097fe357f56061", null ],
+    [ "M_list_last", "group__m__list__generic.html#ga8ca7f344598c7b801f0a2e1edec5539f", null ],
+    [ "M_list_at", "group__m__list__generic.html#ga521fe21633a31094a9dce554f49e7f44", null ],
+    [ "M_list_take_first", "group__m__list__generic.html#ga1f00edfed4e0c40f772a979ce56e8963", null ],
+    [ "M_list_take_last", "group__m__list__generic.html#gaaf97bbba94054358b94efc14e030220a", null ],
+    [ "M_list_take_at", "group__m__list__generic.html#gabc28ec953b43b17da8c52c5c0e5f916c", null ],
     [ "M_list_remove_first", "group__m__list__generic.html#gadc93f8d82ca9c5dd453cf6a35b1e9476", null ],
     [ "M_list_remove_last", "group__m__list__generic.html#gacb7a56f8f00a0abfad0af2ec4346766b", null ],
     [ "M_list_remove_at", "group__m__list__generic.html#ga0315191c649f5b709e963baad21d0347", null ],
@@ -49,6 +49,6 @@ var group__m__list__generic =
     [ "M_list_replace_val", "group__m__list__generic.html#ga8de59acb4d9954db87006a2077a4f4a3", null ],
     [ "M_list_replace_at", "group__m__list__generic.html#gae4ad238335ece70f86c4f579de4f23c9", null ],
     [ "M_list_swap", "group__m__list__generic.html#gaa87d28f719ef177a92cad86f0e377eb2", null ],
-    [ "M_list_duplicate", "group__m__list__generic.html#gade0b48e1c944557fd9a50c7242bdcf26", null ],
+    [ "M_list_duplicate", "group__m__list__generic.html#ga1e472a480bf5b1e4beab40cd13c8ff03", null ],
     [ "M_list_merge", "group__m__list__generic.html#ga1f3670164e64818b913c81c4da1d0737", null ]
 ];

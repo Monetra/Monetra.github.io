@@ -27,7 +27,7 @@ var group__m__hashtable__generic =
     [ "M_HASHTABLE_MAX_BUCKETS", "group__m__hashtable__generic.html#ga8880e7102d93baf643395d2234914682", null ],
     [ "M_hashtable_t", "group__m__hashtable__generic.html#ga282cebedc4ffc574f68baa87fa956e99", null ],
     [ "M_hashtable_hash_func", "group__m__hashtable__generic.html#ga6538fc32437c2ed90fe8d72e45930c4e", null ],
-    [ "M_hashtable_duplicate_func", "group__m__hashtable__generic.html#ga1f184444b40a0b597298d94ce3a1cd88", null ],
+    [ "M_hashtable_duplicate_func", "group__m__hashtable__generic.html#ga4004aff964baaa13dbd2ec8507471ad2", null ],
     [ "M_hashtable_free_func", "group__m__hashtable__generic.html#ga31e66cdbed93208b7874be0955c8eba8", null ],
     [ "M_hashtable_flags_t", "group__m__hashtable__generic.html#gad13365674e45cd99be915fbc66b31ce8", [
       [ "M_HASHTABLE_NONE", "group__m__hashtable__generic.html#ggad13365674e45cd99be915fbc66b31ce8a9e50f4e9e987676773501bc328670de4", null ],
@@ -38,7 +38,7 @@ var group__m__hashtable__generic =
       [ "M_HASHTABLE_MULTI_GETLAST", "group__m__hashtable__generic.html#ggad13365674e45cd99be915fbc66b31ce8aac246c5f930524e2246ed3aae46af09b", null ],
       [ "M_HASHTABLE_STATIC_SEED", "group__m__hashtable__generic.html#ggad13365674e45cd99be915fbc66b31ce8aee6067345125f9517387f48428aedef9", null ]
     ] ],
-    [ "M_hashtable_create", "group__m__hashtable__generic.html#ga2a3fff2032f4d5349ed5e1f91adb30fa", null ],
+    [ "M_hashtable_create", "group__m__hashtable__generic.html#ga6d034b6c6091872d0d87b85f4015d6b7", null ],
     [ "M_hashtable_destroy", "group__m__hashtable__generic.html#gaee21e727a948e6e24ff5098d14ae4628", null ],
     [ "M_hashtable_insert", "group__m__hashtable__generic.html#ga8a3c6ea1647539743d74f21ea5353046", null ],
     [ "M_hashtable_remove", "group__m__hashtable__generic.html#ga4cc0f451df5106d38c3543c9d7e62f23", null ],
@@ -54,5 +54,5 @@ var group__m__hashtable__generic =
     [ "M_hashtable_enumerate", "group__m__hashtable__generic.html#gaf989bde17812db14003d0052e5661301", null ],
     [ "M_hashtable_enumerate_next", "group__m__hashtable__generic.html#ga44f4ff607fd064cc3a69fd2f507358ef", null ],
     [ "M_hashtable_merge", "group__m__hashtable__generic.html#gad5db2e2a410acee6f6dc070d884f1fcf", null ],
-    [ "M_hashtable_duplicate", "group__m__hashtable__generic.html#gae2556b10545ee42e6a8dafb5f4635120", null ]
+    [ "M_hashtable_duplicate", "group__m__hashtable__generic.html#ga12819c72e5a012235f167b3c8e988b8f", null ]
 ];

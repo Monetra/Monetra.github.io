@@ -13,7 +13,7 @@ var group__m__hash__u64u64 =
       [ "M_HASH_U64U64_MULTI_GETLAST", "group__m__hash__u64u64.html#gga530874e52fd5c7b4de85e5da57528f72a3e3dd7f992d7d5a2737cdbb0081e2c48", null ],
       [ "M_HASH_U64U64_STATIC_SEED", "group__m__hash__u64u64.html#gga530874e52fd5c7b4de85e5da57528f72ae7e24591b2dc1bc8599db3f456067009", null ]
     ] ],
-    [ "M_hash_u64u64_create", "group__m__hash__u64u64.html#ga6925ba0e155acb9e84107ae5ad392943", null ],
+    [ "M_hash_u64u64_create", "group__m__hash__u64u64.html#ga1e2e2574551e4e526ed6f184f445f392", null ],
     [ "M_hash_u64u64_destroy", "group__m__hash__u64u64.html#gaeae8bf1d477433ddc8539a49199a369b", null ],
     [ "M_hash_u64u64_insert", "group__m__hash__u64u64.html#ga473edfb97939e1049e36959009b6b9db", null ],
     [ "M_hash_u64u64_remove", "group__m__hash__u64u64.html#gacaf0afabbbec5ccb7a8db4318e282bbb", null ],
@@ -32,5 +32,5 @@ var group__m__hash__u64u64 =
     [ "M_hash_u64u64_enumerate_next", "group__m__hash__u64u64.html#gacaf8eb833f223e528694868045e61003", null ],
     [ "M_hash_u64u64_enumerate_free", "group__m__hash__u64u64.html#gac90f81888a8e3b7fdaf1082537f6a0c2", null ],
     [ "M_hash_u64u64_merge", "group__m__hash__u64u64.html#ga716d5ab99d2572c67f1545628f3305a4", null ],
-    [ "M_hash_u64u64_duplicate", "group__m__hash__u64u64.html#ga99185741578d5bab7314a71c12c217d1", null ]
+    [ "M_hash_u64u64_duplicate", "group__m__hash__u64u64.html#ga083f981fa234bdb9ceabef30df8e60cc", null ]
 ];

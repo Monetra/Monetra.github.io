@@ -19,7 +19,7 @@ var group__m__dns =
       [ "M_DNS_RESULT_TIMEOUT", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2eace18ebdc0ad9b89c8033d233d1a9d0e8", null ],
       [ "M_DNS_RESULT_INVALID", "group__m__dns.html#ggafbd6525307b497ac18e911bd0f966e2ea3f843b97da921b511ea9b8beb4499ba2", null ]
     ] ],
-    [ "M_dns_create", "group__m__dns.html#ga5175216540121322108fc571d5206ca7", null ],
+    [ "M_dns_create", "group__m__dns.html#gabb73dadbf595f3be436de1eef0f26fae", null ],
     [ "M_dns_destroy", "group__m__dns.html#ga242ac37ba5fc0ad26dae4cc53553092a", null ],
     [ "M_dns_set_query_timeout", "group__m__dns.html#ga0b9b5f19df59f01d63fe93a2beb2a284", null ],
     [ "M_dns_set_cache_timeout", "group__m__dns.html#gafcc97a2f0082f970393f66037f5a641f", null ],

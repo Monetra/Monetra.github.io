@@ -2,9 +2,9 @@ var group__m__threadpool =
 [
     [ "M_threadpool_t", "group__m__threadpool.html#ga591e1b82137fdb49fb995364e599db83", null ],
     [ "M_threadpool_parent_t", "group__m__threadpool.html#ga4e1cd3d78d5740b959b4684e560a4cc5", null ],
-    [ "M_threadpool_create", "group__m__threadpool.html#ga466a0ca11ded0b7097c1af8ad3144e5b", null ],
+    [ "M_threadpool_create", "group__m__threadpool.html#ga27146eb7caffe7fceabe9118388104e6", null ],
     [ "M_threadpool_destroy", "group__m__threadpool.html#gada6d97c444562cbe6cc37e78652755ff", null ],
-    [ "M_threadpool_parent_create", "group__m__threadpool.html#ga4bfadc97aca23406a2c137a60005a189", null ],
+    [ "M_threadpool_parent_create", "group__m__threadpool.html#ga8249037ec5dbd0c39b4cf290d8d46635", null ],
     [ "M_threadpool_parent_destroy", "group__m__threadpool.html#ga45eb17d7f036032fb44c32e144f3e8f6", null ],
     [ "M_threadpool_dispatch", "group__m__threadpool.html#ga0468dfae4c5c82d3fdaef7c5c7734ce3", null ],
     [ "M_threadpool_dispatch_notify", "group__m__threadpool.html#gad4d19612f1315482681aca7c0021c9dd", null ],

@@ -14,8 +14,8 @@ var group__m__sql__conn =
     [ "M_sql_connpool_start", "group__m__sql__conn.html#ga914764d101fe47dfb48b36f83d3c87e8", null ],
     [ "M_sql_connpool_destroy", "group__m__sql__conn.html#gaf0250336086cafa40055c71038d36c48", null ],
     [ "M_sql_connpool_active_conns", "group__m__sql__conn.html#ga52221adc09c553f50275ec6af25e7097", null ],
-    [ "M_sql_connpool_server_version", "group__m__sql__conn.html#ga972a2a1a1222c1944997bcd0de194277", null ],
-    [ "M_sql_connpool_driver_display_name", "group__m__sql__conn.html#ga01eba45c727027abc7f0e4bfbb9eae98", null ],
-    [ "M_sql_connpool_driver_name", "group__m__sql__conn.html#ga4ad80eb2b99f9ce4a56f0df3bee3d740", null ],
-    [ "M_sql_connpool_driver_version", "group__m__sql__conn.html#ga7ac0e5ea0d934685180ff2f94c226a69", null ]
+    [ "M_sql_connpool_server_version", "group__m__sql__conn.html#gab0afa9c84b27eca508d853e23995e757", null ],
+    [ "M_sql_connpool_driver_display_name", "group__m__sql__conn.html#gac015a9eec466afee18e49239be053f10", null ],
+    [ "M_sql_connpool_driver_name", "group__m__sql__conn.html#ga35a2a0a29345df1e92bc7004832955db", null ],
+    [ "M_sql_connpool_driver_version", "group__m__sql__conn.html#ga70a6af8428de1c130432cd92e5916728", null ]
 ];

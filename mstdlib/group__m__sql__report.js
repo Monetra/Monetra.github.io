@@ -32,7 +32,7 @@ var group__m__sql__report =
       [ "M_SQL_REPORT_FILTER_RULE_EMPTY", "group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64abfeab0b09bf9bb577371a0dc14230f86", null ],
       [ "M_SQL_REPORT_FILTER_RULE_NOT_EMPTY", "group__m__sql__report.html#ggacc4841ede6cabecf2033bf48a50c4e64a398506ece2663385d78a6789a66c756a", null ]
     ] ],
-    [ "M_sql_report_create", "group__m__sql__report.html#ga6af547bf3235cf413d5b346bd5bee2d3", null ],
+    [ "M_sql_report_create", "group__m__sql__report.html#ga8da0de3c38a54d138d157b8d179065eb", null ],
     [ "M_sql_report_destroy", "group__m__sql__report.html#ga6e212972766fa09b4248760f27b61cfd", null ],
     [ "M_sql_report_set_delims", "group__m__sql__report.html#gab74e893ce4166ae1324055e738aa61ae", null ],
     [ "M_sql_report_set_fetch_cb", "group__m__sql__report.html#ga40f0db9b5ce99177eeef90f65124f2ad", null ],
@@ -43,7 +43,7 @@ var group__m__sql__report =
     [ "M_sql_report_cell_cb_boolyesno", "group__m__sql__report.html#gad946d57824ad80ee01a367bd5c85fc0b", null ],
     [ "M_sql_report_add_column", "group__m__sql__report.html#gaccee8d2f61a20b6a34b5f6b5f043f6a9", null ],
     [ "M_sql_report_hide_column", "group__m__sql__report.html#gafa488e7db2277ecac6dca66c9878f3b4", null ],
-    [ "M_sql_report_filter_create", "group__m__sql__report.html#ga30e18efa2ed8424eca82baab7724428e", null ],
+    [ "M_sql_report_filter_create", "group__m__sql__report.html#ga17231f203d2cec0950e625ca32e7bc07", null ],
     [ "M_sql_report_filter_destroy", "group__m__sql__report.html#ga5f1fd49161e8e065a07a12e0c8b7ce89", null ],
     [ "M_sql_report_filter_add_rule", "group__m__sql__report.html#ga734d4ff27a5b5cc87e235f2511b7d264", null ],
     [ "M_sql_report_add_filter", "group__m__sql__report.html#ga62e432ea089cf816fb101da30846314c", null ],

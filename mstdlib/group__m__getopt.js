@@ -14,9 +14,9 @@ var group__m__getopt =
       [ "M_GETOPT_ERROR_MISSINGVALUE", "group__m__getopt.html#gga435b1ae5e5a87c3a4259621b4c4af785a5e1f5e8997a6b7f3ca1e168ddcee5740", null ],
       [ "M_GETOPT_ERROR_NONOPTION", "group__m__getopt.html#gga435b1ae5e5a87c3a4259621b4c4af785ace38d4322e015094c195470e5a11435f", null ]
     ] ],
-    [ "M_getopt_create", "group__m__getopt.html#gadc824211c9303e70d73fd5285fa9dc8b", null ],
+    [ "M_getopt_create", "group__m__getopt.html#gaf43d4b6f57ae3dc00b88be7cae579509", null ],
     [ "M_getopt_destroy", "group__m__getopt.html#ga02457e8d782357f823f725df3ea47830", null ],
-    [ "M_getopt_help", "group__m__getopt.html#ga46375e28b6d9efdfd6f2ee16baf797cf", null ],
+    [ "M_getopt_help", "group__m__getopt.html#gad3b13f3316d0cac637d3462ec6f52f48", null ],
     [ "M_getopt_addinteger", "group__m__getopt.html#gad3fef1c370294bfaaab4613ce580adb5", null ],
     [ "M_getopt_adddecimal", "group__m__getopt.html#gaa8436b6fcad1d13663b7571fd53ba404", null ],
     [ "M_getopt_addstring", "group__m__getopt.html#ga829f42b3d71ac62fab4767c089abae4e", null ],

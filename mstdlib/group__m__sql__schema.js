@@ -11,11 +11,11 @@ var group__m__sql__schema =
       [ "M_SQL_INDEX_FLAG_UNIQUE", "group__m__sql__schema.html#gga610e6d5c2aa796a1f9c6a6a7d3cca0cba906947421df8291f50c6b7edd0e578cf", null ]
     ] ],
     [ "M_sql_table_exists", "group__m__sql__schema.html#ga017f5076150553a77d1295fc211448cc", null ],
-    [ "M_sql_table_create", "group__m__sql__schema.html#gaaf0b719de9fffd15de77d60935233f8c", null ],
+    [ "M_sql_table_create", "group__m__sql__schema.html#ga74e6da19379e17d3bd51a1406954e0d3", null ],
     [ "M_sql_table_destroy", "group__m__sql__schema.html#ga57f3a11ac3d2ab7b926e3ae255e3903d", null ],
     [ "M_sql_table_add_col", "group__m__sql__schema.html#gac2803cc2256f2f50af5493b7de57a835", null ],
     [ "M_sql_table_add_pk_col", "group__m__sql__schema.html#gac53d8c0316e4ad8f1bfdae281100fbe7", null ],
-    [ "M_sql_table_add_index", "group__m__sql__schema.html#gaa54d19c2c58f3186c4a56335721b140b", null ],
+    [ "M_sql_table_add_index", "group__m__sql__schema.html#gabcaf247a3d1ec19b3ea766cdebac8e4a", null ],
     [ "M_sql_index_add_col", "group__m__sql__schema.html#ga6cec41f1e850c73b26201f1b46844046", null ],
     [ "M_sql_table_add_index_str", "group__m__sql__schema.html#gad2fa00fa2b7c4c22ab67acfd04b7feac", null ],
     [ "M_sql_table_execute", "group__m__sql__schema.html#ga57861420bace709b2b04452e3db38971", null ]

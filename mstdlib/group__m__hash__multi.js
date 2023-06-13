@@ -14,7 +14,7 @@ var group__m__hash__multi =
       [ "M_HASH_MULTI_VAL_TYPE_BIN", "group__m__hash__multi.html#gga821071d01f438e44b034cfa9601eb269aae58df89e4e9a94e28c49467bb04c352", null ],
       [ "M_HASH_MULTI_VAL_TYPE_VP", "group__m__hash__multi.html#gga821071d01f438e44b034cfa9601eb269ad62d4ba1863e48dd75c2090bd096dc37", null ]
     ] ],
-    [ "M_hash_multi_create", "group__m__hash__multi.html#ga0205bdf200ed003214af325fd68950c2", null ],
+    [ "M_hash_multi_create", "group__m__hash__multi.html#gacb2868dfe88025f9ed55c31c2a6c53e6", null ],
     [ "M_hash_multi_destroy", "group__m__hash__multi.html#ga938121c71888467a863cb6f4a00b92c1", null ],
     [ "M_hash_multi_u64_insert_bool", "group__m__hash__multi.html#ga75d4db24750beeeace198d5693d2d485", null ],
     [ "M_hash_multi_u64_insert_int", "group__m__hash__multi.html#ga31fe291647d6bd31b2f2445caa310599", null ],

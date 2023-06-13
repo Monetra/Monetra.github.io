@@ -25,17 +25,17 @@ var group__m__hash__dict =
       [ "M_HASH_DICT_SER_FLAG_HEXENCODE_NONPRINT", "group__m__hash__dict.html#ggae8e126fc4b690521e5b102964cb16f12a78a71c10eb1ee348a65e281695b414fe", null ],
       [ "M_HASH_DICT_SER_FLAG_LF_TO_CRLF", "group__m__hash__dict.html#ggae8e126fc4b690521e5b102964cb16f12a25a78a13d1d558101e0baedab736dba2", null ]
     ] ],
-    [ "M_hash_dict_create", "group__m__hash__dict.html#ga125b09a2766a79328b2433ac90336821", null ],
+    [ "M_hash_dict_create", "group__m__hash__dict.html#gab8db4a57856da918cea42546f9122746", null ],
     [ "M_hash_dict_destroy", "group__m__hash__dict.html#gaedc49aa7e8f01d9d3358f6bb169c3894", null ],
     [ "M_hash_dict_insert", "group__m__hash__dict.html#gad13d75c8dfa6583998220ecd16b40796", null ],
     [ "M_hash_dict_remove", "group__m__hash__dict.html#gadaf9b48c2d289ed1ce8b31eedcbda85f", null ],
     [ "M_hash_dict_get", "group__m__hash__dict.html#ga54ede92f5adf0bf42b6a6afee07e4eaa", null ],
-    [ "M_hash_dict_get_direct", "group__m__hash__dict.html#gad4df6c96df7aaa1ea788f866a09c58c5", null ],
-    [ "M_hash_dict_get_direct_default", "group__m__hash__dict.html#gac6a6352c05e7db1e1d7f4145a8b7142e", null ],
+    [ "M_hash_dict_get_direct", "group__m__hash__dict.html#gae1baee6e077138a34c7f58a6694ee3ab", null ],
+    [ "M_hash_dict_get_direct_default", "group__m__hash__dict.html#ga8bd8b287ec6a931b83edef7ca2ef08f7", null ],
     [ "M_hash_dict_is_multi", "group__m__hash__dict.html#ga98adb6b03a8eaf7f66b723e044deae25", null ],
     [ "M_hash_dict_multi_len", "group__m__hash__dict.html#gaf3ed49a5ca3126f89cc2e02e606fd3b2", null ],
     [ "M_hash_dict_multi_get", "group__m__hash__dict.html#gae81bc02944e8780c48cf7e7eb74376e2", null ],
-    [ "M_hash_dict_multi_get_direct", "group__m__hash__dict.html#gad0a192c156c63efb63b699c76a2d47d7", null ],
+    [ "M_hash_dict_multi_get_direct", "group__m__hash__dict.html#ga8b46ed80c89e4477e992ae358c6af336", null ],
     [ "M_hash_dict_multi_remove", "group__m__hash__dict.html#ga28f15b8ad1367e6493f9b681a3ad62ba", null ],
     [ "M_hash_dict_size", "group__m__hash__dict.html#ga6e683d4548d75023d7ee2022cf040d39", null ],
     [ "M_hash_dict_num_collisions", "group__m__hash__dict.html#gaaba0d9be071ca06372ca3afa4a4e5744", null ],
@@ -45,8 +45,8 @@ var group__m__hash__dict =
     [ "M_hash_dict_enumerate_next", "group__m__hash__dict.html#ga8aa61ab5f78bccca6351ff26bc5029f3", null ],
     [ "M_hash_dict_enumerate_free", "group__m__hash__dict.html#ga12154e881606ff70c01fa38b443602f2", null ],
     [ "M_hash_dict_merge", "group__m__hash__dict.html#gae24445a653a833953a95ebe6d5419daf", null ],
-    [ "M_hash_dict_duplicate", "group__m__hash__dict.html#ga39cda49e0de0719583f1b8ebabd59338", null ],
+    [ "M_hash_dict_duplicate", "group__m__hash__dict.html#ga7cbf0f6fb3eb70f585e7cfc3f419f180", null ],
     [ "M_hash_dict_serialize_buf", "group__m__hash__dict.html#gaa67a88a19967aa4732b037c3d359f275", null ],
-    [ "M_hash_dict_serialize", "group__m__hash__dict.html#ga6f04b0ac51bfbdfe19a4189a01d0d773", null ],
-    [ "M_hash_dict_deserialize", "group__m__hash__dict.html#ga48445c88957a9a40687f83a98302c208", null ]
+    [ "M_hash_dict_serialize", "group__m__hash__dict.html#gab38b75e27084f06cc74d737f4d853371", null ],
+    [ "M_hash_dict_deserialize", "group__m__hash__dict.html#ga158b404fbd9fa21868820b9c5067cef8", null ]
 ];

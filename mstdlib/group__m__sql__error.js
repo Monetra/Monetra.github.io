@@ -37,7 +37,7 @@ var group__m__sql__error =
       [ "M_SQL_DATA_TYPE_TEXT", "group__m__sql__error.html#ggae672a1a5ceb3af4f3a01347ffd839beba4198d25518297d44e9c8b9c97fb974ad", null ],
       [ "M_SQL_DATA_TYPE_BINARY", "group__m__sql__error.html#ggae672a1a5ceb3af4f3a01347ffd839beba97d9459c2c13f30d023d68cabfc8d9c5", null ]
     ] ],
-    [ "M_sql_error_string", "group__m__sql__error.html#ga737da880cae25712e80590f755629717", null ],
+    [ "M_sql_error_string", "group__m__sql__error.html#ga2ebe0232bae6a738cc64279720b3b7ae", null ],
     [ "M_sql_error_is_error", "group__m__sql__error.html#gab8ad99c470f310750e92c6bae2e8a918", null ],
     [ "M_sql_error_is_disconnect", "group__m__sql__error.html#ga79b3538d1dcbf15c56ae8cdb8a3cd007", null ],
     [ "M_sql_error_is_rollback", "group__m__sql__error.html#ga45b7402f024f0a4f23c4a315671aa82a", null ],

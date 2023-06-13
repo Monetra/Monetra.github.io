@@ -80,9 +80,9 @@ var group__m__io__serial =
     [ "M_io_serial_get_flowcontrol", "group__m__io__serial.html#gab27d0c20fc6a13d87b7229459bb177dd", null ],
     [ "M_io_serial_get_mode", "group__m__io__serial.html#ga904eaf3d576299e308c3bdcd9b94d906", null ],
     [ "M_io_serial_get_baud", "group__m__io__serial.html#ga62dfdd124b954162b87a0e821ce9302e", null ],
-    [ "M_io_serial_enum", "group__m__io__serial.html#ga8286fc41e4039352c3a0a8acedcfc7e9", null ],
+    [ "M_io_serial_enum", "group__m__io__serial.html#gab21095212dcf4b0f92e240f59c46b957", null ],
     [ "M_io_serial_enum_destroy", "group__m__io__serial.html#ga3ef4465eee8b0954d05f492021875f03", null ],
     [ "M_io_serial_enum_count", "group__m__io__serial.html#ga5f87edddb971070c3becbc40da74a493", null ],
-    [ "M_io_serial_enum_path", "group__m__io__serial.html#gab585774fdc682d6aaaa2b17364f7407d", null ],
-    [ "M_io_serial_enum_name", "group__m__io__serial.html#ga2759c7a860a93f6828e41a38b835d40f", null ]
+    [ "M_io_serial_enum_path", "group__m__io__serial.html#ga807d5cc74f88387313b649484d1ce785", null ],
+    [ "M_io_serial_enum_name", "group__m__io__serial.html#gafff049aade9a0e9b118b371f40093893", null ]
 ];
