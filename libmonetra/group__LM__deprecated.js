@@ -347,12 +347,12 @@ var group__LM__deprecated =
     [ "M_TransactionItem", "group__LM__deprecated.html#gabc71646affea4e132a7e81f7c6a4f673", null ],
     [ "M_TransactionBatch", "group__LM__deprecated.html#ga038dff682bda35541dd9fb36ac4e3c5e", null ],
     [ "M_TransactionID", "group__LM__deprecated.html#ga75930f61ec259244790816f77c9fba8a", null ],
-    [ "M_TransactionAuth", "group__LM__deprecated.html#ga5c60f04f4f314f7538766ecf765224ed", null ],
-    [ "M_TransactionText", "group__LM__deprecated.html#ga4ef35759fbf3aec89f791c79edbe6626", null ],
+    [ "M_TransactionAuth", "group__LM__deprecated.html#gac096adb7489f43ca711a7fa846c3aabf", null ],
+    [ "M_TransactionText", "group__LM__deprecated.html#ga3b1242147f6c7f113ef68fa8555c553e", null ],
     [ "M_TransactionAVS", "group__LM__deprecated.html#gac1447740247bc381693109d551ed8a3b", null ],
     [ "M_TransactionCV", "group__LM__deprecated.html#gaae80c0106de8cb0fd10afd782ed44c9d", null ],
-    [ "M_TEXT_Code", "group__LM__deprecated.html#gafac6f0c381ea63d2964299364d829d74", null ],
-    [ "M_TEXT_AVS", "group__LM__deprecated.html#ga61d04ed510c0482e91d76d49d0963997", null ],
-    [ "M_TEXT_CV", "group__LM__deprecated.html#ga6a7e662f45d5855ab2f27cd5db7975a0", null ],
+    [ "M_TEXT_Code", "group__LM__deprecated.html#ga5677290966a08d570b5a95023910ccb3", null ],
+    [ "M_TEXT_AVS", "group__LM__deprecated.html#ga548b4669e8eec576e21bd2698b1d63e3", null ],
+    [ "M_TEXT_CV", "group__LM__deprecated.html#ga1f5d1720dec623f5b40b417334fb6771", null ],
     [ "M_TransParam", "group__LM__deprecated.html#ga4f461258ffc674aedb629e21d77d76cb", null ]
 ];

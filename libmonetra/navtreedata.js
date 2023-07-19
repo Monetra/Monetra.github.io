@@ -40,7 +40,7 @@ var NAVTREEINDEX =
 [
 "group__LM__api.html",
 "group__LM__deprecated.html#ga93662e0146fc7d9250a8d257717e4f1f",
-"group__LM__trans.html#ga9c608a05db7b24ed59edaa79bd29bdb7"
+"group__LM__trans.html#ga98ed945b035997891d469044832f49e2"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

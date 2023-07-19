@@ -26,9 +26,9 @@ var group__LM__conn =
       [ "LM_CONN_STATUS_IDLE_TIMEOUT", "group__LM__conn.html#gga80ba0c10b16ecfe614bdf2e7abacb275a6472e2072692a1f6e274c447aee81cb9", null ],
       [ "LM_CONN_STATUS_DISCONNECTED", "group__LM__conn.html#gga80ba0c10b16ecfe614bdf2e7abacb275a9ed8ecca2177d050b6f243b66b39c50a", null ]
     ] ],
-    [ "LM_conn_init", "group__LM__conn.html#ga37da5e8f7bcb9daf94633f05aff2df67", null ],
+    [ "LM_conn_init", "group__LM__conn.html#gad2d227ed6f9b0323204a853b18b7eea4", null ],
     [ "LM_conn_set_userdata", "group__LM__conn.html#ga8bb84233d52f3489fda731c7c907e7b5", null ],
-    [ "LM_conn_get_userdata", "group__LM__conn.html#gae540faaa3560df5f496aa47d3b0fd9fe", null ],
+    [ "LM_conn_get_userdata", "group__LM__conn.html#gacd5b295640ea7f3a78e8a02808bf5e23", null ],
     [ "LM_conn_disable_ping", "group__LM__conn.html#ga5d0f52162e797ca3ba015a84fea139a3", null ],
     [ "LM_conn_destroy", "group__LM__conn.html#ga7a32b91b5e98c7a03ae9dcf3e3c5da17", null ],
     [ "LM_conn_change_server", "group__LM__conn.html#gaf7747fa54f89322a7d8cf9c16d47f208", null ],
@@ -39,7 +39,7 @@ var group__LM__conn =
     [ "LM_conn_set_tls_cert_files", "group__LM__conn.html#gaf071eb2b78fb615e6c4a4a59893aa960", null ],
     [ "LM_conn_set_iocreate_callback", "group__LM__conn.html#ga25c1f280d81d982e3aaed87a34c12ae0", null ],
     [ "LM_conn_set_idle_timeout", "group__LM__conn.html#gad6263b75fc1bf37dad469fc762a0fed0", null ],
-    [ "LM_conn_error", "group__LM__conn.html#ga6a7e053c5816d9fe8d42358cc9b374e5", null ],
+    [ "LM_conn_error", "group__LM__conn.html#gac9a6e20974258c55fb949c87beb89e2b", null ],
     [ "LM_conn_connect", "group__LM__conn.html#ga614a4cdfc9807e156af4a62c1bd23227", null ],
     [ "LM_conn_status", "group__LM__conn.html#ga09939deb03540c6ce135d9ffeddc4a8c", null ],
     [ "LM_conn_disconnect", "group__LM__conn.html#gaa73520b072656c97e59ca664aba37cbd", null ]
