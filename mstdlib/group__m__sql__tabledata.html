@@ -218,6 +218,8 @@ Functions</h2></td></tr>
 <tr class="separator:ga53d08e3cf28a5a800cb7781338186812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab45ee0d0d6279fedbd3acc7f2a483bf5"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__tabledata.html#gab45ee0d0d6279fedbd3acc7f2a483bf5">M_sql_tabledata_txn_field_changed</a> (<a class="el" href="group__m__sql__tabledata.html#ga6ecefe068467cf3e5560091912ff5e16">M_sql_tabledata_txn_t</a> *txn, const char *field_name)</td></tr>
 <tr class="separator:gab45ee0d0d6279fedbd3acc7f2a483bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf467db18e0a143ed2b50337abcb5fa16"><td class="memItemLeft" align="right" valign="top">M_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__tabledata.html#gaf467db18e0a143ed2b50337abcb5fa16">M_sql_tabledata_txn_field_changed_ci</a> (<a class="el" href="group__m__sql__tabledata.html#ga6ecefe068467cf3e5560091912ff5e16">M_sql_tabledata_txn_t</a> *txn, const char *field_name)</td></tr>
+<tr class="separator:gaf467db18e0a143ed2b50337abcb5fa16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga58f827f609516ab2bba026fa9e39d5bc"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__m__sql__tabledata.html#structM__sql__tabledata__t">M_sql_tabledata_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__tabledata.html#ga58f827f609516ab2bba026fa9e39d5bc">M_sql_tabledata_txn_fetch_fielddef</a> (<a class="el" href="group__m__sql__tabledata.html#ga6ecefe068467cf3e5560091912ff5e16">M_sql_tabledata_txn_t</a> *txn, const char *field_name)</td></tr>
 <tr class="separator:ga58f827f609516ab2bba026fa9e39d5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae0f512c4930ddea0bbc86e0f77b5a367"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__m__sql__error.html#gaae10ff11eb7d5583afcffa6ec87c753e">M_sql_error_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__m__sql__tabledata.html#gae0f512c4930ddea0bbc86e0f77b5a367">M_sql_tabledata_add</a> (<a class="el" href="group__m__sql__conn.html#ga36847634817b89efb01054d49e3c6352">M_sql_connpool_t</a> *pool, const char *table_name, const <a class="el" href="group__m__sql__tabledata.html#structM__sql__tabledata__t">M_sql_tabledata_t</a> *fields, size_t num_fields, <a class="el" href="group__m__sql__tabledata.html#gaf31b72a8d978ae5591ff4556b2e778e9">M_sql_tabledata_fetch_cb</a> fetch_cb, <a class="el" href="group__m__sql__tabledata.html#ga9e537f3af197c0c1cb3e01595b39814c">M_sql_tabledata_notify_cb</a> notify_cb, void *thunk, M_int64 *generated_id, char *error, size_t error_len)</td></tr>
@@ -1712,7 +1714,44 @@ validate_cb</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Retrieve if the field has changed.</p>
+<p >Retrieve if the field has changed. Text fields are evaluated case sensitive.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">txn</td><td>Transaction provided to callback. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">field_name</td><td>Name of field </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>M_TRUE if the field is found and on an add, or has changed on an edit, M_FALSE otherwise </dd></dl>
+
+</div>
+</div>
+<a id="gaf467db18e0a143ed2b50337abcb5fa16" name="gaf467db18e0a143ed2b50337abcb5fa16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaf467db18e0a143ed2b50337abcb5fa16">&#9670;&nbsp;</a></span>M_sql_tabledata_txn_field_changed_ci()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">M_bool M_sql_tabledata_txn_field_changed_ci </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="group__m__sql__tabledata.html#ga6ecefe068467cf3e5560091912ff5e16">M_sql_tabledata_txn_t</a> *&#160;</td>
+          <td class="paramname"><em>txn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>field_name</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Retrieve if the field has changed. Text fields are evaluated case insensitively.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">txn</td><td>Transaction provided to callback. </td></tr>
@@ -2413,7 +2452,7 @@ validate_cb</td>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Jul 7 2023 20:49:29 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generated on Tue Jul 25 2023 19:43:32 for Mstdlib-1.23.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>

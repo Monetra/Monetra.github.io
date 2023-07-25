@@ -67,6 +67,7 @@ var group__m__sql__tabledata =
     [ "M_sql_tabledata_txn_is_add", "group__m__sql__tabledata.html#ga4da5fa4277ad2d11ab23cdd2a8c26a44", null ],
     [ "M_sql_tabledata_txn_field_get", "group__m__sql__tabledata.html#ga53d08e3cf28a5a800cb7781338186812", null ],
     [ "M_sql_tabledata_txn_field_changed", "group__m__sql__tabledata.html#gab45ee0d0d6279fedbd3acc7f2a483bf5", null ],
+    [ "M_sql_tabledata_txn_field_changed_ci", "group__m__sql__tabledata.html#gaf467db18e0a143ed2b50337abcb5fa16", null ],
     [ "M_sql_tabledata_txn_fetch_fielddef", "group__m__sql__tabledata.html#ga58f827f609516ab2bba026fa9e39d5bc", null ],
     [ "M_sql_tabledata_add", "group__m__sql__tabledata.html#gae0f512c4930ddea0bbc86e0f77b5a367", null ],
     [ "M_sql_tabledata_trans_add", "group__m__sql__tabledata.html#ga28eee0f21156a25c12835c483d0800f5", null ],
