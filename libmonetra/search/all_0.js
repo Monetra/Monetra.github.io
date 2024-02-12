@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['about_0',['About',['../index.html',1,'']]]
+  ['connection_20management_0',['Connection Management',['../group__LM__conn.html',1,'']]]
 ];

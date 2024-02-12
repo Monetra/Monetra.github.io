@@ -25,13 +25,6 @@
 var NAVTREE =
 [
   [ "LibMonetra-8.12.0", "index.html", [
-    [ "About", "index.html", [
-      [ "v8 Changes", "index.html#autotoc_md0", null ],
-      [ "Building", "index.html#autotoc_md1", [
-        [ "CMake", "index.html#autotoc_md2", null ],
-        [ "Dependencies", "index.html#autotoc_md3", null ]
-      ] ]
-    ] ],
     [ "Modules", "modules.html", "modules" ]
   ] ]
 ];

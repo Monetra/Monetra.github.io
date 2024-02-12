@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.4"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>LibMonetra-8.12.0: About</title>
+<title>LibMonetra-8.12.0: LibMonetra-8.12.0</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,54 +82,17 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">About </div></div>
+  <div class="headertitle"><div class="title">LibMonetra-8.12.0 </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a class="anchor" id="md_README"></a></p>
-<p >LibMonetra is the C library for communicating Monetra Technologies, LLC products that utilize the Monetra IP/SSL protocol. It was created by Monetra Technologies, LLC for use in their Monetra Payment Engine and associated products. Such as, UniTerm.</p>
-<h1><a class="anchor" id="autotoc_md0"></a>
-v8 Changes</h1>
-<p >The v8 version of this library is a ground-up rewrite depending on the mstdlib library. It contains a new API which makes public use of mstdlib objects, therefore to use the new API one must also familiarize themselves with mstdlib. The new API is an event based architecture designed for low-latency and high-volume purposes. The prior API was a polling-based API which was often used in a blocking manner.</p>
-<p >A full compatibility API for the prior (v3+) interfaces are also available that aim to be fully API and ABI compatible. There may be some slight behavioral differences with the compatibility API that are not expected to cause issues such as automatic reconnects, automatic hardening of returned transaction ids, and always-on thread-safety.</p>
-<p >As of the v8 release proxy is no longer supported.</p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Building</h1>
-<p >CMake is the preferred method to build and should be used whenever possible. However, CMake is not available on all supported platforms. Autotools is also supported for Unix systems. NMake Makefiles are also available for Windows. Autotools and NMake Makefiles are provided only as a fallback when CMake cannot be used. That said, Autotools and NMake Make files can lag behind being updated and there is no timeline on how long they will be supported.</p>
-<p >The following features are supported by each build system:</p>
-<table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadLeft">Feature   </th><th class="markdownTableHeadCenter">CMake   </th><th class="markdownTableHeadCenter">Autotools   </th><th class="markdownTableHeadCenter">NMake Makefiles    </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">Shared build   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">Y    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">Static build   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">N    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">Disabling building non-base components   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">N    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">Installation (header and library)   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">N    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">Disabling header installation   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">N   </td><td class="markdownTableBodyCenter">N    </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyLeft">Disabling library installation   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">N   </td><td class="markdownTableBodyCenter">N    </td></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyLeft">Tests   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">Y   </td><td class="markdownTableBodyCenter">N   </td></tr>
-</table>
-<h2><a class="anchor" id="autotoc_md2"></a>
-CMake</h2>
-<pre class="fragment">$ mkdir build
-$ cd build
-$ cmake -DCMAKE_BUILD_TYPE=&lt;DEBUG|RELEASE&gt; ..
-$ make
-</pre><h2><a class="anchor" id="autotoc_md3"></a>
-Dependencies</h2>
-<p >The only dependency is mstdlib available from <a href="https://github.com/Monetra/mstdlib/">https://github.com/Monetra/mstdlib/</a>. It should either be compiled and installed prior to libmonetra, or it can be chain built if the source is placed in <code>thirdparty/mstdlib</code>. </p>
+<div class="textblock"><p ><a class="anchor" id="md_README"></a> This library is deprecated and not recommeded any more. Pleaes use to the <a href="https://developers.monetra.com">Monetra ReST API</a> for integration. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Sat Jul 29 2023 12:49:19 for LibMonetra-8.12.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
+    <li class="footer">Generated on Mon Feb 12 2024 21:27:49 for LibMonetra-8.12.0 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.4 </li>
   </ul>
 </div>
 </body>
